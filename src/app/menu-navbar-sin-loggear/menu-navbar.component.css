@@ -1,0 +1,14 @@
+a {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mask-custom {
+  backdrop-filter: blur(5px);
+  background-color: rgba(16, 86, 103, 0.193);
+}
+
+li:hover{
+  border-bottom: 2px solid blue;
+}
