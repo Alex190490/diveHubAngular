@@ -1,42 +1,44 @@
-<nav class="navbar navbar-expand-lg fixed-top mask-custom">
+<nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" [routerLink]="['/home']">DIVEHUB <img src="../../assets/img/buzo-01.png" height="60"></a>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent">
             <i class="fas fa-bars"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item mx-3">
-                    <a class="nav-link btn" href="#!">Galería de expediciones</a>
+                    <a class="nav-link btn" [routerLink]="['/home']">Galería de expediciones</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link btn" href="#!">Contacto</a>
+                    <a class="nav-link btn" [routerLink]="['/shop']">Tienda</a>
                 </li>
-                <li class="nav-item mx-3" style="color: white; cursor: default;"> | <li></li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link btn" [routerLink]="['/home']">Contacto</a>
+                </li>
+
+                <li class="nav-item mx-3" style="color: white; cursor: default"> | <li></li>
                 
                 <li class="nav-item dropdown">
-                    <a class="nav-link btn btn-cart login dropdown-toggle">
+                    <a class="nav-link btn dropdown-toggle">
                         <span>{{ nombre }}</span>
                     </a>
                     <div class="dropdown-menu p-2">
-                        <a class="dropdown-item btn p-2" [routerLink]="['/profile']">Ver Perfil</a>
+                        <a class="dropdown-item btn p-2" [routerLink]="['/home']">Ver Perfil</a>
                         <a class="dropdown-item btn b1 p-2 mt-2" (click)="logOut()">
-                            Cerrar Sesión
-                            <i class="fas fa-power-off m-2"></i>
+                            Cerrar Sesión<i class="fas fa-power-off m-2"></i>
                         </a>
                     </div>
                 </li>
-                <li class="nav-item" style="margin-left: 30px;">
-                    <a class="nav-link" href="#!"><i class="fas fa-heart pe-2" style="color: red"></i></a>
+                <li class="nav-item" style="margin-left: 20px;">
+                    <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-heart pe-2" style="color: red"></i></a>
                 </li>
                 <li class="navbar-cart" (click)="showCart()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
                     <div class="navbar-cart-items" *ngIf="productsInCart">
                         <p>{{ productsInCart }}</p>
                     </div>
                     <a class="nav-link btn">
-                        <img class="cart-icon" src="../../assets/img/carrito.png">
+                        <img src="../../assets/img/carrito.png">
                     </a>
                 </li>
             </ul>

@@ -1,4 +1,5 @@
-<app-menu-navbar-loggeado/>
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado/></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear/></div>
 
 <div id="video-container">
     <video autoplay loop muted>
