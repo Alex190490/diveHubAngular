@@ -31,14 +31,14 @@
                     </div>
                 </li>
                 <li class="nav-item" style="margin-left: 20px;">
-                    <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-heart pe-2" style="color: red"></i></a>
+                    <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-heart pe-2" style="color: rgb(237, 237, 237)"></i></a>
                 </li>
                 <li class="navbar-cart" (click)="showCart()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
                     <div class="navbar-cart-items" *ngIf="productsInCart">
                         <p>{{ productsInCart }}</p>
                     </div>
                     <a class="nav-link btn">
-                        <img src="../../assets/img/carrito.png">
+                        <img class="cart-icon" src="../../assets/img/carrito.png">
                     </a>
                 </li>
             </ul>

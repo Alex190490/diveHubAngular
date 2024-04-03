@@ -18,6 +18,6 @@ export class ShopComponent {
 
 
   isLogged(): boolean{
-    return false
+    return true
   }
 }

@@ -1,7 +1,7 @@
 .offcanvas {
   width: 35%; 
-  border: 5px solid rgb(255, 255, 57); 
-  background-color: rgb(186, 186, 186);
+  border: 5px solid rgb(0, 179, 255); 
+  background-color: rgb(255, 255, 255);
 }
 
 @media only screen and (min-width: 1025px) {

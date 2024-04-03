@@ -18,6 +18,6 @@ export class HomeComponent {
 
 
   isLogged(): boolean{
-    return false
+    return true
   }
 }
