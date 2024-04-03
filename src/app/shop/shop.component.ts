@@ -22,8 +22,10 @@ export class ShopComponent implements OnInit {
   selectedOption: number
   listItems: Item[] = new Array()
   listActivities: Activity[] = new Array()
+  listDives: Activity[] = new Array()
+  listCourses: Activity[] = new Array()
   listProducts: (Item | Activity)[] = new Array()
-  listToShow: (Item | Activity)[] = new Array()
+  listToShow: (Activity | Item)[] = new Array()
 
 
 
@@ -52,22 +54,34 @@ export class ShopComponent implements OnInit {
         this.listToShow = this.listProducts
       }
     )
+
+    this.activityService.getActivitiesByCategory(0).subscribe(
+      dives => this.listDives = dives
+    )
+
+    this.activityService.getActivitiesByCategory(1).subscribe(
+      courses => this.listCourses = courses
+    )
   }
 
-
+  
   orderProducts(type: string) {
     switch (type) {
       case "ALL": 
         this.selectedOption = 0
         this.listToShow = this.listProducts
         break
-      case "ITEMS": 
-        this.selectedOption = 1
-        this.listToShow = this.listItems
-        break
       case "DIVES": 
+        this.selectedOption = 1
+        this.listToShow = this.listDives
+        break
+      case "COURSES": 
         this.selectedOption = 2
-        this.listToShow = this.listActivities
+        this.listToShow = this.listCourses
+        break
+      case "ITEMS": 
+        this.selectedOption = 3
+        this.listToShow = this.listItems
         break
     }
   }

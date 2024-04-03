@@ -24,8 +24,12 @@ export class ActivityService {
     return this.httpCliente.get<Activity>(environment.urlActivity+"/getActivityById/"+id)
   }
 
-  getActivitiesByTag(tag: string): Observable<Activity[]> {
+  getActivitiesByTag(tag : string): Observable<Activity[]> {
     return this.httpCliente.get<Activity[]>(environment.urlActivity+"/tag/"+tag)
+  }
+
+  getActivitiesByCategory(category : number): Observable<Activity[]> {
+    return this.httpCliente.get<Activity[]>(environment.urlActivity+"/category/"+category)
   }
 
   getActivitiesByName(name : string): Observable<Activity[]> {
@@ -36,11 +40,11 @@ export class ActivityService {
     return this.httpCliente.get<Activity[]>(environment.urlActivity+"/available")
   }
 
-  getAllAvailable_spacesByActivityId(id: number): Observable<number> {
+  getAllAvailable_spacesByActivityId(id : number): Observable<number> {
     return this.httpCliente.get<number>(environment.urlActivity+"/available_spaces/"+id)
   }
 
-  getRemainingTimeByActivityId(id: number): Observable<number> {
+  getRemainingTimeByActivityId(id : number): Observable<number> {
     return this.httpCliente.get<number>(environment.urlActivity+"/remaining-time/"+id)
   }
 }

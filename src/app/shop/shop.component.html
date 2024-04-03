@@ -16,17 +16,22 @@
           </li>
           <li class="nav-item">
             <!-- NgClass es para poner una clase con angular -->
-            <a class="nav-link" (click)="orderProducts('ALL')" [ngClass]="{'selected': selectedOption == 0}">Todos los
-              productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" (click)="orderProducts('ITEMS')"
-              [ngClass]="{'selected': selectedOption == 1}">Artículos</a>
+            <a class="nav-link" (click)="orderProducts('ALL')" 
+              [ngClass]="{'selected': selectedOption == 0}">Todos los productos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" (click)="orderProducts('DIVES')"
-              [ngClass]="{'selected': selectedOption == 2}">Inmersiones</a>
+              [ngClass]="{'selected': selectedOption == 1}">Inmersiones</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="orderProducts('COURSES')"
+              [ngClass]="{'selected': selectedOption == 2}">Cursos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="orderProducts('ITEMS')"
+              [ngClass]="{'selected': selectedOption == 3}">Artículos</a>
+          </li>
+          
         </ul>
       </nav>
 
