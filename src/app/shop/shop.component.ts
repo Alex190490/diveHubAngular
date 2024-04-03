@@ -1,23 +1,79 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
+import { RouterLink } from '@angular/router';
+import { ItemService } from '../services/item/item.service';
+import { Item } from '../Clases/Item/item';
+import { ActivityService } from '../services/activity/activity.service';
+import { Activity } from '../Clases/Activity/activity';
 
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent],
+  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
 
 
-export class ShopComponent {
-  constructor(){}
+export class ShopComponent implements OnInit {
+  selectedOption: number
+  listItems: Item[] = new Array()
+  listActivities: Activity[] = new Array()
+  listProducts: (Item | Activity)[] = new Array()
+  listToShow: (Item | Activity)[] = new Array()
 
 
-  isLogged(): boolean{
+
+  constructor(
+    private itemService: ItemService,
+    private activityService: ActivityService
+  ) { }
+
+
+
+  ngOnInit(): void {
+    this.selectedOption = 0
+
+    this.itemService.getAllItems().subscribe(
+      items => {
+        this.listItems = items
+        this.listProducts.push(...this.listItems)
+        this.listToShow = this.listProducts
+      }
+    )
+
+    this.activityService.getAllActivities().subscribe(
+      activities => {
+        this.listActivities = activities
+        this.listProducts.push(...this.listActivities)
+        this.listToShow = this.listProducts
+      }
+    )
+  }
+
+
+  orderProducts(type: string) {
+    switch (type) {
+      case "ALL": 
+        this.selectedOption = 0
+        this.listToShow = this.listProducts
+        break
+      case "ITEMS": 
+        this.selectedOption = 1
+        this.listToShow = this.listItems
+        break
+      case "DIVES": 
+        this.selectedOption = 2
+        this.listToShow = this.listActivities
+        break
+    }
+  }
+
+
+  isLogged(): boolean {
     return true
   }
 }

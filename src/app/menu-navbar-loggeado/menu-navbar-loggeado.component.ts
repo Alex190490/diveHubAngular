@@ -21,8 +21,8 @@ export class MenuNavbarLoggeadoComponent {
 
 
   constructor(){
-    this.nombre="Mi nombre"
-    this.productsInCart=10
+    this.nombre="NickName"
+    this.productsInCart=3
   }
 
 
