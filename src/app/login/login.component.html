@@ -1,1 +1,36 @@
-<p>login works!</p>
+<div class="offcanvas offcanvas-start" id="login">
+    <div class="container mt-5 p-5">
+        <h1 class="mt-5">Acceso área privada</h1>
+
+        <form class="mt-5" [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mt-5 mb-3 form-floating">
+                <input type="text" class="form-control" formControlName="email" placeholder="usuario">
+                <label class="form-label">Introduzca su email</label>
+            </div>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger error">
+                <span class="error" *ngIf="email.errors?.['required']">Email requerido.</span>
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="password" class="form-control" formControlName="password" placeholder="clave">
+                <label class="form-label">Introduzca su clave de acceso</label>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger error">
+                <span class="error" *ngIf="password.errors?.['required']">Clave requerida.</span>
+            </div>
+
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Recuérdame</label>
+                <a href="#">Olvidó la contraseña?</a>
+            </div>
+
+            <div *ngIf="loginError !== ''" class="alert alert-danger text-danger mb-4">{{ loginError }}</div>
+
+            <button type="submit" class="btn btn-primary mt-2">acceder</button>
+            
+            <div class="register-link">
+                <p>No tienes una cuenta? <a [routerLink]="['/register']">Registrarse</a></p>
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,7 +3,7 @@ import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-n
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { CommonModule } from '@angular/common';
 
-
+ 
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -18,6 +18,7 @@ export class HomeComponent {
 
 
   isLogged(): boolean{
-    return true
+    if(sessionStorage.getItem('token')!=null||sessionStorage.getItem('token')!=undefined) return true
+    return false
   }
 }

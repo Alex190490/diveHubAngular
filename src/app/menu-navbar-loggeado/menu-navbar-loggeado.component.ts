@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarritoDynamicComponent } from '../carrito-dynamic/carrito-dynamic.component';
+import { LoginService } from '../services/auth/login.service';
+import { User } from '../Clases/user/user';
+import { UserService } from '../services/user/user.service';
 
 
 @Component({
@@ -13,25 +16,31 @@ import { CarritoDynamicComponent } from '../carrito-dynamic/carrito-dynamic.comp
 })
 
 
-export class MenuNavbarLoggeadoComponent {
+export class MenuNavbarLoggeadoComponent implements OnInit {
   nombre: String
-  viewCart: boolean = false
   productsInCart: number
+  user: User = new User()
 
 
 
-  constructor(){
-    this.nombre="NickName"
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService,
+  ){
     this.productsInCart=3
   }
 
 
-
-  showCart() {
-    this.viewCart = !this.viewCart
+  ngOnInit(): void {
+    this.userService.getUser().subscribe(
+      userData => {
+        this.user = userData
+      }
+    )
   }
 
-  
+
   logOut() {
+    this.loginService.logout()
   }
 }

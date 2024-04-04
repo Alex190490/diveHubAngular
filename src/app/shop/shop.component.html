@@ -31,7 +31,6 @@
             <a class="nav-link" (click)="orderProducts('ITEMS')"
               [ngClass]="{'selected': selectedOption == 3}">Artículos</a>
           </li>
-          
         </ul>
       </nav>
 
@@ -42,12 +41,10 @@
               <img [src]="product.image" class="card-img-top">
               <div class="card-body d-flex flex-column">
                 <p class="card-text mx-auto">{{ product.name }}</p>
-                <a [routerLink]="['/home']" class="btn btn-primary">Desde <s>{{ product.starting_price }}</s><i
-                    class="fa fa-arrow-right" style="margin: 10px"></i>{{ product.final_price }} €</a>
+                <a class="btn btn-primary" (click)="checkLogin()" data-bs-toggle="offcanvas" data-bs-target="#login">Desde <s>{{ product.starting_price }}</s><i class="fa fa-arrow-right" style="margin: 10px"></i>{{ product.final_price }} €</a>
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>

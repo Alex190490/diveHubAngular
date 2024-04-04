@@ -1,3 +1,6 @@
+<!-- Esta el login escondido a la espera de que se active el canvas -->
+<app-login/>
+
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" [routerLink]="['/home']">DIVEHUB <img src="../../assets/img/buzo-01.png" height="60"></a>
@@ -18,10 +21,10 @@
                     <a class="nav-link btn" [routerLink]="['/home']">Contacto</a>
                 </li>
                 <li class="nav-item mx-3" style="color: white; cursor: default;"> | <li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link btn" [routerLink]="['/home']">Acceso área privada</a>
+                <li class="nav-item mx-3" data-bs-toggle="offcanvas" data-bs-target="#login">
+                    <a class="btn nav-link">Acceso área privada</a> 
                 </li>
             </ul>
-        </div> 
+        </div>  
     </div>
 </nav>

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ItemService } from '../services/item/item.service';
 import { Item } from '../Clases/Item/item';
 import { ActivityService } from '../services/activity/activity.service';
@@ -31,7 +31,8 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    private activityService: ActivityService
+    private activityService: ActivityService,
+    private router: Router
   ) { }
 
 
@@ -87,7 +88,13 @@ export class ShopComponent implements OnInit {
   }
 
 
-  isLogged(): boolean {
-    return true
+  checkLogin(){
+    if(this.isLogged()) this.router.navigate(['/home'])
+  }
+
+
+  isLogged(): boolean{
+    if(sessionStorage.getItem('token')!=null||sessionStorage.getItem('token')!=undefined) return true
+    return false
   }
 }
