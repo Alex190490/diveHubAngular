@@ -18,7 +18,6 @@ export class HomeComponent {
 
 
   isLogged(): boolean{
-    if(sessionStorage.getItem('token')!=null||sessionStorage.getItem('token')!=undefined) return true
     return false
   }
 }

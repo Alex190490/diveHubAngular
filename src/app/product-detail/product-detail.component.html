@@ -1,0 +1,37 @@
+<div class="background-image">
+  <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+  <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+
+  <div class="container mt-5 p-5">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/shop']">diveHub shop</a></li>
+      <li class="breadcrumb-item active">{{ product.name }}</li>
+    </ol>
+
+    <div class="articles mt-5 p-5 row align-items-start">
+      <div class="col-md-3">
+        <img [src]="product.image" class="card-img">
+      </div>
+
+      <div class="col-md-9">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>Precio: {{ product.starting_price }} €</p>
+        <p>Precio con descuento: {{ product.final_price }} €</p>
+    
+        <div *ngIf="!isItem" class="product-info">
+            <p>Nivel requerido: {{ activity.level_required }}</p>
+          <div class="square"> 
+            <p>Huecos disponibles: {{ activity.available_spaces }}</p>
+            <button class="btn btn-warning" (click)="addToCart()" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
+          </div>
+        </div>
+    
+        <div *ngIf="isItem" class="product-info square">
+          <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' : 'Sin stock' }}</p>
+          <button class="btn btn-warning" (click)="addToCart()" [disabled]="item.stock<=0">Añadir a la cesta</button>
+        </div>
+    </div>
+  </div>
+</div>

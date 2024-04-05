@@ -1,12 +1,6 @@
-export class Item {
-    id: number
-    name: string
-    description: string
-    starting_price: number
-    final_price: number
-    image: string
-    weight: number
-    category: string
-    tag: string
-    stock: number
+import { Product } from "../Product/product";
+
+export class Item extends Product {
+    weight: number;
+    stock: number;
 }

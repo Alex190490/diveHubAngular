@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarritoDynamicComponent } from '../carrito-dynamic/carrito-dynamic.component';
-import { LoginService } from '../services/auth/login.service';
 import { User } from '../Clases/user/user';
-import { UserService } from '../services/user/user.service';
 
 
 @Component({
@@ -16,7 +14,7 @@ import { UserService } from '../services/user/user.service';
 })
 
 
-export class MenuNavbarLoggeadoComponent implements OnInit {
+export class MenuNavbarLoggeadoComponent {
   nombre: String
   productsInCart: number
   user: User = new User()
@@ -24,23 +22,12 @@ export class MenuNavbarLoggeadoComponent implements OnInit {
 
 
   constructor(
-    private loginService: LoginService,
-    private userService: UserService,
   ){
     this.productsInCart=3
   }
 
 
-  ngOnInit(): void {
-    this.userService.getUser().subscribe(
-      userData => {
-        this.user = userData
-      }
-    )
-  }
-
 
   logOut() {
-    this.loginService.logout()
   }
 }

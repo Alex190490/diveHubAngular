@@ -7,6 +7,9 @@ import { ItemService } from '../services/item/item.service';
 import { Item } from '../Clases/Item/item';
 import { ActivityService } from '../services/activity/activity.service';
 import { Activity } from '../Clases/Activity/activity';
+import { ProductService } from '../services/product/product.service';
+import { Product } from '../Clases/Product/product';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -24,15 +27,15 @@ export class ShopComponent implements OnInit {
   listActivities: Activity[] = new Array()
   listDives: Activity[] = new Array()
   listCourses: Activity[] = new Array()
-  listProducts: (Item | Activity)[] = new Array()
-  listToShow: (Activity | Item)[] = new Array()
+  listProducts: Product[] = new Array()
+  listToShow: any = new Array()
 
 
 
   constructor(
     private itemService: ItemService,
     private activityService: ActivityService,
-    private router: Router
+    private productService: ProductService
   ) { }
 
 
@@ -40,32 +43,37 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
     this.selectedOption = 0
 
-    this.itemService.getAllItems().subscribe(
-      items => {
-        this.listItems = items
-        this.listProducts.push(...this.listItems)
-        this.listToShow = this.listProducts
-      }
-    )
+    this.getAllProducts()
+    this.getAllItems()
+    this.getAllActivities()
+    this.getActivitiesByCategory(0).subscribe(dives => this.listDives = dives)
+    this.getActivitiesByCategory(1).subscribe(courses => this.listCourses = courses)
+  }
 
-    this.activityService.getAllActivities().subscribe(
-      activities => {
-        this.listActivities = activities
-        this.listProducts.push(...this.listActivities)
-        this.listToShow = this.listProducts
-      }
-    )
 
-    this.activityService.getActivitiesByCategory(0).subscribe(
-      dives => this.listDives = dives
-    )
+  getAllProducts(): void {
+    this.productService.getAllProducts().subscribe(products => {
+      this.listProducts = products
+      this.listToShow = this.listProducts
+    })
+  }
 
-    this.activityService.getActivitiesByCategory(1).subscribe(
-      courses => this.listCourses = courses
-    )
+
+  getAllItems(): void {
+    this.itemService.getAllItems().subscribe(items => this.listItems = items)
+  }
+
+
+  getAllActivities(): void {
+    this.activityService.getAllActivities().subscribe(activities => this.listActivities = activities)
   }
 
   
+  getActivitiesByCategory(category: number): Observable<Activity[]> {
+    return this.activityService.getActivitiesByCategory(category)
+  }
+
+
   orderProducts(type: string) {
     switch (type) {
       case "ALL": 
@@ -88,13 +96,7 @@ export class ShopComponent implements OnInit {
   }
 
 
-  checkLogin(){
-    if(this.isLogged()) this.router.navigate(['/home'])
-  }
-
-
-  isLogged(): boolean{
-    if(sessionStorage.getItem('token')!=null||sessionStorage.getItem('token')!=undefined) return true
-    return false
+  isLogged(): boolean {
+    return true
   }
 }

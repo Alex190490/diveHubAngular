@@ -36,12 +36,12 @@
 
       <div class="col-md-10">
         <div class="row">
-          <div *ngFor="let product of listToShow" class="col-md-4 mb-4">
-            <div class="card">
-              <img [src]="product.image" class="card-img-top">
+          <div *ngFor="let product of listToShow" class="col-md-4 mb-5" [routerLink]="['/product-details/', product.id]" data-bs-toggle="offcanvas" data-bs-target="#login">
+            <div class="product-container card h-100">
+              <img [src]="product.image" class="card-img-top mx-auto">
               <div class="card-body d-flex flex-column">
-                <p class="card-text mx-auto">{{ product.name }}</p>
-                <a class="btn btn-primary" (click)="checkLogin()" data-bs-toggle="offcanvas" data-bs-target="#login">Desde <s>{{ product.starting_price }}</s><i class="fa fa-arrow-right" style="margin: 10px"></i>{{ product.final_price }} €</a>
+                <p class="card-text m-auto mb-2">{{ product.name }}</p>
+                <p class="card-text m-auto">Desde <s>{{ product.final_price }}</s><i class="fa fa-arrow-right" style="margin: 10px"></i>{{ product.starting_price }} €</p>
               </div>
             </div>
           </div>
