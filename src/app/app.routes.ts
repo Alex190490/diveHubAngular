@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ShopComponent } from './shop/shop.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
     {
         path: 'product-details/:id',
         component: ProductDetailComponent
+    },
+    {
+        path: 'like',
+        component: WishListComponent
     },
     {
         path: 'not-found',

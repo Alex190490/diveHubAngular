@@ -9,12 +9,14 @@ import { Activity } from '../Clases/Activity/activity';
 import { Item } from '../Clases/Item/item';
 import { Product } from '../Clases/Product/product';
 import { ProductService } from '../services/product/product.service';
+import { FooterComponent } from '../footer/footer.component';
+import { LoginComponent } from '../login/login.component';
 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink],
+  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink, FooterComponent, LoginComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -59,11 +61,11 @@ export class ProductDetailComponent implements OnInit{
 
 
   addToCart(){
-
+    if(this.isLogged()) this.router.navigate(['/home'])
   }
 
 
   isLogged(): boolean{
-    return true
+    return false
   }
 }

@@ -1,8 +1,87 @@
-<div *ngIf="isLogged()"><app-menu-navbar-loggeado/></div>
-<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear/></div>
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
 <div id="video-container">
     <video autoplay loop muted>
         <source src="../../assets/img/pexels-adrien-jacta-6430503.mp4" type="video/mp4">
     </video>
 </div>
+
+<div class="mask">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white text-center">
+            <h1 class="mb-3">Buceo, snorkel y deportes acuáticos</h1>
+            <h4 class="mb-3">Descubre con nosotros los paraísos submarinos</h4>
+            <a class="btn btn-outline-light btn-lg p-2" [routerLink]="['/shop']">Escoge tu aventura</a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container p-2">
+        <div class="d-flex m-5" style="background-color: white;">
+            <img class="card-img" src="https://www.tutorialesprogramacionya.com/imagenes/cuadro1.jpg" alt="Imagen de la tarjeta 1">
+            <div class="card-body p-4">
+                <h4 class="card-title">Título de la tarjeta 1</h4>
+                <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.</p>
+            </div>
+        </div>
+        <div class="d-flex m-5" style="background-color: white;">
+            <div class="card-body p-4">
+                <h4 class="card-title">Título de la tarjeta 2</h4>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.</p>
+            </div>
+            <img class="card-img" src="https://www.tutorialesprogramacionya.com/imagenes/cuadro1.jpg" alt="Imagen de la tarjeta 1">
+        </div>
+        <div class="d-flex m-5" style="background-color: white;">
+            <img class="card-img" src="https://www.tutorialesprogramacionya.com/imagenes/cuadro1.jpg" alt="Imagen de la tarjeta 1">
+            <div class="card-body p-4">
+                <h4 class="card-title">Título de la tarjeta 3</h4>
+                <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.</p>
+            </div>
+        </div>
+        <div class="d-flex m-5" style="background-color: white;">
+            <div class="card-body p-4">
+                <h4 class="card-title">Título de la tarjeta 4</h4>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Etiam lectus sem, tempor vitae mattis malesuada, ornare sed erat. 
+                    Pellentesque nulla dui, congue nec tortor sit amet, maximus mattis dui.</p>
+            </div>
+            <img class="card-img" src="https://www.tutorialesprogramacionya.com/imagenes/cuadro1.jpg" alt="Imagen de la tarjeta 1">
+        </div>
+    </div>
+</div>
+
+<app-footer />

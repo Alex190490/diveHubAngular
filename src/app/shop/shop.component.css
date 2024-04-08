@@ -24,7 +24,7 @@ li a{
 }
 
 .product-container:hover{
-    background-color: rgba(62, 229, 221, 0.653);
+    background-color: rgba(52, 128, 175, 0.266);
     padding: 10px;
     cursor: pointer;
 }

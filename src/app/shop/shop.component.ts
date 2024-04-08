@@ -10,12 +10,13 @@ import { Activity } from '../Clases/Activity/activity';
 import { ProductService } from '../services/product/product.service';
 import { Product } from '../Clases/Product/product';
 import { Observable } from 'rxjs';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink],
+  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink, FooterComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
