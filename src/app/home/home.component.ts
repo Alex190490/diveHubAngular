@@ -4,6 +4,7 @@ import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { RouterLink } from '@angular/router';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 
  
 @Component({
@@ -16,10 +17,14 @@ import { RouterLink } from '@angular/router';
 
 
 export class HomeComponent {
-  constructor(){}
+
+  constructor(
+    private session: SessionStorageService
+  ){}
 
 
   isLogged(): boolean{
-    return false
+    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
+    return true
   }
 }

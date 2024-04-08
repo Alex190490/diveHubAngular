@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { LoginService } from '../services/auth/login.service';
+import { LoginRequest } from '../Clases/user/loginRequest';
 
 
 @Component({
@@ -22,12 +24,26 @@ export class LoginComponent {
 
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    private loginService: LoginService
   ) {}
 
 
   login(){
-    
+    this.loginError = ""  
+
+    this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
+      next: userData => {
+        console.log('Token aceptado', userData)
+      },
+      error: errorData => {         
+        this.loginError = errorData
+      },
+      complete: () => {
+        window.location.reload()
+        this.loginForm.reset()
+      }
+    })
   }
 
 

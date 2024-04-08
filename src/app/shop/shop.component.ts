@@ -11,6 +11,7 @@ import { ProductService } from '../services/product/product.service';
 import { Product } from '../Clases/Product/product';
 import { Observable } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class ShopComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private activityService: ActivityService,
-    private productService: ProductService
+    private productService: ProductService,
+    private session: SessionStorageService
   ) { }
 
 
@@ -97,7 +99,8 @@ export class ShopComponent implements OnInit {
   }
 
 
-  isLogged(): boolean {
+  isLogged(): boolean{
+    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
     return true
   }
 }

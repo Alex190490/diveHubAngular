@@ -5,7 +5,7 @@
     <div class="container mt-5 p-5">
         <h1 class="mt-5">Acceso área privada</h1>
 
-        <form class="mt-5" [formGroup]="loginForm" (ngSubmit)="login()">
+        <form class="mt-5" [formGroup]="loginForm">
             <div class="mt-5 mb-3 form-floating">
                 <input type="text" class="form-control" formControlName="email" placeholder="usuario">
                 <label class="form-label">Introduzca su email</label>
@@ -29,7 +29,7 @@
 
             <div *ngIf="loginError !== ''" class="alert alert-danger text-danger mb-4">{{ loginError }}</div>
 
-            <button type="submit" class="btn btn-primary mt-2">acceder</button>
+            <button (click)="login()" class="btn btn-primary mt-2">acceder</button>
             
             <div class="register-link">
                 <p>No tienes una cuenta? <a [routerLink]="['/register']">Registrarse</a></p>

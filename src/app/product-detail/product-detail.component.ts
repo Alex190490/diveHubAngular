@@ -11,6 +11,7 @@ import { Product } from '../Clases/Product/product';
 import { ProductService } from '../services/product/product.service';
 import { FooterComponent } from '../footer/footer.component';
 import { LoginComponent } from '../login/login.component';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class ProductDetailComponent implements OnInit{
     private activityService: ActivityService,
     private productService: ProductService,
     private router: Router,
-    private path: ActivatedRoute
+    private path: ActivatedRoute,
+    private session: SessionStorageService
   ) {}
 
 
@@ -66,6 +68,7 @@ export class ProductDetailComponent implements OnInit{
 
 
   isLogged(): boolean{
-    return false
+    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
+    return true
   }
 }

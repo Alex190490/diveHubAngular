@@ -43,6 +43,10 @@ img{
     border: none;
 }
 
+.btn-outline-light{
+    padding: 0 10px 5px 10px;
+}
+
 
 @media only screen and (min-width: 1025px) {
     #video-container video {
