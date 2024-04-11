@@ -31,6 +31,7 @@ export class ShopComponent implements OnInit {
   listCourses: Activity[] = new Array()
   listProducts: Product[] = new Array()
   listToShow: any = new Array()
+  windowSize: number
 
 
 
@@ -45,6 +46,7 @@ export class ShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedOption = 0
+    this.windowSize = window.innerWidth
 
     this.getAllProducts()
     this.getAllItems()

@@ -35,6 +35,11 @@ export class UserService {
   }
 
 
+  getUserByEmail(): Observable<User> {
+    return this.httpCliente.get<User>(environment.urlUser + "/" + this.session.getItem('email'))
+  }
+
+
   
   updateUser(user: UserRequest): Observable<User> {
     const token = this.session.getItem('token')

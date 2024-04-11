@@ -5,6 +5,7 @@ import { CarritoDynamicComponent } from '../carrito-dynamic/carrito-dynamic.comp
 import { User } from '../Clases/user/user';
 import { LoginService } from '../services/auth/login.service';
 import { UserService } from '../services/user/user.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -27,18 +28,46 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
     private loginService: LoginService,
     private userService: UserService,
     private router: Router
-  ){
-    this.productsInCart=3
-  }
+  ){}
 
 
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(user => this.user=user)
+    this.userService.getUser().subscribe(user => {
+      this.user=user
+      this.fetchCartInfo()
+    })
   }
 
+
+  fetchCartInfo() {
+    // this.cartService.countByClient(this.user.email).subscribe(count => {
+    //   this.productsInCart = count
+    // })
+  }
+
+
   logOut() {
-    this.loginService.logout()
-    this.router.navigate(['/home'])
+    Swal.fire({
+      text: '¿Cerrar sesión?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No, gracias',
+      customClass: {
+        confirmButton: 'm-2 btn btn-success',
+        cancelButton: 'm-2 btn btn-danger',
+      },
+      buttonsStyling: false,
+    }).then(
+      result => {
+        if (result.isConfirmed) {
+          this.loginService.logout()
+          this.router.navigate(['/home'])
+        }
+      }
+    )
   }
 }

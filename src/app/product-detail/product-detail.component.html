@@ -27,13 +27,13 @@
             <p>Nivel requerido: {{ activity.level_required }}</p>
           <div class="square"> 
             <p>Huecos disponibles: {{ activity.available_spaces }}</p>
-            <button class="btn btn-warning" (click)="addToCart()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
+            <button class="btn btn-warning" (click)="addToCart(activity)" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
           </div>
         </div>
     
         <div *ngIf="isItem" class="product-info square">
           <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' : 'Sin stock' }}</p>
-          <button class="btn btn-warning" (click)="addToCart()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="item.stock<=0">Añadir a la cesta</button>
+          <button class="btn btn-warning" (click)="addToCart(item)" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="item.stock<=0">Añadir a la cesta</button>
         </div>
     </div>
   </div>

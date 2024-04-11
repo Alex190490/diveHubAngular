@@ -1,6 +1,35 @@
 <div class="offcanvas offcanvas-end" id="cart">
-    <div class="offcanvas-header mt-2">
-        <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-header">
+        <button class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
     </div>
-    Carrito
+    <div class="offcanvas-body mt-5">
+        <ng-container *ngIf="myCart">
+            <ng-container *ngIf="myCart.length > 0; else noItems">
+                <article class="productCart" *ngFor="let cart of myCart;">
+                    <div class="article-content">
+                        <img [src]="cart.product.image">
+                        <div>
+                            <p><strong><u>{{ cart.product.name }}</u></strong></p>
+                            <p style="font-size: 12px;">{{ cart.product.final_price }} €/Uds</p>
+                            <input disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.amount) + ' €'">
+                            <i class="fa-solid fa-minus btn" (click)="updateUnits('minus', cart.amount, cart.product)"></i>
+                            <span>{{ cart.amount }}</span>
+                            <i class="fa-solid fa-plus btn" (click)="updateUnits('add', cart.amount, cart.product)"></i>
+                            <i class="fa-solid fa-trash btn" (click)="deleteProductFromCart(cart.product.id)"></i>
+                        </div>
+                    </div>
+                </article>
+                <div class="cartTotal d-flex justify-content-between">
+                    <p class="cartTotal-total">Total a pagar: {{ cartTotal + '€' }}</p>
+                    <button class="btn btn-danger" (click)="deleteAllProductsFromCart()">Vaciar carrito</button>
+                </div>
+                <button class="cart-btn" (click)="details()">Resumen del pedido</button>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #noItems>
+            <p class="productCart-body">No hay productos en el carrito</p>
+            <button class="cart-btn" data-bs-dismiss="offcanvas" (click)="goShop()">Ir a la Tienda</button>
+        </ng-template>
+    </div>
 </div>

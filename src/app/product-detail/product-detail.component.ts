@@ -12,6 +12,9 @@ import { ProductService } from '../services/product/product.service';
 import { FooterComponent } from '../footer/footer.component';
 import { LoginComponent } from '../login/login.component';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
+import { CartRequest } from '../Clases/Cart/cart-request';
+import { UserService } from '../services/user/user.service';
+import { User } from '../Clases/user/user';
 
 
 @Component({
@@ -36,9 +39,9 @@ export class ProductDetailComponent implements OnInit{
     private itemService: ItemService,
     private activityService: ActivityService,
     private productService: ProductService,
-    private router: Router,
     private path: ActivatedRoute,
-    private session: SessionStorageService
+    private session: SessionStorageService,
+    private userService: UserService
   ) {}
 
 
@@ -62,8 +65,24 @@ export class ProductDetailComponent implements OnInit{
   }
 
 
-  addToCart(){
-    if(this.isLogged()) this.router.navigate(['/home'])
+  addToCart(product: (Item|Activity)){
+    // if(this.isLogged()) {
+    //   this.userService.getUserByEmail().subscribe(user=>{
+
+    //     const cartItem: CartRequest = {
+    //       user: user,  
+    //       product: product.id,   
+    //       amount: 1
+    //     }
+    
+    //     console.log(cartItem)
+    //     this.cartService.addProduct(cartItem).subscribe(
+    //       added => {
+    //         window.location.reload()
+    //       }
+    //     )
+    //   })
+    // }
   }
 
 
