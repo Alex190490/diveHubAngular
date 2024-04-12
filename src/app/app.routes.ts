@@ -4,6 +4,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ShopComponent } from './shop/shop.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { GaleryComponent } from './galery/galery.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
     {
         path: 'like',
         component: WishListComponent
+    },
+    {
+        path: 'galery',
+        component: GaleryComponent
     },
     {
         path: 'not-found',
