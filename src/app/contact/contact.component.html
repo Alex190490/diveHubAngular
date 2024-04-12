@@ -1,0 +1,47 @@
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+
+
+<div class="container p-5 bg-dark rounded">
+    <div *ngIf="showMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        <p>Mensaje enviado con éxito!!</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>Espere para volver a enviar un mensaje</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="error=false"></button>
+    </div>
+    <h1 class="text-light mb-5">Información de contacto:</h1>
+    <form class="row g-2" [formGroup]="loginForm" (ngSubmit)="contact()">
+        <div class="col-md-12 form-floating">
+            <input type="email" class="form-control" formControlName="email" placeholder="Correo" required>
+            <label class="form-label">Correo:</label>
+        </div>
+        <div *ngIf="email.invalid && email.errors && formSubmitted" class="text-danger">
+            <span *ngIf="email.errors?.['required'] || email.errors?.['pattern']"></span>
+            <span *ngIf="email.errors?.['required']">Email requerido.</span>
+            <span *ngIf="email.errors?.['pattern']">El formato del correo electrónico no es válido.</span>
+        </div>
+
+        <div class="form-floating mt-3 mb-3">
+            <textarea class="form-control" formControlName="content" placeholder="comentarios" style="height: 200px" required></textarea>
+            <label class="form-label">Deje aquí sus comentarios:</label>
+        </div>
+        <div *ngIf="content.invalid && (content.dirty || content.touched)" class="text-danger" style="margin-top: -10px;">
+            <span *ngIf="content.errors?.['required']"></span>
+            <span *ngIf="content.errors?.['required']">Contenido requerido.</span>
+        </div>
+
+        <div class="col-md-12 form-floating">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terminos" formControlName="terms" required>
+                <label class="form-check-label text-light" for="terminos">Acepta los términos y condiciones</label>
+            </div>
+            <div *ngIf="terms.invalid && (terms.dirty || terms.touched)" class="text-danger">
+                <span *ngIf="terms.errors?.['required']"></span>
+                <span *ngIf="terms.errors?.['required']">Términos requeridos.</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>

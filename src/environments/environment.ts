@@ -6,5 +6,6 @@ export const environment = {
     urlActivity: 'http://localhost:8080/divehub/activities',
     urlCart: 'http://localhost:8080/divehub/carts',
     urlOrder: 'http://localhost:8080/divehub/orders',
-    urlWish: 'http://localhost:8080/diveHub/wishes'
+    urlWish: 'http://localhost:8080/divehub/wishes',
+    urlMessage: 'http://localhost:8080/divehub/messages'
   }

@@ -1,0 +1,48 @@
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+
+
+<div class="container p-3 bg-dark">
+    <form class="row g-3">
+        <div class="col-md-6 form-floating">
+            <input type="email" class="form-control" id="mail" placeholder="Correo">
+            <label for="mail" class="form-label">Correo:</label>
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="password" class="form-control" id="clave" placeholder="Clave">
+            <label for="clave" class="form-label">Clave:</label>
+        </div>
+        <div class="col-md-12 form-floating">
+            <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+            <label for="direccion" class="form-label">Dirección:</label>
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+        </div>
+        <div class="col-md-4 form-floating">
+            <select id="provincia" class="form-select">
+                <option selected>Elija...</option>
+                <option value="Córdoba">Córdoba</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Santa Fe">Santa Fe</option>
+            </select>
+            <label for="provincia" class="form-label">Provincia:</label>
+        </div>
+        <div class="col-md-2 form-floating">
+            <input type="text" class="form-control" id="codigopostal" placeholder="Código postal">
+            <label for="codigopostal" class="form-label">Código postal:</label>
+        </div>
+        <div class="form-floating mt-3 mb-3"> 
+            <textarea class="form-control" id="comentarios" name="comentarios" placeholder="comentarios"  style="height: 200px"></textarea>
+            <label for="comentarios">Deje aquí sus comentarios:</label>        
+          </div> 
+        <div class="col-md-12 form-floating">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terminos" placeholder="Dirección">
+                <label class="form-check-label text-light" for="terminos">Acepta los términos y condiciones</label>
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>

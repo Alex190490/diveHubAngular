@@ -5,6 +5,8 @@ import { ShopComponent } from './shop/shop.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { GaleryComponent } from './galery/galery.component';
+import { ContactComponent } from './contact/contact.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +33,14 @@ export const routes: Routes = [
     {
         path: 'galery',
         component: GaleryComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     },
     {
         path: 'not-found',

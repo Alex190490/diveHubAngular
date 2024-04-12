@@ -1,0 +1,23 @@
+.container{
+    margin-top: 100px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.text-danger{
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    height: 40px;
+    border: none;
+    border-radius: 40px;
+}
+
+.fade{
+    position: relative;
+    z-index: 1000;
+}
