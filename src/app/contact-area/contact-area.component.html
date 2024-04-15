@@ -1,0 +1,38 @@
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+
+<div class="background-image">
+  <div class="container mt-5 p-5">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item active">Mis Mensajes</li>
+    </ol>
+
+    <div class="select-container p-5">
+      <div class="select-wrapper">
+      <select [(ngModel)]="selectedSortOption" (change)="sortProducts()" class="select-style">
+        <option selected disabled value="default">Filtros de búsqueda</option>
+        <option value="desc">Más reciente</option>
+        <option value="asc">Más antiguos</option>
+      </select>
+      <div class="select-arrow">&#9660;</div>
+    </div>
+    </div>
+    
+
+    <div class="articles mt-5 p-5 row">
+      <div *ngFor="let message of messages" class="mb-5 bg-success">
+        <div class="product-container card h-100">
+          <div class="card-body">
+            <p class="card-text mx-auto mb-2">{{ message.content }}</p>
+            <p class="card-text date mx-auto d-flex justify-content-end">{{ message.date }}</p>
+          </div>
+        </div>
+        <div *ngIf="messages==null">
+          No hay mensajes
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer />

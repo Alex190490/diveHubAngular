@@ -16,8 +16,8 @@ export class MessageService {
 
 
   
-  getMessageById(email : string): Observable<Message> {
-    return this.httpCliente.get<Message>(environment.urlMessage+"/allByUser/"+email)
+  getMessageById(email : string): Observable<Message[]> {
+    return this.httpCliente.get<Message[]>(environment.urlMessage+"/allByUser/"+email)
   }
 
   addMessage(message: Message): Observable<Message> {

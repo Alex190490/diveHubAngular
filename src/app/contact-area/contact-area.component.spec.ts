@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessagesComponent } from './messages.component';
+import { ContactAreaComponent } from './contact-area.component';
 
-describe('MessagesComponent', () => {
-  let component: MessagesComponent;
-  let fixture: ComponentFixture<MessagesComponent>;
+describe('ContactAreaComponent', () => {
+  let component: ContactAreaComponent;
+  let fixture: ComponentFixture<ContactAreaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MessagesComponent]
+      imports: [ContactAreaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MessagesComponent);
+    fixture = TestBed.createComponent(ContactAreaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

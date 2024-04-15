@@ -2,7 +2,12 @@
 <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
 
-<div class="container p-3 bg-dark">
+<div class="container p-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Registro</li>
+    </ol>
+
     <form class="row g-3">
         <div class="col-md-6 form-floating">
             <input type="email" class="form-control" id="mail" placeholder="Correo">

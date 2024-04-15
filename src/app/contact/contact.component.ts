@@ -6,13 +6,14 @@ import { SessionStorageService } from '../services/sessionStorage/session-storag
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from '../services/message/message.service';
 import { Message } from '../Clases/Message/message';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, CommonModule, ReactiveFormsModule],
+  imports: [MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, CommonModule, ReactiveFormsModule, FooterComponent, RouterLink],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

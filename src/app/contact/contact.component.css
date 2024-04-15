@@ -1,9 +1,18 @@
+.background-image {
+    background-image: url("../../assets/img/2r2tmv.png");
+    background-repeat: repeat;
+}
+
 .container{
     margin-top: 100px;
 }
 
 h1 {
     text-align: center;
+}
+
+.contact-area{
+    width: 50%;
 }
 
 .text-danger{

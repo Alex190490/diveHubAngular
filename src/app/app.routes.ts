@@ -7,6 +7,7 @@ import { WishListComponent } from './wish-list/wish-list.component';
 import { GaleryComponent } from './galery/galery.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
+import { ContactAreaComponent } from './contact-area/contact-area.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,10 @@ export const routes: Routes = [
     {
         path: 'contact',
         component: ContactComponent
+    },
+    {
+        path: 'contact-area',
+        component: ContactAreaComponent
     },
     {
         path: 'register',
