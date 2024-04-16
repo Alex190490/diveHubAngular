@@ -14,6 +14,12 @@ import { LoginComponent } from '../login/login.component';
 
 
 export class MenuNavbarSinLoggearComponent {
+  isCollapseActive: boolean = false
 
+
+  // Método para cambiar el estado del collapse
+  toggleCollapse(): void {
+    this.isCollapseActive = !this.isCollapseActive;
+  }
 
 }

@@ -1,30 +1,34 @@
 <!-- Esta el login escondido a la espera de que se active el canvas -->
-<app-login/>
+<app-login />
 
 <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand" [routerLink]="['/home']">DIVEHUB <img src="../../assets/img/buzo-01.png" height="60"></a>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent">
-            <i class="fas fa-bars"></i>
-        </button>
+    <button class="navbar-toggler" type="button" (click)="toggleCollapse()" data-bs-toggle="collapse"
+        data-bs-target="#navMinimizado">
+        <i class="fas fa-bars text-light"></i>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item mx-3">
-                    <a class="nav-link btn" [routerLink]="['/galery']">Galería de expediciones</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link btn" [routerLink]="['/shop']">Tienda</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link btn" [routerLink]="['/contact']">Contacto</a>
-                </li>
-                <li class="nav-item mx-3" style="color: white; cursor: default;"> | <li>
-                <li class="nav-item mx-3" data-bs-toggle="offcanvas" data-bs-target="#login">
-                    <a class="btn nav-link">Acceso área privada</a> 
-                </li>
-            </ul>
-        </div>  
+    <a class="navbar-brand" [routerLink]="['/home']">DIVEHUB <img src="../../assets/img/buzo-01.png" height="60"></a>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navMinimizado">
+        <ul class="navbar-nav align-items-center">
+            <!-- Galery -->
+            <li class="nav-item mx-3">
+                <a class="nav-link btn" [routerLink]="['/galery']">Galería de expediciones</a>
+            </li>
+
+            <!-- Shop -->
+            <li class="nav-item mx-3">
+                <a class="nav-link btn" [routerLink]="['/shop']">Tienda</a>
+            </li>
+
+            <!-- Contact -->
+            <li class="nav-item mx-3">
+                <a class="nav-link btn" [routerLink]="['/contact']">Contacto</a>
+            </li>
+
+            <li class="nav-item mx-3" data-bs-toggle="offcanvas" data-bs-target="#login">
+                <a class="btn nav-link">Acceso área privada</a>
+            </li>
+        </ul>
     </div>
 </nav>

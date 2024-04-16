@@ -16,9 +16,17 @@ a {
   background-color: #0a4175a8;
 }
 
+.navbar-brand{
+  margin-left: 100px;
+}
+
+.navbar-nav{
+  margin-right: 50px;
+}
+
 .navbar-cart {
   position: relative;
-  margin-right: 30px;
+  margin-right: -7px;
 }
 
 .navbar-cart-items {

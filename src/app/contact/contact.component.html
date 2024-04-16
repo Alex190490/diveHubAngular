@@ -17,44 +17,49 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="error=false"></button>
     </div>
 
-    <div class="d-flex justify-content-end">
+    <div class="content">
         <div class="contact-area mb-3 p-5 bg-dark rounded">
             <h1 class="text-light mb-2">Información de contacto:</h1>
             <form class="row g-2" [formGroup]="loginForm" (ngSubmit)="contact()">
                 <div class="col-md-12 form-floating">
-                    <input type="email" class="form-control" formControlName="email" placeholder="Correo" required>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Correo" required
+                        [ngClass]="{'error' : email.invalid && email.errors && formSubmitted}">
                     <label class="form-label">Correo:</label>
                 </div>
                 <div *ngIf="email.invalid && email.errors && formSubmitted" class="text-danger">
-                    <span *ngIf="email.errors?.['required'] || email.errors?.['pattern']"></span>
-                    <span *ngIf="email.errors?.['required']">Email requerido.</span>
-                    <span *ngIf="email.errors?.['pattern']">El formato del correo electrónico no es válido.</span>
+                    <span class="td-1" *ngIf="email.errors?.['required'] || email.errors?.['pattern']"></span>
+                    <span class="td-1" *ngIf="email.errors?.['required']">Email obligatorio.</span>
+                    <span class="td-1" *ngIf="email.errors?.['pattern']">El formato del correo electrónico no es válido.</span>
                 </div>
 
                 <div class="form-floating mt-3 mb-3">
                     <textarea class="form-control" formControlName="content" placeholder="comentarios"
-                        style="height: 150px; resize: none" required></textarea>
+                        style="height: 150px; resize: none" required
+                        [ngClass]="{'error' : content.invalid && (content.dirty || content.touched)}"></textarea>
                     <label class="form-label">Deje aquí sus comentarios:</label>
                 </div>
-                <div *ngIf="content.invalid && (content.dirty || content.touched)" class="text-danger"
-                    style="margin-top: -10px;">
-                    <span *ngIf="content.errors?.['required']"></span>
-                    <span *ngIf="content.errors?.['required']">Contenido requerido.</span>
+                <div *ngIf="content.invalid && (content.dirty || content.touched)" class="text-danger">
+                    <span class="td-2" *ngIf="content.errors?.['required']"></span>
+                    <span class="td-2" *ngIf="content.errors?.['required']">Contenido obligatorio.</span>
                 </div>
 
-                <div class="col-md-12 form-floating">
+                <div class="col-md-12 mb-4 form-floating">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="terminos" formControlName="terms" required>
+                        <input class="form-check-input" type="checkbox" id="terminos" formControlName="terms" required
+                            [ngClass]="{'error' : terms.invalid && (terms.dirty || terms.touched)}">
                         <label class="form-check-label text-light" for="terminos">Acepta los términos y
                             condiciones</label>
                     </div>
                     <div *ngIf="terms.invalid && (terms.dirty || terms.touched)" class="text-danger">
-                        <span *ngIf="terms.errors?.['required']"></span>
-                        <span *ngIf="terms.errors?.['required']">Términos requeridos.</span>
+                        <span class="td-3" *ngIf="terms.errors?.['required']"></span>
+                        <span class="td-3" *ngIf="terms.errors?.['required']">Términos obligatorios.</span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
+        </div>
+        <div>
+            <a target="_blank" href="https://www.google.com/maps/@40.4440957,-3.6881123,15.36z?entry=ttu"><img src="../../assets/img/Captura de pantalla 2024-04-16 093129.png"></a>
         </div>
     </div>
 </div>

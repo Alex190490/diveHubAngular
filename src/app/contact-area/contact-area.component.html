@@ -10,22 +10,26 @@
 
     <div class="select-container p-5">
       <div class="select-wrapper">
-      <select [(ngModel)]="selectedSortOption" (change)="sortProducts()" class="select-style">
-        <option selected disabled value="default">Filtros de búsqueda</option>
-        <option value="desc">Más reciente</option>
-        <option value="asc">Más antiguos</option>
-      </select>
-      <div class="select-arrow">&#9660;</div>
+        <select [(ngModel)]="selectedSortOption" (change)="sortProducts()" class="select-style">
+          <option selected disabled value="default">Filtros de búsqueda</option>
+          <option value="desc">Más reciente</option>
+          <option value="asc">Más antiguos</option>
+        </select>
+        <div class="select-arrow">&#9660;</div>
+      </div>
     </div>
-    </div>
-    
+
 
     <div class="articles mt-5 p-5 row">
       <div *ngFor="let message of messages" class="mb-5 bg-success">
         <div class="product-container card h-100">
           <div class="card-body">
             <p class="card-text mx-auto mb-2">{{ message.content }}</p>
-            <p class="card-text date mx-auto d-flex justify-content-end">{{ message.date }}</p>
+              <div class="card-text date d-flex justify-content-end mx-auto">{{ message.date }}
+                <div style="margin-left: 10px;">
+                  <i class="far fa-check-circle" title="enviado"></i>
+                </div>
+              </div>
           </div>
         </div>
         <div *ngIf="messages==null">

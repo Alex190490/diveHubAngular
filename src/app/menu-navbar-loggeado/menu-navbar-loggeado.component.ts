@@ -19,8 +19,9 @@ import Swal from 'sweetalert2';
 
 export class MenuNavbarLoggeadoComponent implements OnInit{
   nombre: String
-  productsInCart: number
+  productsInCart: number = 10
   user: User = new User()
+  isCollapseActive: boolean = false
 
 
 
@@ -44,6 +45,12 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
     // this.cartService.countByClient(this.user.email).subscribe(count => {
     //   this.productsInCart = count
     // })
+  }
+
+
+  // Método para cambiar el estado del collapse
+  toggleCollapse(): void {
+    this.isCollapseActive = !this.isCollapseActive;
   }
 
 

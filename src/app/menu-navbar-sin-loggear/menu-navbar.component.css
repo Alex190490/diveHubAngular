@@ -11,3 +11,11 @@ a {
 li:hover{
   border-bottom: 2px solid blue;
 }
+
+.navbar-brand{
+  margin-left: 100px;
+}
+
+.navbar-nav{
+  margin-right: 50px;
+}
