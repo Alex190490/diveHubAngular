@@ -2,13 +2,13 @@
 <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
 
-<div class="container">
+<div class="container mb-5">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
         <li class="breadcrumb-item active">Galería de imágenes</li>
     </ol>
 
-    <h1>Galería de imágenes</h1>
+    <h1 class="mb-5">Galería de imágenes</h1>
     <div class="container-photo">
         <div class="photo">
             <img src="../../assets/img/buceo1.jpg">
@@ -48,3 +48,5 @@
         </div>
     </div>
 </div>
+
+<app-footer/>

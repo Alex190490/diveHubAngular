@@ -8,6 +8,7 @@ import { GaleryComponent } from './galery/galery.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
 import { ContactAreaComponent } from './contact-area/contact-area.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent
     },
     {
         path: 'not-found',

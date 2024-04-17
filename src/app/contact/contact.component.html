@@ -29,7 +29,7 @@
                 <div *ngIf="email.invalid && email.errors && formSubmitted" class="text-danger">
                     <span class="td-1" *ngIf="email.errors?.['required'] || email.errors?.['pattern']"></span>
                     <span class="td-1" *ngIf="email.errors?.['required']">Email obligatorio.</span>
-                    <span class="td-1" *ngIf="email.errors?.['pattern']">El formato del correo electrónico no es válido.</span>
+                    <span class="td-1" *ngIf="email.errors?.['pattern']">El formato no es válido.</span>
                 </div>
 
                 <div class="form-floating mt-3 mb-3">
@@ -49,10 +49,6 @@
                             [ngClass]="{'error' : terms.invalid && (terms.dirty || terms.touched)}">
                         <label class="form-check-label text-light" for="terminos">Acepta los términos y
                             condiciones</label>
-                    </div>
-                    <div *ngIf="terms.invalid && (terms.dirty || terms.touched)" class="text-danger">
-                        <span class="td-3" *ngIf="terms.errors?.['required']"></span>
-                        <span class="td-3" *ngIf="terms.errors?.['required']">Términos obligatorios.</span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>

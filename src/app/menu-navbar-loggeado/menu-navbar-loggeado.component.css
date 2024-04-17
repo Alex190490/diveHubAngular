@@ -16,6 +16,10 @@ a {
   background-color: #0a4175a8;
 }
 
+.navbar-toggler{
+  margin-left: 20px;
+}
+
 .navbar-brand{
   margin-left: 100px;
 }

@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../services/auth/login.service';
 import { LoginRequest } from '../Clases/user/loginRequest';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { LoginRequest } from '../Clases/user/loginRequest';
 
 
 export class LoginComponent {
+  visible: string = 'password';
   loginError: string = ""
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -44,6 +46,11 @@ export class LoginComponent {
         this.loginForm.reset()
       }
     })
+  }
+
+
+  togglePasswordVisibility() {
+    this.visible = this.visible === 'password' ? 'text' : 'password';
   }
 
 

@@ -100,6 +100,27 @@ export class ShopComponent implements OnInit {
     }
   }
 
+  orderProductsSelect(type: any) {
+    switch (type.value) {
+      case "ALL": 
+        this.selectedOption = 0
+        this.listToShow = this.listProducts
+        break
+      case "DIVES": 
+        this.selectedOption = 1
+        this.listToShow = this.listDives
+        break
+      case "COURSES": 
+        this.selectedOption = 2
+        this.listToShow = this.listCourses
+        break
+      case "ITEMS": 
+        this.selectedOption = 3
+        this.listToShow = this.listItems
+        break
+    }
+  }
+
 
   isLogged(): boolean{
     if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false

@@ -4,12 +4,13 @@ import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-galery',
   standalone: true,
-  imports: [MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, CommonModule, RouterLink],
+  imports: [MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, CommonModule, RouterLink, FooterComponent],
   templateUrl: './galery.component.html',
   styleUrl: './galery.component.css'
 })

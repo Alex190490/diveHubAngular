@@ -1,30 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { CarritoDynamicComponent } from '../carrito-dynamic/carrito-dynamic.component';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 import { User } from '../Clases/user/user';
+import Swal from 'sweetalert2';
 import { LoginService } from '../services/auth/login.service';
 import { UserService } from '../services/user/user.service';
-import Swal from 'sweetalert2';
-import { NavbarCollapseComponent } from '../navbar-collapse/navbar-collapse.component';
 
 
 @Component({
-  selector: 'app-menu-navbar-loggeado',
+  selector: 'app-navbar-collapse',
   standalone: true,
-  imports: [RouterLink, CommonModule, CarritoDynamicComponent, NavbarCollapseComponent],
-  templateUrl: './menu-navbar-loggeado.component.html',
-  styleUrl: './menu-navbar-loggeado.component.css'
+  imports: [RouterLink, CommonModule],
+  templateUrl: './navbar-collapse.component.html',
+  styleUrl: './navbar-collapse.component.css'
 })
 
 
-export class MenuNavbarLoggeadoComponent implements OnInit{
+export class NavbarCollapseComponent {
   productsInCart: number = 10
   user: User = new User()
 
 
 
   constructor(
+    private session: SessionStorageService,
     private loginService: LoginService,
     private userService: UserService,
     private router: Router
@@ -35,15 +35,13 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
       this.user=user
-      this.fetchCartInfo()
     })
-  }
+  }  
 
 
-  fetchCartInfo() {
-    // this.cartService.countByClient(this.user.email).subscribe(count => {
-    //   this.productsInCart = count
-    // })
+  isLogged(): boolean{
+    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
+    return true
   }
 
 

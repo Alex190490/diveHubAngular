@@ -14,8 +14,9 @@
                 <span class="error" *ngIf="email.errors?.['required']">Email requerido.</span>
             </div>
 
-            <div class="mb-3 form-floating">
-                <input type="password" class="form-control" formControlName="password" placeholder="clave">
+            <div class="mb-3 form-floating password">
+                <input [type]="visible" class="form-control" formControlName="password" placeholder="clave">
+                <i class="toggle-password fas fa-eye-slash" (click)="togglePasswordVisibility()"></i>
                 <label class="form-label">Introduzca su clave de acceso</label>
             </div>
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger error">

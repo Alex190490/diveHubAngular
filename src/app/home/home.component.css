@@ -34,7 +34,7 @@
 img {
     width: 400px;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 0;
     border: none;
 }

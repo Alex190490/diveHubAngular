@@ -34,6 +34,14 @@
         </ul>
       </nav>
 
+      <select class="form-select mb-5" (change)="orderProductsSelect($event.target)">
+        <option [value]="'ALL'" [selected]="selectedOption == 0">Todos los productos</option>
+        <option [value]="'DIVES'" [selected]="selectedOption == 1">Inmersiones</option>
+        <option [value]="'COURSES'" [selected]="selectedOption == 2">Cursos</option>
+        <option [value]="'ITEMS'" [selected]="selectedOption == 3">Artículos</option>
+      </select>
+      
+
       <div class="col-md-10">
         <div class="row">
           <div *ngFor="let product of listToShow" class="col-md-4 mb-5" [routerLink]="['/product-details/', product.id]">

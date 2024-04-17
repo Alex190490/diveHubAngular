@@ -1,0 +1,72 @@
+.offcanvas {
+    width: 100%;
+    backdrop-filter: blur(5px);
+    background-color: #0a4175a8;
+}
+
+.navbar-brand {
+    margin-left: 25px;
+    color: white;
+}
+
+.offcanvas-header {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.offcanvas-header .btn-close {
+    background-color: white;
+    border: 2px solid blue;
+}
+
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 40px 40px 40px;
+    border-radius: 10px;
+}
+
+.offcanvas-body h5 {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.offcanvas-body a {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.hr1 {
+    border: 4px solid aqua;
+}
+
+span{
+    cursor: default;
+}
+
+.nav-cart{
+    position: relative;
+    cursor: pointer;
+}
+
+.navbar-cart-items {
+    position: absolute;
+    right: -10px;
+    top: 25px;
+    color: white;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.718);
+    height: 20px;
+    width: 20px;
+}
+
+.navbar-cart-items p {
+    font-size: 13px;
+    text-align: center;
+}
+
+.cart-icon {
+    width: 20px;
+}

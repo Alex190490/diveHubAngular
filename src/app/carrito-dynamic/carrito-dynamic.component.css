@@ -1,5 +1,4 @@
 .offcanvas { 
-  border: 5px solid rgb(0, 179, 255); 
   background-color: rgb(255, 255, 255);
 }
 
@@ -62,19 +61,13 @@ img{
 }
 
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 993px) {
   .offcanvas {
     width: 40%;
   }
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .offcanvas {
-    width: 75%;  
-  }
-}
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 992px) {
   .offcanvas {
     width: 100%;  
   }

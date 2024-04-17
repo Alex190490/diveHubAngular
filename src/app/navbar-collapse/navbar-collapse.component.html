@@ -1,0 +1,67 @@
+<div class="offcanvas offcanvas-start" id="navbar-collapse">
+    <div class="offcanvas-header">
+        <a class="navbar-brand" [routerLink]="['/home']" data-bs-dismiss="offcanvas">DIVEHUB <img
+                src="../../assets/img/buzo-01.png" height="60"></a>
+        <button class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body mt-2">
+        <h5 class="mt-4">¿Qué estás buscando?</h5>
+        <hr class="hr1">
+
+        <ul class="navbar-nav gap-2">
+            <!-- Init -->
+            <li class="nav-item mt-3">
+                <a class="nav-link btn" [routerLink]="['/home']" data-bs-dismiss="offcanvas">Home</a>
+            </li>
+
+            <!-- Galery -->
+            <li class="nav-item">
+                <a class="nav-link btn" [routerLink]="['/galery']" data-bs-dismiss="offcanvas">Galería de expediciones</a>
+            </li>
+
+            <!-- Shop -->
+            <li class="nav-item">
+                <a class="nav-link btn" [routerLink]="['/shop']" data-bs-dismiss="offcanvas">Tienda</a>
+            </li>
+
+            <!-- Contact -->
+            <li class="nav-item">
+                <a class="nav-link btn" [routerLink]="['/contact']" data-bs-dismiss="offcanvas">Contacto</a>
+            </li>
+
+            <!-- Log in --> 
+            <li *ngIf="!isLogged()" class="nav-item mt-3" data-bs-toggle="offcanvas" data-bs-target="#login">
+                <a class="nav-link btn btn-primary text-light" data-bs-dismiss="offcanvas">Acceso área privada</a>
+            </li>
+
+            <li *ngIf="isLogged()" class="nav-item d-flex justify-content-center align-items-center">
+                <!-- User -->
+                <a class="nav-link btn" [routerLink]="['/home']" data-bs-dismiss="offcanvas">Perfil de {{user.nickname}}</a>
+                <span class="m-3">|</span>
+
+                <!-- contacto -->
+                <a class="nav-link btn" [routerLink]="['/contact-area']" data-bs-dismiss="offcanvas"><i class="fas fa-envelope"></i></a>
+                <span class="m-3">|</span>
+
+                <!-- WishList -->
+                <a class="nav-link btn" [routerLink]="['/like']" data-bs-dismiss="offcanvas"><i class="fas fa-heart"></i></a>
+                <span class="m-3">|</span>
+                
+                <!-- Cart -->
+                <div class="nav-cart nav-link" data-bs-toggle="offcanvas" data-bs-target="#cart" data-bs-dismiss="offcanvas">
+                    <div *ngIf="productsInCart" class="navbar-cart-items">
+                        <p>{{ productsInCart }}</p>
+                    </div>
+                    <a>
+                        <img class="cart-icon" src="../../assets/img/carrito2.png">
+                    </a>
+                </div>
+            </li>
+
+            <!-- Log out -->
+            <li *ngIf="isLogged()" class="nav-item mt-5">
+                <a class="nav-link btn btn-danger text-light" (click)="logOut()" data-bs-dismiss="offcanvas">Cerrar Sesión<i class="fas fa-power-off m-2"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
