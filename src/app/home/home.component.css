@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 #video-container {
     position: fixed;
     top: 0;
@@ -34,9 +28,13 @@
 img {
     width: 400px;
     height: 300px;
-    object-fit: contain;
     border-radius: 0;
     border: none;
+}
+
+.carousel{
+    max-width: 400px;
+    height: 300px;
 }
 
 .card {
@@ -45,6 +43,14 @@ img {
 
 .btn-outline-light {
     padding: 0 10px 5px 10px;
+}
+
+.carousel-inner {
+    border-radius: 10px; 
+}
+
+.carousel-indicators .active {
+    background-color: #ff6347; /* Cambiar el color de fondo del indicador activo */
 }
 
 @media only screen and (min-width: 1025px) {
@@ -59,12 +65,12 @@ img {
     }
 
     .d-flex.m-5 {
-        flex-direction: column;  
+        flex-direction: column;
     }
 
     .d-flex.m-5 img.card-img,
     .d-flex.m-5 .card-body {
-        width: 100%;  
+        width: 100%;
     }
 }
 
@@ -84,11 +90,11 @@ img {
     }
 
     .d-flex.m-5 {
-        flex-direction: column;  
+        flex-direction: column;
     }
 
     .d-flex.m-5 img.card-img,
     .d-flex.m-5 .card-body {
-        width: 100%;  
+        width: 100%;
     }
 }

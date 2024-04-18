@@ -15,7 +15,7 @@
             </div>
 
             <div class="mb-3 form-floating password">
-                <input [type]="visible" class="form-control" formControlName="password" placeholder="clave">
+                <input [type]="visible" [maxLength]="30" class="form-control" formControlName="password" placeholder="clave">
                 <i class="toggle-password fas fa-eye-slash" (click)="togglePasswordVisibility()"></i>
                 <label class="form-label">Introduzca su clave de acceso</label>
             </div>

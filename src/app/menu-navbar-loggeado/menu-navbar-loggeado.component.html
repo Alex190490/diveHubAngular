@@ -11,6 +11,11 @@
 
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav align-items-center">
+            <!-- Init -->
+            <li class="nav-item mx-3">
+                <a class="nav-link btn" [routerLink]="['/home']">Inicio</a>
+            </li> 
+
             <!-- Galery -->
             <li class="nav-item mx-3">
                 <a class="nav-link btn" [routerLink]="['/galery']">Galería de expediciones</a>
@@ -35,7 +40,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <div class="dropdown-header">Panel de control</div>
-                        <a class="dropdown-item btn p-3" [routerLink]="['/home']">Ver Perfil</a>
+                        <a class="dropdown-item btn p-3" [routerLink]="['/profile']">Ver Perfil</a>
                         <a class="dropdown-item btn p-3 mt-2" [routerLink]="['/contact-area']">Mis mensajes</a>
                         <a class="dropdown-item btn b1 p-3 mt-2" (click)="logOut()">
                             Cerrar Sesión<i class="fas fa-power-off m-2"></i>
