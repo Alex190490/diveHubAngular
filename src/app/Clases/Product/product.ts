@@ -7,4 +7,5 @@ export class Product {
     image: string;
     category: string;
     tag: string;
+    isLiked: boolean
 }

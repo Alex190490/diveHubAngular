@@ -1,0 +1,59 @@
+.background-image {
+    background-image: url("../../assets/img/2r2tmv.png");
+    background-repeat: repeat;
+}
+
+.container2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-container {
+    padding: 10px;
+}
+
+.card p {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 100%;
+}
+
+img {
+    width: 250px;
+    height: 100%;
+    object-fit: contain;
+}
+
+.like{
+    width: 40px;
+    cursor: pointer;
+}
+
+.ups{
+    background-color: white;
+    margin-top: 90px;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+@media only screen and (min-width: 1000px) {
+    .card p {
+        font-size: 100%;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 999px) {
+    .card p {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card p {
+        font-size: 19px;
+    }
+}

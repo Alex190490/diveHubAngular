@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { JwtInterceptorService } from './services/auth/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
+import { IMAGE_CONFIG } from '@angular/common';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +15,12 @@ export const appConfig: ApplicationConfig = {
     //Configuración para poder linkear la sesión con el token
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },   
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true
+      }
+    }
   ]
 }

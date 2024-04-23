@@ -12,6 +12,11 @@ import { Product } from '../Clases/Product/product';
 import { Observable } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
+import { WishListComponent } from '../wish-list/wish-list.component';
+import { WishlistService } from '../services/wishList/wishlist.service';
+import { Wishlist } from '../Clases/WishList/wishlist';
+import { UserService } from '../services/user/user.service';
+import { User } from '../Clases/user/user';
 
 
 @Component({
@@ -29,51 +34,51 @@ export class ShopComponent implements OnInit {
   listActivities: Activity[] = new Array()
   listDives: Activity[] = new Array()
   listCourses: Activity[] = new Array()
-  listProducts: Product[] = new Array()
-  listToShow: any = new Array()
-  windowSize: number
-
+  listToShow: (Activity | Item)[] = new Array()
+  user: User = new User()
 
 
   constructor(
     private itemService: ItemService,
     private activityService: ActivityService,
-    private productService: ProductService,
-    private session: SessionStorageService
+    private userService: UserService,
+    private session: SessionStorageService,
+    private wishlistService: WishlistService
   ) { }
 
 
 
   ngOnInit(): void {
     this.selectedOption = 0
-    this.windowSize = window.innerWidth
+    this.session.setItem("selectedOption", 0)
 
-    this.getAllProducts()
     this.getAllItems()
     this.getAllActivities()
     this.getActivitiesByCategory(0).subscribe(dives => this.listDives = dives)
-    this.getActivitiesByCategory(1).subscribe(courses => this.listCourses = courses)
-  }
-
-
-  getAllProducts(): void {
-    this.productService.getAllProducts().subscribe(products => {
-      this.listProducts = products
-      this.listToShow = this.listProducts
+    this.getActivitiesByCategory(1).subscribe(courses => {
+      this.listCourses = courses
+      const sortedList = [...this.listItems, ...this.listActivities]
+      this.listToShow = sortedList.sort((a, b) => a.id - b.id)
+      this.isOnWishList()
     })
   }
 
 
   getAllItems(): void {
-    this.itemService.getAllItems().subscribe(items => this.listItems = items)
+    this.itemService.getAllItems().subscribe(items => {
+      this.listItems = items
+      this.isOnWishList()
+    })
   }
 
 
   getAllActivities(): void {
-    this.activityService.getAllActivities().subscribe(activities => this.listActivities = activities)
+    this.activityService.getAllActivities().subscribe(activities => {
+      this.listActivities = activities
+    })
   }
 
-  
+
   getActivitiesByCategory(category: number): Observable<Activity[]> {
     return this.activityService.getActivitiesByCategory(category)
   }
@@ -81,49 +86,100 @@ export class ShopComponent implements OnInit {
 
   orderProducts(type: string) {
     switch (type) {
-      case "ALL": 
+      case "ALL":
         this.selectedOption = 0
-        this.listToShow = this.listProducts
+        const sortedList = [...this.listItems, ...this.listActivities]
+        this.listToShow = sortedList.sort((a, b) => a.id - b.id)
+        this.isOnWishList()
         break
-      case "DIVES": 
+      case "DIVES":
         this.selectedOption = 1
         this.listToShow = this.listDives
+        this.isOnWishList()
         break
-      case "COURSES": 
+      case "COURSES":
         this.selectedOption = 2
         this.listToShow = this.listCourses
+        this.isOnWishList()
         break
-      case "ITEMS": 
+      case "ITEMS":
         this.selectedOption = 3
         this.listToShow = this.listItems
+        this.isOnWishList()
         break
     }
   }
 
   orderProductsSelect(type: any) {
     switch (type.value) {
-      case "ALL": 
+      case "ALL":
         this.selectedOption = 0
-        this.listToShow = this.listProducts
+        const sortedList = [...this.listItems, ...this.listActivities]
+        this.listToShow = sortedList.sort((a, b) => a.id - b.id)
+        this.isOnWishList()
         break
-      case "DIVES": 
+      case "DIVES":
         this.selectedOption = 1
         this.listToShow = this.listDives
+        this.isOnWishList()
         break
-      case "COURSES": 
+      case "COURSES":
         this.selectedOption = 2
         this.listToShow = this.listCourses
+        this.isOnWishList()
         break
-      case "ITEMS": 
+      case "ITEMS":
         this.selectedOption = 3
         this.listToShow = this.listItems
+        this.isOnWishList()
         break
     }
   }
 
 
-  isLogged(): boolean{
-    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
+  isOnWishList() {
+    if(this.isLogged()){
+      this.listToShow.forEach(product => {
+        this.wishlistService.isProductOnWishList(product.id, this.session.getItem("email")).subscribe(
+          isProductLiked => product.isLiked=isProductLiked
+        )
+      })
+    }
+  }
+
+
+  toggleLike(product: any) {
+    this.userService.getUser().subscribe(user => {
+      this.user = user
+
+        this.wishlistService.isProductOnWishList(product.id, this.session.getItem("email")).subscribe(isProductLiked => {
+          this.wishlistService.isItemOrActivity(product.id).subscribe(isItem=>{
+
+            if (!isProductLiked) {
+              const wishList: Wishlist = {
+                user: this.user, 
+                item: isItem ? product : null, 
+                activity: isItem ? null : product
+              }
+
+              this.wishlistService.addProduct(wishList).subscribe(newProduct => {
+                product.isLiked=true
+              })
+            } else {
+              this.wishlistService.removeProduct(this.session.getItem("email"), product.id).subscribe(newProduct => {
+                product.isLiked=false
+              })
+            }
+          })
+        })
+    })
+  }
+  
+  
+
+
+  isLogged(): boolean {
+    if (this.session.getItem('email') == null || this.session.getItem('email') == "" || this.session.getItem('email') == undefined) return false
     return true
   }
 }

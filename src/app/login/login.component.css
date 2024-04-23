@@ -84,19 +84,14 @@ button {
     right: 20px;
 }
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1001px) {
     .offcanvas {
         width: 40%;
     }
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-    .offcanvas {
-        width: 75%;
-    }
-}
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
     .offcanvas {
         width: 100%;
     }

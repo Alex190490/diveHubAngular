@@ -20,8 +20,8 @@
       <div class="col-md-9">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
-        <p>Precio: {{ product.starting_price }} €</p>
-        <p>Precio con descuento: {{ product.final_price }} €</p>
+        <p>Precio: {{ product.final_price }} €</p>
+        <p>Precio con descuento: {{ product.starting_price }} €</p>
     
         <div *ngIf="!isItem" class="product-info">
             <p>Nivel requerido: {{ activity.level_required }}</p>
