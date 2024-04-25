@@ -11,7 +11,7 @@
     width: 100%;
     object-fit: cover;
 }
-
+ 
 .mask {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
@@ -21,8 +21,6 @@
 .content {
     display: flex;
     justify-content: center;
-    background-image: url("../../assets/img/2r2tmv.png");
-    background-repeat: repeat;
 }
 
 img {

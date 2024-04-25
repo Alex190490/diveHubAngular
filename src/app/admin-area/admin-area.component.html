@@ -1,0 +1,114 @@
+<div class="m-5">
+    <div class="d-flex justify-content-around">
+        <button class="btn btn-primary p-3" [routerLink]="['/home']"><i class="fa fa-arrow-left me-3"></i>Volver a la
+            página principal</button>
+        <p>ÁREA PRIVADA</p>
+    </div>
+    <div class="d-flex justify-content-center table-responsive mt-5 p-5">
+        <table class="text-center table table-striped table-hover table-sm">
+            <caption>Lista de usuarios</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>EMAIL</th>
+                    <th>CLAVE</th>
+                    <th>NICKNAME</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDOS</th>
+                    <th>F. REGISTRO</th>
+                    <th>ÚLT. CONEX</th>
+                    <th>DIR.</th>
+                    <th>TLF</th>
+                    <th>F. NAC</th>
+                    <th>NIVEL</th>
+                    <th>ROL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of listUsers">
+                    <th>{{user.id}}</th>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.nickname}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.surnames}}</td>
+                    <td>{{parseToString(user.registration_date)}}</td>
+                    <td>{{user.last_login_parsed}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.birthday}}</td>
+                    <td>{{user.level}}</td>
+                    <td>{{user.role}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <button class="btn btn-primary p-2" (click)="toggleForm()">Crear Usuario</button>
+    <div class="m-5" [style.display]="showForm ? 'block' : 'none'">
+        <form class="form needs-validation" [formGroup]="nuevoUsuarioForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="nickname">Nickname</label>
+                    <input formControlName="nickname" type="text" class="form-control" id="nickname" placeholder="Introduzca nickname" required>
+                    <div *ngIf="submitted && f.nickname.invalid && f.nickname.errors" class="text-danger">
+                        <span class="td-1" *ngIf="f.nickname.errors?.['required']">nickname obligatorio.</span>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="email">Email</label>
+                    <input formControlName="email" type="email" class="form-control" id="email" placeholder="Introduzca email" required>
+                    <div *ngIf="submitted && f.email.invalid && f.email.errors" class="text-danger">
+                        <span class="td-1" *ngIf="f.email.errors?.['required']">email obligatorio.</span>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="clave">Clave</label>
+                    <input formControlName="clave" type="password" class="form-control" id="clave" placeholder="Introduzca clave" required>
+                    <div *ngIf="submitted && f.clave.invalid && f.clave.errors" class="text-danger">
+                        <span class="td-1" *ngIf="f.clave.errors?.['required']">clave obligatoria.</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input formControlName="nombre" type="text" class="form-control" id="nombre" placeholder="Introduzca nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input formControlName="apellidos" type="text" class="form-control" id="apellidos" placeholder="Introduzca apellidos" required>
+                </div>
+                <div class="mb-3">
+                    <label for="f_registro" class="form-label">Fecha de Registro</label>
+                    <input formControlName="f_registro" type="date" class="form-control" id="f_registro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ult_conex" class="form-label">Última Conexión</label>
+                    <input formControlName="ult_conex" type="datetime-local" class="form-control" id="ult_conex" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dir" class="form-label">Dirección</label>
+                    <input formControlName="dir" type="text" class="form-control" id="dir" placeholder="Introduzca dirección" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tlf" class="form-label">Teléfono</label>
+                    <input formControlName="tlf" type="tel" class="form-control" id="tlf" placeholder="Introduzca teléfono" required>
+                </div>
+                <div class="mb-3">
+                    <label for="f_nac" class="form-label">Fecha de Nacimiento</label>
+                    <input formControlName="f_nac" type="date" class="form-control" id="f_nac" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nivel" class="form-label">Nivel</label>
+                    <input formControlName="nivel" type="number" class="form-control" id="nivel" placeholder="Introduzca nivel" required>
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <input formControlName="rol" type="text" class="form-control" id="rol" placeholder="Introduzca rol" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

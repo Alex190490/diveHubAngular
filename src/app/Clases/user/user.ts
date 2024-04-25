@@ -11,5 +11,6 @@ export class User {
     level: string
     registration_date: string
     last_login: string
+    last_login_parsed: string
     role: string
 }

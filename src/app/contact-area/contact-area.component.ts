@@ -36,6 +36,7 @@ export class ContactAreaComponent implements OnInit{
   ngOnInit(): void {
     this.messageService.getMessageById(this.session.getItem("email")).subscribe(message => {
       this.messages=message
+      console.log(message)
     })
   }
 

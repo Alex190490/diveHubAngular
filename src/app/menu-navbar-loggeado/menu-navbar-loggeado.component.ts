@@ -20,6 +20,7 @@ import { NavbarCollapseComponent } from '../navbar-collapse/navbar-collapse.comp
 
 export class MenuNavbarLoggeadoComponent implements OnInit{
   productsInCart: number = 10
+  isAdmin: boolean
   user: User = new User()
 
 
@@ -33,10 +34,17 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(user => {
-      this.user=user
-      this.fetchCartInfo()
-    })
+    this.userService.getUser().subscribe(
+      user => {
+        this.user = user
+        this.fetchCartInfo()
+        this.checkIsAdmin()
+      },
+      error => {
+        this.loginService.logout()
+        this.router.navigate(['/home'])
+      }
+    )
   }
 
 
@@ -69,5 +77,10 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
         }
       }
     )
+  }
+
+
+  checkIsAdmin(){
+    this.userService.isAdmin().subscribe(isAdmin=>this.isAdmin=isAdmin)
   }
 }

@@ -22,6 +22,11 @@ export class UserService {
 
 
 
+  getAllUsers(): Observable<User[]> {
+    return this.httpCliente.get<User[]>(environment.urlUser)
+  }
+
+  
   getUser(): Observable<any> {
     const token = this.session.getItem('token')
 
@@ -46,5 +51,10 @@ export class UserService {
       console.error('Token not found in sessionStorage')
       return throwError('Token not found')
     }
+  }
+
+
+  isAdmin(): Observable<boolean>{
+    return this.httpCliente.get<boolean>(environment.urlUser + "/isAdmin/" + this.session.getItem('email'))
   }
 }

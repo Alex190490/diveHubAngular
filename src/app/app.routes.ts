@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
 import { ContactAreaComponent } from './contact-area/contact-area.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminAreaComponent } from './admin-area/admin-area.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,10 @@ export const routes: Routes = [
     {
         path: 'shop',
         component: ShopComponent
+    },
+    {
+        path: 'admin_area',
+        component: AdminAreaComponent
     },
     {
         path: 'product-details/:id',

@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../services/auth/login.service';
 import { LoginRequest } from '../Clases/user/loginRequest';
-import { Observable, of } from 'rxjs';
+import { UserService } from '../services/user/user.service';
 
 
 @Component({
@@ -37,13 +37,10 @@ export class LoginComponent {
     this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
       next: userData => {
         console.log('Token aceptado', userData)
+        window.location.reload()
       },
       error: errorData => {         
         this.loginError = errorData
-      },
-      complete: () => {
-        window.location.reload()
-        this.loginForm.reset()
       }
     })
   }

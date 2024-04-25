@@ -42,6 +42,7 @@
                         <div class="dropdown-header">Panel de control</div>
                         <a class="dropdown-item btn p-3" [routerLink]="['/profile']">Ver Perfil</a>
                         <a class="dropdown-item btn p-3 mt-2" [routerLink]="['/contact-area']">Mis mensajes</a>
+                        <a class="dropdown-item btn p-3 mt-2" *ngIf="isAdmin" [routerLink]="['/admin_area']">ADMIN</a>
                         <a class="dropdown-item btn b1 p-3 mt-2" (click)="logOut()">
                             Cerrar Sesión<i class="fas fa-power-off m-2"></i>
                         </a>
