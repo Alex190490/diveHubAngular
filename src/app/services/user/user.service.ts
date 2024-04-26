@@ -41,16 +41,12 @@ export class UserService {
 
 
   updateUser(user: UserRequest): Observable<User> {
-    const token = this.session.getItem('token')
-  
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]))
-      const userEmail = payload.sub
-      return this.httpCliente.put<User>(environment.urlUser + "/" + userEmail, user)
-    } else {
-      console.error('Token not found in sessionStorage')
-      return throwError('Token not found')
-    }
+    return this.httpCliente.put<User>(environment.urlUser + "/" + user.email, user)
+  }
+
+
+  deleteUser(email: string): Observable<any> {
+    return this.httpCliente.delete(environment.urlUser + "/" + email)
   }
 
 

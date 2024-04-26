@@ -5,6 +5,7 @@ import { User } from '../Clases/user/user';
 import { UserService } from '../services/user/user.service';
 import { differenceInSeconds } from 'date-fns';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 
 
 @Component({
@@ -17,23 +18,24 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 
 export class AdminAreaComponent implements OnInit, OnDestroy {
+  userLogged: string = this.session.getItem("email")
   listUsers: User[] = new Array()
+  visible: string = 'password';
   segundosTimer: any
   showForm: boolean = false
   submitted: boolean = false
+
   nuevoUsuarioForm = this.formBuilder.group({
     nickname: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}')]],
     clave: ['', Validators.required],
-    nombre: [''],
-    apellidos: [''],
-    f_registro: [''],
-    ult_conex: [''],
-    dir: [''],
-    tlf: [''],
-    f_nac: [''],
-    nivel: [''],
-    rol: ['']
+    nombre: ['', Validators.required],
+    apellidos: ['', Validators.required],
+    dir: ['', Validators.required],
+    tlf: ['', Validators.required],
+    f_nac: ['', Validators.required],
+    nivel: ['', Validators.required],
+    rol: ['', Validators.required]
   })
 
 
@@ -41,7 +43,8 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private session: SessionStorageService
   ) { }
 
 
@@ -56,7 +59,7 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
 
     this.segundosTimer = setInterval(() => {
       this.actualizarSegundos()
-    }, 1000)
+    }, 100)
   }
 
 
@@ -95,6 +98,21 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   }
 
 
+  updateUser(user: User){
+    this.userService.updateUser(user).subscribe()
+  }
+
+
+  deleteUser(email: string){
+    this.userService.deleteUser(email).subscribe(isDeleted=>this.userService.getAllUsers().subscribe(users => this.listUsers = users))
+  }
+
+
+  togglePasswordVisibility() {
+    this.visible = this.visible === 'password' ? 'text' : 'password'
+  }
+
+
   toggleForm(): void {
     this.showForm = !this.showForm
   }
@@ -107,9 +125,10 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted=true
     if (this.nuevoUsuarioForm.invalid) {
+      console.log('Formulario inválido:', this.nuevoUsuarioForm.value)
       return
     }
 
-    console.log('Formulario válido, enviar datos:', this.nuevoUsuarioForm.value);
+    console.log('Formulario válido, enviar datos:', this.nuevoUsuarioForm.value)
   }
 }
