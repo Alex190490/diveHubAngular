@@ -6,6 +6,7 @@ import { User } from '../Clases/user/user';
 import Swal from 'sweetalert2';
 import { LoginService } from '../services/auth/login.service';
 import { UserService } from '../services/user/user.service';
+import { CartService } from '../services/cart/cart.service';
 
 
 @Component({
@@ -18,15 +19,16 @@ import { UserService } from '../services/user/user.service';
 
 
 export class NavbarCollapseComponent {
-  productsInCart: number = 10
+  productsInCart: number
   user: User = new User()
-
+  
 
 
   constructor(
     private session: SessionStorageService,
     private loginService: LoginService,
     private userService: UserService,
+    private cartService: CartService,
     private router: Router
   ){}
 
@@ -35,8 +37,14 @@ export class NavbarCollapseComponent {
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
       this.user=user
+      if(this.isLogged()) this.fetchCartInfo()
     })
   }  
+
+
+  fetchCartInfo() {
+    this.cartService.countByClient(this.session.getItem('email')).subscribe(count => this.productsInCart = count)
+  }
 
 
   isLogged(): boolean{

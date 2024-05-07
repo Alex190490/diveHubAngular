@@ -18,3 +18,28 @@ td{
     cursor: pointer;
 }
 
+.pedidos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(181, 181, 181);
+    margin-bottom: 100px;
+    padding: 30px;
+}
+
+td {
+    max-width: 150px;
+}
+
+img{
+    width: 100px;
+    object-fit: contain;
+}
+
+.blue{
+    background-color: aqua;
+}
+
+span{
+    font-size: 12px;
+}

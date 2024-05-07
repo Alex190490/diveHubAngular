@@ -6,12 +6,16 @@ import { UserService } from '../services/user/user.service';
 import { differenceInSeconds } from 'date-fns';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
+import { DetailsService } from '../services/detail/details.service';
+import { Detail } from '../Clases/Detail/detail';
+import { forkJoin, map, switchMap } from 'rxjs';
+import { ProductService } from '../services/product/product.service';
 
 
 @Component({
   selector: 'app-admin-area',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './admin-area.component.html',
   styleUrl: './admin-area.component.css'
 })
@@ -20,10 +24,12 @@ import { SessionStorageService } from '../services/sessionStorage/session-storag
 export class AdminAreaComponent implements OnInit, OnDestroy {
   userLogged: string = this.session.getItem("email")
   listUsers: User[] = new Array()
-  visible: string = 'password';
+  details: Detail[] = new Array()
+  visible: string = 'password'
   segundosTimer: any
   showForm: boolean = false
   submitted: boolean = false
+  hideOrderDetails: boolean = true
 
   nuevoUsuarioForm = this.formBuilder.group({
     nickname: ['', Validators.required],
@@ -44,7 +50,9 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private session: SessionStorageService
+    private session: SessionStorageService,
+    private detailService: DetailsService,
+    private productService: ProductService
   ) { }
 
 
@@ -52,14 +60,16 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userService.isAdmin().subscribe(
       isAdmin => { if (!isAdmin) this.router.navigate(['/home']) },
-      error => { this.router.navigate(['/home']) }
+      () => { this.router.navigate(['/home']) }
     )
 
-    this.userService.getAllUsers().subscribe(users => this.listUsers = users)
+    this.userService.getAllUsers().subscribe(users => {
+      this.listUsers = users
 
-    this.segundosTimer = setInterval(() => {
-      this.actualizarSegundos()
-    }, 100)
+      this.segundosTimer = setInterval(() => {
+        this.actualizarSegundos()
+      }, 100)
+    })
   }
 
 
@@ -98,14 +108,46 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   }
 
 
-  updateUser(user: User){
-    this.userService.updateUser(user).subscribe()
-  }
-
-
   deleteUser(email: string){
-    this.userService.deleteUser(email).subscribe(isDeleted=>this.userService.getAllUsers().subscribe(users => this.listUsers = users))
+    this.hideOrderDetails = false
+    this.userService.deleteUser(email).subscribe(() => this.userService.getAllUsers().subscribe(users => this.listUsers = users))
   }
+
+
+  getOrder(email: string){
+    this.detailService.getDetailsByUser(email).pipe(
+      switchMap(details => {
+        const requests = details.map(detailsItem => this.productService.getProductById(detailsItem.productId))
+        return forkJoin(requests).pipe(
+          map(products => {
+            details.forEach((detailsItem, index) => detailsItem.product = products[index])
+            return details
+          })
+        )
+      })
+    ).subscribe(myDetails => {
+      this.details = myDetails
+      this.hideOrderDetails = !this.hideOrderDetails
+    })
+  }
+
+
+  groupByOrderId(details: Detail[]): Detail[][] {
+    const groupedDetails: { [orderId: number]: Detail[] } = {}
+  
+    details.forEach(detail => {
+      if (!groupedDetails[detail.order.id]) groupedDetails[detail.order.id] = []
+      groupedDetails[detail.order.id].push(detail)
+    })
+  
+    return Object.values(groupedDetails)
+  }
+  
+  
+
+
+
+
 
 
   togglePasswordVisibility() {
@@ -128,7 +170,6 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
       console.log('Formulario inválido:', this.nuevoUsuarioForm.value)
       return
     }
-
     console.log('Formulario válido, enviar datos:', this.nuevoUsuarioForm.value)
   }
 }

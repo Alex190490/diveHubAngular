@@ -1,0 +1,81 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Métodos de Pago</h1>
+    <div class="payment-methods">
+        <div id="accordion1">
+            <div class="accordion-item">
+                <div class="accordion-header" id="cabecera1">
+                    <h5 class="mb-0">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#respuesta1"
+                            aria-expanded="true" aria-controls="respuesta1">
+                            <h3>Tarjeta de Crédito</h3>
+                        </button>
+                    </h5>
+                </div>
+                <div id="respuesta1" class="accordion-collapse collapse show" aria-labelledby="cabecera1"
+                    data-bs-parent="#accordion1">
+                    <div class="accordion-body">
+                        <div class="method">
+
+                            <p>Aceptamos todas las principales tarjetas de crédito, como Visa, MasterCard y American Express.</p>
+                            <div class="form-group">
+                                <label>Número de Tarjeta de Crédito</label>
+                                <input type="text" class="form-control" placeholder="Ingrese el número de tarjeta">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Vencimiento</label>
+                                <input type="text" class="form-control" placeholder="MM/YY">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" id="cabecera2">
+                    <h5 class="mb-0">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#respuesta2"
+                            aria-expanded="true" aria-controls="respuesta2">
+                            <h3>PayPal</h3>
+                        </button>
+                    </h5>
+                </div>
+                <div id="respuesta2" class="accordion-collapse collapse" aria-labelledby="cabecera2"
+                    data-bs-parent="#accordion1">
+                    <div class="accordion-body">
+                        <div class="method">
+                            <p>Paga de forma segura con tu cuenta de PayPal.</p>
+                            <div class="form-group">
+                                <label for="paypalEmail">Correo Electrónico de PayPal</label>
+                                <input type="email" class="form-control" placeholder="Ingrese su correo de PayPal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" id="cabecera3">
+                    <h5 class="mb-0">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#respuesta3"
+                            aria-expanded="true" aria-controls="respuesta3">
+                            <h3>Transferencia Bancaria</h3>
+                        </button>
+                    </h5>
+                </div>
+                <div id="respuesta3" class="accordion-collapse collapse" aria-labelledby="cabecera3"
+                    data-bs-parent="#accordion1">
+                    <div class="accordion-body">
+                        <div class="method">
+                            <p>Realiza una transferencia directa a nuestra cuenta bancaria.</p>
+                            <div class="form-group">
+                                <label for="bankAccount">Número de Cuenta Bancaria</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Ingrese el número de cuenta bancaria">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

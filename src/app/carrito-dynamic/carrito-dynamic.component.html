@@ -1,35 +1,36 @@
 <div class="offcanvas offcanvas-end" id="cart">
     <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Carrito</h5>
         <button class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body mt-5">
         <ng-container *ngIf="myCart">
-            <ng-container *ngIf="myCart.length > 0; else noItems">
+            <ng-container *ngIf="myCart.length > 0">
                 <article class="productCart" *ngFor="let cart of myCart;">
                     <div class="article-content">
                         <img [src]="cart.product.image">
                         <div>
                             <p><strong><u>{{ cart.product.name }}</u></strong></p>
                             <p style="font-size: 12px;">{{ cart.product.final_price }} €/Uds</p>
-                            <input disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.amount) + ' €'">
-                            <i class="fa-solid fa-minus btn" (click)="updateUnits('minus', cart.amount, cart.product)"></i>
-                            <span>{{ cart.amount }}</span>
-                            <i class="fa-solid fa-plus btn" (click)="updateUnits('add', cart.amount, cart.product)"></i>
+                            <input disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.quantity) + ' €'">
+                            <i class="fa-solid fa-minus btn" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
+                            <span>{{ cart.quantity }}</span>
+                            <i class="fa-solid fa-plus btn" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
                             <i class="fa-solid fa-trash btn" (click)="deleteProductFromCart(cart.product.id)"></i>
                         </div>
-                    </div>
+                    </div>                    
                 </article>
                 <div class="cartTotal d-flex justify-content-between">
                     <p class="cartTotal-total">Total a pagar: {{ cartTotal + '€' }}</p>
                     <button class="btn btn-danger" (click)="deleteAllProductsFromCart()">Vaciar carrito</button>
                 </div>
-                <button class="cart-btn" (click)="details()">Resumen del pedido</button>
+                <button class="cart-btn" data-bs-dismiss="offcanvas" (click)="details()">Resumen del pedido</button>
             </ng-container>
         </ng-container>
 
-        <ng-template #noItems>
-            <p class="productCart-body">No hay productos en el carrito</p>
+        <ng-container *ngIf="!myCart">
+            <p class="productCart-body mt-5 p-3">No hay productos en el carrito</p>
             <button class="cart-btn" data-bs-dismiss="offcanvas" (click)="goShop()">Ir a la Tienda</button>
-        </ng-template>
+        </ng-container>
     </div>
 </div>

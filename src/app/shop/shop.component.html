@@ -15,20 +15,20 @@
         </li>
         <li class="nav-item">
           <!-- NgClass es para poner una clase con angular -->
-          <a class="nav-link" (click)="orderProducts('ALL')" [ngClass]="{'selected': selectedOption == 0}">Todos los
-            productos</a>
+          <a (click)="orderProducts('ALL')" [ngClass]="{'selected': selectedOption == 0}">Todos los
+            productos</a><hr>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="orderProducts('DIVES')"
-            [ngClass]="{'selected': selectedOption == 1}">Inmersiones</a>
+          <a (click)="orderProducts('DIVES')"
+            [ngClass]="{'selected': selectedOption == 1}">Inmersiones</a><hr>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="orderProducts('COURSES')"
-            [ngClass]="{'selected': selectedOption == 2}">Cursos</a>
+          <a (click)="orderProducts('COURSES')"
+            [ngClass]="{'selected': selectedOption == 2}">Cursos</a><hr>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="orderProducts('ITEMS')"
-            [ngClass]="{'selected': selectedOption == 3}">Artículos</a>
+          <a (click)="orderProducts('ITEMS')"
+            [ngClass]="{'selected': selectedOption == 3}">Artículos</a><hr>
         </li>
       </ul>
     </nav>

@@ -1,0 +1,84 @@
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+
+<div class="container mt-5 p-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Detalles del carrito</li>
+    </ol>
+
+    <div *ngIf="myCart">
+        <h1 class="mt-5 mb-5">Resumen del pedido</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+
+                <div class="row align-items-center">
+                    <div class="col-lg-9">
+                        <div class="card-body">
+                            <h5 class="card-title">DATOS DEL PEDIDO</h5>
+                            <hr> 
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6><strong><i class="fas fa-user-circle"></i></strong> {{user.nickname}}</h6>
+                                    <h6><strong><i class="fas fa-envelope"></i></strong> {{user.email}}</h6>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <h6><strong><i class="fa-solid fa-home"></i></strong> {{user.address}}</h6>
+                                    <h6><strong><i class="fas fa-phone"></i></strong> {{user.phone}}</h6>
+                                </div>
+                            </div>
+
+                            <table class="table mt-5">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Precio €/Ud</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Total €</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cart of myCart">
+                                        <td *ngIf="cart.product"><img [src]="cart.product.image"></td>
+                                        <td *ngIf="cart.product">{{cart.product.name}}</td>
+                                        <td class="align-middle" *ngIf="cart.product">{{cart.product.final_price}}€</td>
+                                        <td class="align-middle" *ngIf="cart.product">
+                                            <select [(ngModel)]="cart.quantity" (change)="updateCartItem(cart.product.id, $event.target)" class="form-select">
+                                                <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{ i }}</option>
+                                            </select> 
+                                        </td>
+                                        <td class="align-middle" *ngIf="cart.product">{{totalProduct(cart.product.final_price, cart.quantity)}}€</td>
+                                        <td class="align-middle" *ngIf="cart.product">  
+                                            <button (click)="removeCartItem(cart)" class="btn btn-danger">Eliminar</button>  
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-warning">
+                                <p class="text-center mt-2">Subtotal ({{ myCart.length }} {{ myCart.length == 1 ? 'producto' : 'productos' }}): {{ cartTotalPrice }}€ </p>
+                                <hr>
+                                <h6 class="text-center mt-2">{{user.name}} {{user.surnames}}</h6>
+                            </li>
+                            <a (click)="saveOrder()" class="btn btn-dark">TRAMITAR PEDIDO</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="myCart==null">
+        <p class="text-center info">El carrito está vacío.</p>
+        <button [routerLink]="['/shop']" class="btn btn-warning d-flex mx-auto text-center">Ir a la
+            tienda</button>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { User } from "../user/user"
 export class Cart {
   id: number
   user: User
+  productId: number
   product: Product
-  amount: number
+  quantity: number
 }

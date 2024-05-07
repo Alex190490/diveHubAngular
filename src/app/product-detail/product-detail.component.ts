@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ItemService } from '../services/item/item.service';
 import { ActivityService } from '../services/activity/activity.service';
 import { Activity } from '../Clases/Activity/activity';
@@ -14,7 +14,8 @@ import { LoginComponent } from '../login/login.component';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 import { CartRequest } from '../Clases/Cart/cart-request';
 import { UserService } from '../services/user/user.service';
-import { User } from '../Clases/user/user';
+import { CartService } from '../services/cart/cart.service';
+import { Observable, of, switchMap } from 'rxjs';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ProductDetailComponent implements OnInit{
   product: Product = new Product()
   item: Item = new Item()
   activity: Activity = new Activity()
+  quantity: number = 1
 
 
 
@@ -41,7 +43,8 @@ export class ProductDetailComponent implements OnInit{
     private productService: ProductService,
     private path: ActivatedRoute,
     private session: SessionStorageService,
-    private userService: UserService
+    private userService: UserService,
+    private cartService: CartService
   ) {}
 
 
@@ -66,23 +69,32 @@ export class ProductDetailComponent implements OnInit{
 
 
   addToCart(product: (Item|Activity)){
-    // if(this.isLogged()) {
-    //   this.userService.getUserByEmail().subscribe(user=>{
+    if(this.isLogged()) {
+      this.userService.getUser().subscribe(user=>{
 
-    //     const cartItem: CartRequest = {
-    //       user: user,  
-    //       product: product.id,   
-    //       amount: 1
-    //     }
+        const cartItem: CartRequest = {
+          user: user,  
+          productId: product.id,   
+          quantity: this.quantity
+        }
     
-    //     console.log(cartItem)
-    //     this.cartService.addProduct(cartItem).subscribe(
-    //       added => {
-    //         window.location.reload()
-    //       }
-    //     )
-    //   })
-    // }
+        this.cartService.addProduct(cartItem).subscribe(() => window.location.reload())
+      })
+    } 
+  }
+
+
+  setQuantity(quantity: any){
+    this.quantity = quantity.value
+  }
+
+
+  isInCart(product: Activity | Item): Observable<boolean> {
+    if (this.isLogged() && product.id != undefined) {
+      console.log(product.id)
+      return this.cartService.existsInCart(this.session.getItem("email"), product.id);
+    } 
+    return of(false);
   }
 
 

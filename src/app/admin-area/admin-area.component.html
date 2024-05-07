@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th></th>
+                    <th>ID</th>
                     <th>EMAIL</th>
                     <th>NICKNAME</th>
                     <th>NOMBRE</th>
@@ -26,26 +26,65 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of listUsers">
-                    <div class="d-flex justify-content-around">
-                        <button class="btn btn-primary" (click)="updateUser(user)"><i class="fa fa-pencil text-dark"></i></button>
-                        <button class="btn btn-primary pe-3 px-3" (click)="deleteUser(user.email)" [disabled]="user.email==userLogged">
+                    <div class="d-flex justify-content-around align-middle">
+                        <button class="btn btn-primary pe-3 px-3" (click)="getOrder(user.email)">
+                            <i class="fa fa-eye text-dark"></i></button>
+                        <button class="btn btn-primary pe-3 px-3" (click)="deleteUser(user.email)"
+                            [disabled]="user.email==userLogged">
                             <i class="fa fa-close text-dark"></i></button>
                     </div>
-                    <th>{{user.id}}</th>
-                    <td>{{user.email}}</td>
-                    <td>{{user.nickname}}</td>
-                    <td>{{user.name}}</td>
-                    <td>{{user.surnames}}</td>
-                    <td>{{parseToString(user.registration_date)}}</td>
-                    <td>{{user.last_login_parsed}}</td>
-                    <td>{{user.address}}</td>
-                    <td>{{user.phone}}</td>
-                    <td>{{parseToString(user.birthday)}}</td>
-                    <td>{{user.level}}</td>
-                    <td>{{user.role}}</td>
+                    <th class="align-middle">{{user.id}}</th>
+                    <td class="align-middle">{{user.email}}</td>
+                    <td class="align-middle">{{user.nickname}}</td>
+                    <td class="align-middle">{{user.name}}</td>
+                    <td class="align-middle">{{user.surnames}}</td>
+                    <td class="align-middle">{{parseToString(user.registration_date)}}</td>
+                    <td class="align-middle">{{user.last_login_parsed}}</td>
+                    <td class="align-middle">{{user.address}}</td>
+                    <td class="align-middle">{{user.phone}}</td>
+                    <td class="align-middle">{{parseToString(user.birthday)}}</td>
+                    <td class="align-middle">{{user.level}}</td>
+                    <td class="align-middle">{{user.role}}</td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="container" [hidden]="hideOrderDetails">
+    <h1 class="mt-5 mb-5">Pedidos</h1>
+    <div class="pedidos">
+        <div *ngFor="let orderDetails of groupByOrderId(details)" class="card p-5 mb-5">
+            <div class="d-flex justify-content-between">
+                <h2>Pedido ID (PID {{ orderDetails[0].order.id }})</h2>
+                <div>
+                    <span>{{orderDetails[0].order.user.email}}</span><br>
+                    <span>{{orderDetails[0].order.user.address}}</span><br>
+                    <span>{{orderDetails[0].order.user.phone}}</span>
+                </div>
+            </div>
+            <table class="table mt-5 text-center">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Nombre</th>
+                        <th>Precio €/Ud</th>
+                        <th>Cantidad</th>
+                        <th>Precio Total €</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detail of orderDetails">
+                        <td class="align-middle"><img [src]="detail.product.image"></td>
+                        <td class="align-middle">{{ detail.product.name }}</td>
+                        <td class="align-middle">{{ detail.product.final_price }}€</td>
+                        <td class="align-middle">{{ detail.quantity }}</td>
+                        <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€</td>
+                    </tr>
+                    <td colspan="5" class="text-end pt-5"><span>Total Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></span></td>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

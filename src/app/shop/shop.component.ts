@@ -2,17 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ItemService } from '../services/item/item.service';
 import { Item } from '../Clases/Item/item';
 import { ActivityService } from '../services/activity/activity.service';
 import { Activity } from '../Clases/Activity/activity';
-import { ProductService } from '../services/product/product.service';
-import { Product } from '../Clases/Product/product';
 import { Observable } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
-import { WishListComponent } from '../wish-list/wish-list.component';
 import { WishlistService } from '../services/wishList/wishlist.service';
 import { Wishlist } from '../Clases/WishList/wishlist';
 import { UserService } from '../services/user/user.service';
@@ -50,17 +47,24 @@ export class ShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedOption = 0
-    this.session.setItem("selectedOption", 0)
 
     this.getAllItems()
     this.getAllActivities()
-    this.getActivitiesByCategory(0).subscribe(dives => this.listDives = dives)
+    this.getActivitiesByCategory(0).subscribe(dives => {
+      this.listDives = dives
+      this.showList()
+    })
     this.getActivitiesByCategory(1).subscribe(courses => {
       this.listCourses = courses
-      const sortedList = [...this.listItems, ...this.listActivities]
-      this.listToShow = sortedList.sort((a, b) => a.id - b.id)
-      this.isOnWishList()
-    })
+      this.showList()
+    })    
+  }
+
+
+  showList(){
+    const sortedList = [...this.listItems, ...this.listActivities]
+    this.listToShow = sortedList.sort((a, b) => a.id - b.id)
+    this.isOnWishList()
   }
 
 
@@ -68,6 +72,7 @@ export class ShopComponent implements OnInit {
     this.itemService.getAllItems().subscribe(items => {
       this.listItems = items
       this.isOnWishList()
+      this.showList()
     })
   }
 
@@ -75,6 +80,7 @@ export class ShopComponent implements OnInit {
   getAllActivities(): void {
     this.activityService.getAllActivities().subscribe(activities => {
       this.listActivities = activities
+      this.showList()
     })
   }
 

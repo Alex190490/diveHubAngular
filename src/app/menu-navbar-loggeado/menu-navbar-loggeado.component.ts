@@ -7,6 +7,8 @@ import { LoginService } from '../services/auth/login.service';
 import { UserService } from '../services/user/user.service';
 import Swal from 'sweetalert2';
 import { NavbarCollapseComponent } from '../navbar-collapse/navbar-collapse.component';
+import { CartService } from '../services/cart/cart.service';
+import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { NavbarCollapseComponent } from '../navbar-collapse/navbar-collapse.comp
 
 
 export class MenuNavbarLoggeadoComponent implements OnInit{
-  productsInCart: number = 10
+  productsInCart: number
   isAdmin: boolean
   user: User = new User()
 
@@ -28,6 +30,8 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
   constructor(
     private loginService: LoginService,
     private userService: UserService,
+    private session: SessionStorageService,
+    private cartService: CartService,
     private router: Router
   ){}
 
@@ -49,9 +53,7 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
 
 
   fetchCartInfo() {
-    // this.cartService.countByClient(this.user.email).subscribe(count => {
-    //   this.productsInCart = count
-    // })
+    this.cartService.countByClient(this.session.getItem('email')).subscribe(count => this.productsInCart = count)
   }
 
 

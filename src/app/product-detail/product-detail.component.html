@@ -1,40 +1,57 @@
 <!-- Esta el login escondido a la espera de que se active el canvas -->
 <app-login/>
 
-<div class="background-image">
-  <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
-  <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
-  <div class="container mt-5 p-5">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/shop']">diveHub shop</a></li>
-      <li class="breadcrumb-item active">{{ product.name }}</li>
-    </ol>
+<div class="container mt-5 p-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/shop']">diveHub shop</a></li>
+    <li class="breadcrumb-item active">{{ product.name }}</li>
+  </ol>
 
-    <div class="articles mt-5 p-5 row align-items-start">
-      <div class="col-md-3">
-        <img [src]="product.image" class="card-img">
-      </div>
+  <div class="articles mt-5 p-5 row align-items-start">
+    <div class="col-md-4">
+      <img [src]="product.image" class="card-img">
+    </div>
 
-      <div class="col-md-9">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p>Precio: {{ product.final_price }} €</p>
-        <p>Precio con descuento: {{ product.starting_price }} €</p>
-    
-        <div *ngIf="!isItem" class="product-info">
-            <p>Nivel requerido: {{ activity.level_required }}</p>
-          <div class="square"> 
+    <div class="col-md-8">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p class="mt-5">Precio: {{ product.final_price }} €</p>
+      <p>Precio con descuento: {{ product.starting_price }} €</p>
+  
+      <div *ngIf="!isItem" class="product-info">
+        <p>Nivel requerido: {{ activity.level_required }}</p>
+        <div class="mt-5 square"> 
+          <div class="d-flex justify-content-between">
             <p>Huecos disponibles: {{ activity.available_spaces }}</p>
-            <button class="btn btn-warning" (click)="addToCart(activity)" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
+            <p *ngIf="isInCart(activity)">Este producto ya se encuentra en el carrito</p>
+          </div>
+          <div class="options d-flex justify-content-between">
+            <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
+            <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(activity)" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
+            <select *ngIf="activity.available_spaces>0" (change)="setQuantity($event.target)" class="form-select m-4" [disabled]="item.stock<=0">
+              <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{i}}</option>
+            </select>
           </div>
         </div>
-    
-        <div *ngIf="isItem" class="product-info square">
+      </div>
+  
+      <div *ngIf="isItem" class="product-info mt-5 square">
+        <div class="d-flex justify-content-between">
           <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' : 'Sin stock' }}</p>
-          <button class="btn btn-warning" (click)="addToCart(item)" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="item.stock<=0">Añadir a la cesta</button>
+          <p *ngIf="isInCart(item)">Este producto ya se encuentra en el carrito</p>
         </div>
+        <div class="options d-flex justify-content-between">
+          <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="item.stock<=0">Añadir a la cesta</button>
+          <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(item)" [disabled]="item.stock<=0">Añadir a la cesta</button>
+          <select *ngIf="item.stock>0" (change)="setQuantity($event.target)" class="form-select m-4" >
+            <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{i}}</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </div>

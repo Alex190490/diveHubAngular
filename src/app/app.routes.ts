@@ -10,6 +10,8 @@ import { RegisterComponent } from './register/register.component';
 import { ContactAreaComponent } from './contact-area/contact-area.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminAreaComponent } from './admin-area/admin-area.component';
+import { CarritoDetailsComponent } from './carrito-details/carrito-details.component';
+import { PayMethodComponent } from './pay-method/pay-method.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +58,14 @@ export const routes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
+    },
+    {
+        path: 'carrito-details',
+        component: CarritoDetailsComponent
+    },
+    {
+        path: 'pay-method',
+        component: PayMethodComponent
     },
     {
         path: 'not-found',

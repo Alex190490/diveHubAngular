@@ -4,6 +4,16 @@
     border-radius: 10px;
 }
 
+.navbar-nav a{
+    text-decoration: none;
+    color: blue;  
+}
+
+hr{
+    width: 30px;
+    border: 1px solid black;
+}
+
 .selected {
     font-weight: bold;
 }
