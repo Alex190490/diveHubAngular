@@ -25,25 +25,16 @@
       <div *ngIf="!isItem" class="product-info">
         <p>Nivel requerido: {{ activity.level_required }}</p>
         <div class="mt-5 square"> 
-          <div class="d-flex justify-content-between">
-            <p>Huecos disponibles: {{ activity.available_spaces }}</p>
-            <p *ngIf="isInCart(activity)">Este producto ya se encuentra en el carrito</p>
-          </div>
+          <p>Huecos disponibles: {{ activity.available_spaces }}</p>
           <div class="options d-flex justify-content-between">
             <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
             <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(activity)" [disabled]="activity.available_spaces<=0">Añadir a la cesta</button>
-            <select *ngIf="activity.available_spaces>0" (change)="setQuantity($event.target)" class="form-select m-4" [disabled]="item.stock<=0">
-              <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{i}}</option>
-            </select>
           </div>
         </div>
       </div>
   
       <div *ngIf="isItem" class="product-info mt-5 square">
-        <div class="d-flex justify-content-between">
-          <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' : 'Sin stock' }}</p>
-          <p *ngIf="isInCart(item)">Este producto ya se encuentra en el carrito</p>
-        </div>
+        <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' : 'Sin stock' }}</p>
         <div class="options d-flex justify-content-between">
           <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login" [disabled]="item.stock<=0">Añadir a la cesta</button>
           <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(item)" [disabled]="item.stock<=0">Añadir a la cesta</button>

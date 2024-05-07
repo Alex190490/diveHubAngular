@@ -21,7 +21,7 @@ import { ProductService } from '../services/product/product.service';
 })
 
 
-export class AdminAreaComponent implements OnInit, OnDestroy {
+export class AdminAreaComponent {
   userLogged: string = this.session.getItem("email")
   listUsers: User[] = new Array()
   details: Detail[] = new Array()
@@ -29,7 +29,7 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
   segundosTimer: any
   showForm: boolean = false
   submitted: boolean = false
-  hideOrderDetails: boolean = true
+  showOrderDetails: boolean = false
 
   nuevoUsuarioForm = this.formBuilder.group({
     nickname: ['', Validators.required],
@@ -59,62 +59,28 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.isAdmin().subscribe(
-      isAdmin => { if (!isAdmin) this.router.navigate(['/home']) },
-      () => { this.router.navigate(['/home']) }
+      isAdmin => { if (!isAdmin) this.router.navigate(['/home']).then(() => window.location.reload()) },
+      () => this.router.navigate(['/home']).then(() => window.location.reload())
     )
 
-    this.userService.getAllUsers().subscribe(users => {
-      this.listUsers = users
-
-      this.segundosTimer = setInterval(() => {
-        this.actualizarSegundos()
-      }, 100)
-    })
+    this.userService.getAllUsers().subscribe(users => this.listUsers = users)
   }
 
 
-  ngOnDestroy(): void {
-    clearInterval(this.segundosTimer)
-  }
-
-
-  actualizarSegundos(): void {
-    this.listUsers.forEach(user => user.last_login_parsed = this.parseToExactTime(user.last_login))
-  }
-
-
-  parseToString(fechaSinFormatear: string): string {
-    if (fechaSinFormatear !== null) return fechaSinFormatear.split('T')[0]
-    return fechaSinFormatear
-  }
-
-
-  parseToExactTime(fechaSinFormatear: string): string {
-    const fecha = new Date(fechaSinFormatear)
-    const ahora = new Date()
-
-    const diferencia = differenceInSeconds(ahora, fecha)
-
-    const d = Math.floor(diferencia / 86400)
-    const h = Math.floor((diferencia % 86400) / 3600)
-    const m = Math.floor((diferencia % 3600) / 60)
-    const s = diferencia % 60
-
-    if (d == 0 && h == 0 && m == 0) return "hace " + s + "s"
-    else if (d == 0 && h == 0) return "hace " + m + "min " + s + "s"
-    else if (d == 0) return "hace " + h + "h " + m + "min " + s + "s"
-    else return "hace " + d + "d " + h + "h " + m + "min " + s + "s"
-
+  parseDate(date: string | Date): string {
+    return new Date(date).toLocaleString()
   }
 
 
   deleteUser(email: string){
-    this.hideOrderDetails = false
+    this.showOrderDetails = false
     this.userService.deleteUser(email).subscribe(() => this.userService.getAllUsers().subscribe(users => this.listUsers = users))
   }
 
 
   getOrder(email: string){
+    this.details = new Array()
+    this.showOrderDetails = !this.showOrderDetails
     this.detailService.getDetailsByUser(email).pipe(
       switchMap(details => {
         const requests = details.map(detailsItem => this.productService.getProductById(detailsItem.productId))
@@ -125,10 +91,7 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
           })
         )
       })
-    ).subscribe(myDetails => {
-      this.details = myDetails
-      this.hideOrderDetails = !this.hideOrderDetails
-    })
+    ).subscribe(myDetails => this.details = myDetails)
   }
 
 
@@ -139,17 +102,13 @@ export class AdminAreaComponent implements OnInit, OnDestroy {
       if (!groupedDetails[detail.order.id]) groupedDetails[detail.order.id] = []
       groupedDetails[detail.order.id].push(detail)
     })
-  
-    return Object.values(groupedDetails)
+    
+    return Object.values(groupedDetails).sort((a, b) => {
+      return new Date(b[0].order.date).getTime() - new Date(a[0].order.date).getTime()
+    })
   }
+
   
-  
-
-
-
-
-
-
   togglePasswordVisibility() {
     this.visible = this.visible === 'password' ? 'text' : 'password'
   }

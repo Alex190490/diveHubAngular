@@ -19,7 +19,11 @@ export class DetailsService {
 
 
   getDetailsByUser(email: string): Observable<Detail[]> {
-    return this.httpCliente.get<Detail[]>(environment.urlDetail + "/" + email)
+    return this.httpCliente.get<Detail[]>(environment.urlDetail + "/all/" + email)
+  }
+
+  getDetailsByOrder(id: number): Observable<Detail[]> {
+    return this.httpCliente.get<Detail[]>(environment.urlDetail + "/details/" + id)
   }
 
   postDetails(detail: DetailRequest): Observable<Detail> {

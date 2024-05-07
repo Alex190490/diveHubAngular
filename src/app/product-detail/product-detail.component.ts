@@ -89,15 +89,6 @@ export class ProductDetailComponent implements OnInit{
   }
 
 
-  isInCart(product: Activity | Item): Observable<boolean> {
-    if (this.isLogged() && product.id != undefined) {
-      console.log(product.id)
-      return this.cartService.existsInCart(this.session.getItem("email"), product.id);
-    } 
-    return of(false);
-  }
-
-
   isLogged(): boolean{
     if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) return false
     return true

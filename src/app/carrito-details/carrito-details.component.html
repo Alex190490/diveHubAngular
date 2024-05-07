@@ -47,7 +47,7 @@
                                         <td *ngIf="cart.product">{{cart.product.name}}</td>
                                         <td class="align-middle" *ngIf="cart.product">{{cart.product.final_price}}€</td>
                                         <td class="align-middle" *ngIf="cart.product">
-                                            <select [(ngModel)]="cart.quantity" (change)="updateCartItem(cart.product.id, $event.target)" class="form-select">
+                                            <select [(ngModel)]="cart.quantity" [disabled]="isActivity(cart.product)" (change)="updateCartItem(cart.product.id, $event.target)" class="form-select">
                                                 <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{ i }}</option>
                                             </select> 
                                         </td>

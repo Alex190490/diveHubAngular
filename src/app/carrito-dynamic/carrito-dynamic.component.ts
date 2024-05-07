@@ -7,6 +7,8 @@ import { SessionStorageService } from '../services/sessionStorage/session-storag
 import { CartService } from '../services/cart/cart.service'
 import { ProductService } from '../services/product/product.service'
 import { forkJoin, map, switchMap } from 'rxjs'
+import { Activity } from '../Clases/Activity/activity'
+import { Item } from '../Clases/Item/item'
 
 
 @Component({
@@ -72,6 +74,7 @@ export class CarritoDynamicComponent {
       this.updateMyCart()
       this.totalCart()
     })
+    window.location.reload()
   }
 
 
@@ -84,6 +87,14 @@ export class CarritoDynamicComponent {
   }
   
 
+  isActivity(product: Product): boolean{
+    switch(product.category){
+      case "DIVE": case "COURSE": return true
+    }
+    return false
+  }
+
+
   totalProduct(price: number, ammount: number) {
     return (price * ammount).toFixed(2)
   }
@@ -95,11 +106,11 @@ export class CarritoDynamicComponent {
 
 
   details() {
-    this.router.navigate(['/carrito-details'])
+    this.router.navigate(['/carrito-details']).then(() => window.location.reload())
   }
 
 
   goShop() {
-    this.router.navigate(['/shop'])
+    this.router.navigate(['/shop']).then(() => window.location.reload())
   }
 }

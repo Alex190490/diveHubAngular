@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuNavbarLoggeadoComponent } from '../menu-navbar-loggeado/menu-navbar-loggeado.component';
 import { MenuNavbarSinLoggearComponent } from '../menu-navbar-sin-loggear/menu-navbar.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ItemService } from '../services/item/item.service';
 import { Item } from '../Clases/Item/item';
 import { ActivityService } from '../services/activity/activity.service';
@@ -40,7 +40,8 @@ export class ShopComponent implements OnInit {
     private activityService: ActivityService,
     private userService: UserService,
     private session: SessionStorageService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private router: Router
   ) { }
 
 
@@ -181,8 +182,11 @@ export class ShopComponent implements OnInit {
     })
   }
   
-  
 
+  navigateToProduct(productId: number) {
+    this.router.navigate(['/product-details/', productId]).then(() => window.location.reload())
+  }
+  
 
   isLogged(): boolean {
     if (this.session.getItem('email') == null || this.session.getItem('email') == "" || this.session.getItem('email') == undefined) return false

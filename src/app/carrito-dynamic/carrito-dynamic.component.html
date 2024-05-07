@@ -13,9 +13,9 @@
                             <p><strong><u>{{ cart.product.name }}</u></strong></p>
                             <p style="font-size: 12px;">{{ cart.product.final_price }} €/Uds</p>
                             <input disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.quantity) + ' €'">
-                            <i class="fa-solid fa-minus btn" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
-                            <span>{{ cart.quantity }}</span>
-                            <i class="fa-solid fa-plus btn" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
+                            <i class="fa-solid fa-minus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
+                            <span *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>
+                            <i class="fa-solid fa-plus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
                             <i class="fa-solid fa-trash btn" (click)="deleteProductFromCart(cart.product.id)"></i>
                         </div>
                     </div>                    

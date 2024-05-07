@@ -38,11 +38,11 @@
                     <td class="align-middle">{{user.nickname}}</td>
                     <td class="align-middle">{{user.name}}</td>
                     <td class="align-middle">{{user.surnames}}</td>
-                    <td class="align-middle">{{parseToString(user.registration_date)}}</td>
-                    <td class="align-middle">{{user.last_login_parsed}}</td>
+                    <td class="align-middle">{{parseDate(user.registration_date)}}</td>
+                    <td class="align-middle">{{parseDate(user.last_login)}}</td>
                     <td class="align-middle">{{user.address}}</td>
                     <td class="align-middle">{{user.phone}}</td>
-                    <td class="align-middle">{{parseToString(user.birthday)}}</td>
+                    <td class="align-middle">{{parseDate(user.birthday)}}</td>
                     <td class="align-middle">{{user.level}}</td>
                     <td class="align-middle">{{user.role}}</td>
                 </tr>
@@ -51,39 +51,58 @@
     </div>
 </div>
 
-<div class="container" [hidden]="hideOrderDetails">
-    <h1 class="mt-5 mb-5">Pedidos</h1>
-    <div class="pedidos">
-        <div *ngFor="let orderDetails of groupByOrderId(details)" class="card p-5 mb-5">
-            <div class="d-flex justify-content-between">
-                <h2>Pedido ID (PID {{ orderDetails[0].order.id }})</h2>
-                <div>
-                    <span>{{orderDetails[0].order.user.email}}</span><br>
-                    <span>{{orderDetails[0].order.user.address}}</span><br>
-                    <span>{{orderDetails[0].order.user.phone}}</span>
+<div class="container" *ngIf="showOrderDetails">
+    <div *ngIf="details.length==0">
+        <h2 class="text-center">No hay pedidos</h2>
+    </div>
+    <div *ngIf="details.length!=0">
+        <h1 class="mt-5 mb-5">Pedidos</h1>
+        <div id="accordion">
+            <div *ngFor="let orderDetails of groupByOrderId(details)" class="mb-4">
+                <div class="accordion-item">
+                    <div class="accordion-header" [id]="'cabecera' + orderDetails[0].order.id">
+                        <h5 class="mb-0">
+                            <button class="accordion-button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#respuesta' + orderDetails[0].order.id">
+                                <h3>Pedido ID (PIB {{(orderDetails[0].order.id)}}) del {{ parseDate(orderDetails[0].order.date)}} </h3>
+                            </button>
+                        </h5>
+                    </div>
+                    <div [id]="'respuesta' + orderDetails[0].order.id" class="accordion-collapse collapse"
+                        data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <div class="method">
+                                <table class="table table-bordered mt-5 text-center table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Nombre</th>
+                                            <th>Precio €/Ud</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio Total €</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let detail of orderDetails">
+                                            <td class="align-middle"><img [src]="detail.product.image"></td>
+                                            <td class="align-middle">{{ detail.product.name }}</td>
+                                            <td class="align-middle">{{ detail.product.final_price }}€</td>
+                                            <td class="align-middle">{{ detail.quantity }}</td>
+                                            <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="text-end p-5">
+                                                <h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <table class="table mt-5 text-center">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Nombre</th>
-                        <th>Precio €/Ud</th>
-                        <th>Cantidad</th>
-                        <th>Precio Total €</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let detail of orderDetails">
-                        <td class="align-middle"><img [src]="detail.product.image"></td>
-                        <td class="align-middle">{{ detail.product.name }}</td>
-                        <td class="align-middle">{{ detail.product.final_price }}€</td>
-                        <td class="align-middle">{{ detail.quantity }}</td>
-                        <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€</td>
-                    </tr>
-                    <td colspan="5" class="text-end pt-5"><span>Total Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></span></td>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

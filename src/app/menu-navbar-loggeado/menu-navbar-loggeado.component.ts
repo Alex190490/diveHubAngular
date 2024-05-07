@@ -46,7 +46,7 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
       },
       error => {
         this.loginService.logout()
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home']).then(() => window.location.reload())
       }
     )
   }
@@ -75,7 +75,7 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
       result => {
         if (result.isConfirmed) {
           this.loginService.logout()
-          this.router.navigate(['/home'])
+          this.router.navigate(['/home']).then(() => window.location.reload())
         }
       }
     )

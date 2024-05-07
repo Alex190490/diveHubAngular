@@ -71,7 +71,7 @@ export class NavbarCollapseComponent {
       result => {
         if (result.isConfirmed) {
           this.loginService.logout()
-          this.router.navigate(['/home'])
+          this.router.navigate(['/home']).then(() => window.location.reload())
         }
       }
     )

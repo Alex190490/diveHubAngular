@@ -18,8 +18,8 @@ export class OrderService {
 
   
 
-  getOrderByUser(email: string): Observable<Order> {
-    return this.httpCliente.get<Order>(environment.urlOrder + "/" + email)
+  getOrdersByUser(email: string): Observable<Order[]> {
+    return this.httpCliente.get<Order[]>(environment.urlOrder + "/" + email)
   }
 
   addOrder(order: OrderRequest): Observable<Order> {

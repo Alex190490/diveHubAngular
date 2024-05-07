@@ -14,6 +14,7 @@ import { DetailsService } from '../services/detail/details.service';
 import { DetailRequest } from '../Clases/Detail/detail-request';
 import { Order } from '../Clases/Order/order';
 import { FormsModule } from '@angular/forms';
+import { Product } from '../Clases/Product/product';
 
 
 @Component({
@@ -90,7 +91,7 @@ export class CarritoDetailsComponent implements OnInit {
   saveOrder() {
     const order: OrderRequest = {
       user: this.user,
-      total: this.cartTotalPrice,
+      total: parseFloat(this.cartTotalPrice.toFixed(2)),
       date: new Date(),
       address: this.user.address
     }
@@ -105,8 +106,16 @@ export class CarritoDetailsComponent implements OnInit {
         this.detailService.postDetails(detail).subscribe()
       })
       
-      this.router.navigate(['pay-method'])
+      this.router.navigate(['pay-method']).then(() => window.location.reload())
     })
+  }
+
+
+  isActivity(product: Product): boolean{
+    switch(product.category){
+      case "DIVE": case "COURSE": return true
+    }
+    return false
   }
 
 
@@ -116,13 +125,16 @@ export class CarritoDetailsComponent implements OnInit {
 
 
   updateCartItem(id: number, cartItem: any) {
-    this.cartService.updateProductQuantity(this.session.getItem("email"), id, cartItem.value).subscribe(() => window.location.reload())
-  }
+    this.productService.getProductById(id).subscribe(product=>{
+      if(!this.isActivity(product)) this.cartService.updateProductQuantity(this.session.getItem("email"), id, cartItem.value).subscribe(() => window.location.reload())
+      else window.location.reload()
+    })
+   }
 
 
   isLogged(): boolean{
     if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) {
-      this.router.navigate(["/home"])
+      this.router.navigate(["/home"]).then(() => window.location.reload())
       return false
     }
     return true

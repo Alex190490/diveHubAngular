@@ -1,0 +1,59 @@
+<app-menu-navbar-loggeado />
+<div class="container text-center" *ngIf="details.length==0">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Mis Pedidos</li>
+    </ol>
+    <h4>No hay Pedidos</h4><br>
+    <button class="btn btn-warning mt-3" [routerLink]="['/shop']">Ir a la tienda</button>
+</div>
+
+<div class="container" *ngIf="details.length!=0">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Mis Pedidos</li>
+    </ol>
+    <h1 class="mt-5 mb-5">Mis Pedidos</h1>
+    <div id="accordion">
+        <div *ngFor="let orderDetails of groupByOrderId(details)" class="mb-4">
+            <div class="accordion-item">
+                <div class="accordion-header" [id]="'cabecera' + orderDetails[0].order.id">
+                    <h5 class="mb-0">
+                        <button class="accordion-button" data-bs-toggle="collapse" [attr.data-bs-target]="'#respuesta' + orderDetails[0].order.id">
+                            <h3>Pedido del {{parseDate(orderDetails[0].order.date)}}</h3>
+                        </button>
+                    </h5>
+                </div>
+                <div [id]="'respuesta' + orderDetails[0].order.id" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                    <div class="accordion-body">
+                        <div class="method">
+                            <table class="table mt-5 text-center table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Nombre</th>
+                                        <th>Valorar</th>
+                                        <th>Precio €/Ud</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Total €</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let detail of orderDetails">
+                                        <td class="align-middle"><img [src]="detail.product.image"></td>
+                                        <td class="align-middle">{{ detail.product.name }}</td>
+                                        <td class="align-middle"><a [routerLink]="['/assessment']">Valorar producto</a></td>
+                                        <td class="align-middle">{{ detail.product.final_price }}€</td>
+                                        <td class="align-middle">{{ detail.quantity }}</td>
+                                        <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€</td>
+                                    </tr>
+                                    <td colspan="6" class="text-end pt-4 px-5"><h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></h4></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

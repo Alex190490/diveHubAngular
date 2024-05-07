@@ -32,4 +32,8 @@ export class ProductService {
   getProductsByName(name : string): Observable<Product[]> {
     return this.httpCliente.get<Product[]>(environment.urlProducts+"/getProductByName/"+name)
   }
+
+  getIsItem(id: number): Observable<Boolean> {
+    return this.httpCliente.get<Boolean>(environment.urlProducts+"/isItem/" + id)
+  }
 }

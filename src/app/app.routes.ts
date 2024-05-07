@@ -12,6 +12,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AdminAreaComponent } from './admin-area/admin-area.component';
 import { CarritoDetailsComponent } from './carrito-details/carrito-details.component';
 import { PayMethodComponent } from './pay-method/pay-method.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AssessmentComponent } from './assessment/assessment.component';
 
 export const routes: Routes = [
     {
@@ -50,6 +52,14 @@ export const routes: Routes = [
     {
         path: 'contact-area',
         component: ContactAreaComponent
+    },
+    {
+        path: 'assessment',
+        component: AssessmentComponent
+    },
+    {
+        path: 'my-orders',
+        component: MyOrdersComponent
     },
     {
         path: 'register',
