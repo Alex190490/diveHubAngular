@@ -1,1 +1,29 @@
-<p>assessment works!</p>
+<app-menu-navbar-loggeado />
+
+<div class="container">
+    <div class="product">
+        <div class="product-info">
+            <div class="text-center mb-5"><img [src]="product.image"></div>
+            <div class="product-name">{{product.name}}</div>
+            <div class="product-description">{{product.description}}</div>
+            
+            <form class="product-rating-form" [formGroup]="assessmentForm">
+                <div class="form-group d-flex align-items-center">
+                    <label for="star-rating">Estrellas: </label>
+                    <div id="star-rating">
+                        <span class="star" (click)="rateProduct(1)">&#9734;</span>
+                        <span class="star" (click)="rateProduct(2)">&#9734;</span>
+                        <span class="star" (click)="rateProduct(3)">&#9734;</span>
+                        <span class="star" (click)="rateProduct(4)">&#9734;</span>
+                        <span class="star" (click)="rateProduct(5)">&#9734;</span>
+                    </div>
+                </div>
+                <div class="form-floating mt-4"> 
+                    <textarea class="form-control" formControlName="content" id="review" rows="5"></textarea>
+                    <label for="review">Escribe una reseña:</label>        
+                </div> 
+                <button (click)="saveAssessment()" class="btn btn-primary mt-5">Enviar Valoración</button>
+            </form>
+        </div>
+    </div>
+</div>

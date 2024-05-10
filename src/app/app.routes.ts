@@ -54,7 +54,7 @@ export const routes: Routes = [
         component: ContactAreaComponent
     },
     {
-        path: 'assessment',
+        path: 'assessment/:id',
         component: AssessmentComponent
     },
     {

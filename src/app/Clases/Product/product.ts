@@ -8,4 +8,5 @@ export class Product {
     category: string;
     tag: string;
     isLiked: boolean
+    rating: number
 }

@@ -8,6 +8,7 @@
     background-color: #f6f6f6;
     padding: 20px;
     margin-top: 20px;
+    margin-bottom: 50px;
     border: 1px solid #ced4da;
     border-radius: 5px;
 }
@@ -16,24 +17,71 @@
     margin-bottom: 5px;
 }
 
-.btn-warning{
+.btn-warning {
     margin-top: 20px;
 }
 
-img{
+img {
     object-fit: contain;
     width: 100%;
 }
 
-button{
+button {
     width: 100%;
 }
 
-@media only screen and (min-width: 993px) {
-    
-  }
-  
-  @media only screen and (max-width: 992px) {
-  }
+.ratings {
+    font-size: 16px;
+    color: #ffa500;
+}
 
+.date{
+    font-size: 12px;
+    color: #444444;
+}
 
+.rating-stars {
+  font-size: 24px;
+  color: #ccc;
+  display: inline-block;
+}
+
+.star.filled {
+  color: #ffa500;  
+}
+
+.star{
+    color: #ccc;
+}
+
+.rate{
+    color: #585858;
+}
+
+span{
+    color: black;
+}
+
+.rating-value {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.rating-count {
+    margin-left: 10px;
+    color: #888;
+}
+
+.valor{
+    text-decoration: blue;
+    border-bottom: 1px solid blue;
+    cursor: pointer;
+}
+
+hr{
+    border: 2px solid black;
+}
+
+.price{
+    font-size: 30px;
+}

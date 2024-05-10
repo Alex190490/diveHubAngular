@@ -7,4 +7,5 @@ export class Cart {
   productId: number
   product: Product
   quantity: number
+  isOverStock: boolean
 }

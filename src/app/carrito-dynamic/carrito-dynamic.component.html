@@ -12,11 +12,13 @@
                         <div>
                             <p><strong><u>{{ cart.product.name }}</u></strong></p>
                             <p style="font-size: 12px;">{{ cart.product.final_price }} €/Uds</p>
-                            <input disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.quantity) + ' €'">
-                            <i class="fa-solid fa-minus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
-                            <span *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>
-                            <i class="fa-solid fa-plus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
-                            <i class="fa-solid fa-trash btn" (click)="deleteProductFromCart(cart.product.id)"></i>
+                            <input class="me-3" disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.quantity) + ' €'">
+                            <div class="mt-2">
+                                <i class="fa-solid fa-minus btn pe-2" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
+                                <span *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>
+                                <i class="fa-solid fa-plus btn me-3 px-2" *ngIf="!isActivity(cart.product)" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
+                                <i class="fa-solid fa-trash btn p-0" (click)="deleteProductFromCart(cart.product.id)"></i>
+                            </div>
                         </div>
                     </div>                    
                 </article>

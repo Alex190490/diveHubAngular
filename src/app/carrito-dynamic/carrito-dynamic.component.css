@@ -39,6 +39,10 @@
   font-weight: bold;
 }
 
+input{
+  width: 150px;
+}
+
 .cart-btn {
   width: 50%;
   border: none;

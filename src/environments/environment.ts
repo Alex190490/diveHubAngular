@@ -8,5 +8,6 @@ export const environment = {
     urlOrder: 'http://localhost:8080/divehub/orders',
     urlWish: 'http://localhost:8080/divehub/wishes',
     urlMessage: 'http://localhost:8080/divehub/messages',
-    urlDetail: 'http://localhost:8080/divehub/details'
+    urlDetail: 'http://localhost:8080/divehub/details',
+    urlAssessments: 'http://localhost:8080/divehub/assessments'
   }

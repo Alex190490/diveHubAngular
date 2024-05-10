@@ -15,6 +15,7 @@ import { DetailRequest } from '../Clases/Detail/detail-request';
 import { Order } from '../Clases/Order/order';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../Clases/Product/product';
+import { ItemService } from '../services/item/item.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class CarritoDetailsComponent implements OnInit {
   myCart: Cart[]
   user: User = new User()
   cartTotalPrice: number
+  isAbledToBuy: boolean = true
 
 
 
@@ -40,6 +42,7 @@ export class CarritoDetailsComponent implements OnInit {
     private session: SessionStorageService,
     private productService: ProductService,
     private detailService: DetailsService,
+    private itemService: ItemService,
     private router: Router
   ) { }
 
@@ -51,6 +54,7 @@ export class CarritoDetailsComponent implements OnInit {
         this.user = userData
         this.updateMyCart()
         this.totalCart()
+        this.checkQuantityValidity()
       },
       error => console.error('Error al obtener información del usuario:', error)
     )
@@ -62,6 +66,7 @@ export class CarritoDetailsComponent implements OnInit {
     this.cartService.getListByUser(this.session.getItem('email')).subscribe(data => {
       this.myCart = data
       this.updateProductDetails()
+      this.checkQuantityValidity()
     })
   }
 
@@ -74,10 +79,8 @@ export class CarritoDetailsComponent implements OnInit {
 
 
   //Devuelve el precio total del carrito
-  totalCart(): void {
-    this.cartService.calculateTotalCart(this.user.email).subscribe(
-      total => this.cartTotalPrice = parseFloat(total.toFixed(2))
-    )
+  totalCart() {
+    this.cartService.calculateTotalCart(this.user.email).subscribe(total => this.cartTotalPrice = parseFloat(total.toFixed(2)))
   }
 
 
@@ -87,32 +90,54 @@ export class CarritoDetailsComponent implements OnInit {
   }
 
 
-  //Redirige a la página de pagos
-  saveOrder() {
-    const order: OrderRequest = {
-      user: this.user,
-      total: parseFloat(this.cartTotalPrice.toFixed(2)),
-      date: new Date(),
-      address: this.user.address
-    }
+  // Método para verificar la validez de las cantidades seleccionadas
+  checkQuantityValidity() {
+    if(this.myCart) {  
+      this.isAbledToBuy = true
+      this.myCart = this.myCart.filter(cart => cart !== undefined)
 
-    this.orderService.addOrder(order).subscribe((order: Order) => {
-      this.myCart.forEach(cartItem => {
-        const detail: DetailRequest = {
-          order: order,
-          productId: cartItem.productId,
-          quantity: cartItem.quantity
-        }
-        this.detailService.postDetails(detail).subscribe()
-      })
-      
-      this.router.navigate(['pay-method']).then(() => window.location.reload())
-    })
+      this.myCart.forEach(cartItem => 
+        this.productService.getIsItem(cartItem.productId).subscribe(isItem=> {
+          if(isItem) this.itemService.getItemById(cartItem.productId).subscribe(item => {
+            cartItem.isOverStock = item.stock < cartItem.quantity
+            if (cartItem.isOverStock) {
+              this.isAbledToBuy = false 
+            }
+          })
+        })
+      )
+    }
   }
 
 
-  isActivity(product: Product): boolean{
-    switch(product.category){
+  //Redirige a la página de pagos
+  saveOrder() {
+    if (this.isAbledToBuy) {
+      const order: OrderRequest = {
+        user: this.user,
+        total: parseFloat(this.cartTotalPrice.toFixed(2)),
+        date: new Date(),
+        address: this.user.address
+      }
+
+      this.orderService.addOrder(order).subscribe((order: Order) => {
+        this.myCart.forEach(cartItem => {
+          const detail: DetailRequest = {
+            order: order,
+            productId: cartItem.productId,
+            quantity: cartItem.quantity
+          }
+          this.detailService.postDetails(detail).subscribe()
+        })
+
+        this.router.navigate(['pay-method']).then(() => window.location.reload())
+      })
+    }
+  }
+
+
+  isActivity(product: Product): boolean {
+    switch (product.category) {
       case "DIVE": case "COURSE": return true
     }
     return false
@@ -125,15 +150,15 @@ export class CarritoDetailsComponent implements OnInit {
 
 
   updateCartItem(id: number, cartItem: any) {
-    this.productService.getProductById(id).subscribe(product=>{
-      if(!this.isActivity(product)) this.cartService.updateProductQuantity(this.session.getItem("email"), id, cartItem.value).subscribe(() => window.location.reload())
+    this.productService.getProductById(id).subscribe(product => {
+      if (!this.isActivity(product)) this.cartService.updateProductQuantity(this.session.getItem("email"), id, cartItem.value).subscribe(() => window.location.reload())
       else window.location.reload()
     })
-   }
+  }
 
 
-  isLogged(): boolean{
-    if(this.session.getItem('email')==null||this.session.getItem('email')==""||this.session.getItem('email')==undefined) {
+  isLogged(): boolean {
+    if (this.session.getItem('email') == null || this.session.getItem('email') == "" || this.session.getItem('email') == undefined) {
       this.router.navigate(["/home"]).then(() => window.location.reload())
       return false
     }

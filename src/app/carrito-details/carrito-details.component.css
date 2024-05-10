@@ -6,11 +6,53 @@
 }
 
 img {
-  width: 100px;
+  width: 100%;
+  object-fit: contain;
   border-radius: 4px;
-  margin-right: 10px;
 }
 
 td {
   max-width: 200px;
+}
+
+select{
+  width: 100%;
+}
+
+.p-error{
+  color: red;
+  font-size: 12px;
+}
+
+.error{
+  border: 2px solid red;
+}
+
+.payment-methods {
+  background-color: #f9f9f9;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.payment-methods h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.payment-methods p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.payment-icons img {
+  width: 50px;
+  margin: 0 10px;
+}
+
+.payment-icons img:last-child {
+  margin-right: 0;
 }
