@@ -28,8 +28,9 @@
         <span class="rating-count"><a class="valor" (click)="scrollToDiv()">({{totalAssessmts}} valoraciones)</a></span>
       </div>
 
-      <p class="mt-5 price">{{ product.starting_price }} €</p>
-      <p>Precio: <del>{{ product.final_price }} €</del></p>
+      <p class="mt-5 price">{{ (product.starting_price).toString().split(".")[0] }}<span class="decimal">{{
+          (product.starting_price).toString().split(".")[1] }}</span>&nbsp;&nbsp;&nbsp;€</p>
+      <p class="text-success">Precio: <del>{{ product.final_price }} €</del></p>
 
       <div *ngIf="!isItem" class="product-info">
         <p>Nivel requerido: {{ activity.level_required }}</p>
@@ -61,7 +62,7 @@
     <div class="mb-5" #valoracionesDiv id="valoraciones">
 
     </div>
-    <div class="container mt-5" >
+    <div class="container mt-5">
       <div *ngIf="totalAssessmts==0">
         <h3>No hay valoraciones para este producto</h3>
       </div>
@@ -69,6 +70,12 @@
         <h3>Valoraciones del producto<span class="rating-count">({{totalAssessmts}} valoraciones)</span></h3>
 
         <div class="ratings card mt-4 p-5 gap-3">
+          <select class="form-select ms-auto mb-5" (change)="switchMode($event.target)">
+            <option value="new">Más recientes</option>
+            <option value="old">Más antiguas</option>
+            <option value="best">Mejor valoraciones</option>
+            <option value="worst">Peor valoraciones</option>
+          </select>
           <div *ngFor="let assessment of assessments">
             <div class="d-flex justify-content-between">
               <span>Por {{assessment.user.nickname}}:</span>

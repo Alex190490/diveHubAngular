@@ -125,6 +125,16 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  switchMode(type: any){
+    switch(type.value){
+      case "new": this.assessments = this.assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); break
+      case "old": this.assessments = this.assessments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); break
+      case "best":  this.assessments = this.assessments.sort((a, b) => b.stars - a.stars); break
+      case "worst": this.assessments = this.assessments.sort((a, b) => a.stars - b.stars); break
+    }
+  }
+
+
   isLogged(): boolean{
     if (this.session.getItem('email') == null || this.session.getItem('email') == "" || this.session.getItem('email') == undefined) return false
     return true
