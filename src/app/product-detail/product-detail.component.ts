@@ -75,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
       }
 
       this.assessmentsService.getAssessmentsByProduct(this.id).subscribe(assessments => {
-        this.assessments = assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        this.assessments = assessments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         this.totalAssessments()
       })
     })
@@ -127,8 +127,8 @@ export class ProductDetailComponent implements OnInit {
 
   switchMode(type: any){
     switch(type.value){
-      case "new": this.assessments = this.assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); break
-      case "old": this.assessments = this.assessments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); break
+      case "old": this.assessments = this.assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); break
+      case "new": this.assessments = this.assessments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); break
       case "best":  this.assessments = this.assessments.sort((a, b) => b.stars - a.stars); break
       case "worst": this.assessments = this.assessments.sort((a, b) => a.stars - b.stars); break
     }

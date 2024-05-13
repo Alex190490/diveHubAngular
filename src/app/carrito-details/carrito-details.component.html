@@ -6,7 +6,7 @@
         <li class="breadcrumb-item active">Detalles del carrito</li>
     </ol>
 
-    <div *ngIf="myCart">
+    <div *ngIf="!isCartNull()">
         <h1 class="mt-5 mb-5">Resumen del pedido</h1>
         <div class="card mb-4">
             <div class="card-body">
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="myCart==null">
+    <div *ngIf="isCartNull()">
         <p class="text-center info">El carrito está vacío.</p>
         <button [routerLink]="['/shop']" class="btn btn-warning d-flex mx-auto text-center">Ir a la tienda</button>
     </div>

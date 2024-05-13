@@ -92,21 +92,27 @@ export class CarritoDetailsComponent implements OnInit {
 
   // Método para verificar la validez de las cantidades seleccionadas
   checkQuantityValidity() {
-    if(this.myCart) {  
+    if (this.myCart) {
       this.isAbledToBuy = true
       this.myCart = this.myCart.filter(cart => cart !== undefined)
 
-      this.myCart.forEach(cartItem => 
-        this.productService.getIsItem(cartItem.productId).subscribe(isItem=> {
-          if(isItem) this.itemService.getItemById(cartItem.productId).subscribe(item => {
+      this.myCart.forEach(cartItem =>
+        this.productService.getIsItem(cartItem.productId).subscribe(isItem => {
+          if (isItem) this.itemService.getItemById(cartItem.productId).subscribe(item => {
             cartItem.isOverStock = item.stock < cartItem.quantity
             if (cartItem.isOverStock) {
-              this.isAbledToBuy = false 
+              this.isAbledToBuy = false
             }
           })
         })
       )
     }
+  }
+
+
+  isCartNull(): boolean {
+    this.myCart = this.myCart.filter(item => item !== null || item !== undefined);
+    return this.myCart.length === 0;
   }
 
 
@@ -129,7 +135,7 @@ export class CarritoDetailsComponent implements OnInit {
           }
           this.detailService.postDetails(detail).subscribe()
         })
-
+        this.cartService.removeAllProducts(this.session.getItem("email")).subscribe()
         this.router.navigate(['pay-method']).then(() => window.location.reload())
       })
     }
