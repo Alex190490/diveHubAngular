@@ -26,9 +26,6 @@ export class AssessmentService {
     return this.httpCliente.get<Assessment[]>(environment.urlAssessments + "/allByProduct/" + id)
   }
 
-  getAssessmentsByProductAndByEmail(id: number, email: string): Observable<Assessment> {
-    return this.httpCliente.get<Assessment>(environment.urlAssessments + "/byProductAndEmail/" + id + "/" + email)
-  }
 
   getTotalByProduct(productId: number): Observable<number> {
     return this.httpCliente.get<number>(environment.urlAssessments + "/countTotalByProduct/" + productId);
