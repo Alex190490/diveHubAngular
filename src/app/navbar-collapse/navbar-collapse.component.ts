@@ -21,6 +21,7 @@ import { CartService } from '../services/cart/cart.service';
 export class NavbarCollapseComponent {
   productsInCart: number
   user: User = new User()
+  isAdmin: boolean
   
 
 
@@ -37,7 +38,10 @@ export class NavbarCollapseComponent {
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
       this.user=user
-      if(this.isLogged()) this.fetchCartInfo()
+      if(this.isLogged()) {
+        this.fetchCartInfo()
+        this.checkIsAdmin()
+      }
     })
   }  
 
@@ -75,5 +79,10 @@ export class NavbarCollapseComponent {
         }
       }
     )
+  }
+
+
+  checkIsAdmin(){
+    this.userService.isAdmin().subscribe(isAdmin=>this.isAdmin=isAdmin)
   }
 }

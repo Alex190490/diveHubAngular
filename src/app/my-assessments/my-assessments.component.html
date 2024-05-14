@@ -1,0 +1,54 @@
+<app-menu-navbar-loggeado />
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container">
+        <ng-container *ngIf="!isAssmentNull(); else noAssessments">
+            <h1 class="mt-5 mb-4">Mis Valoraciones</h1>
+            <div class="card mb-5 p-5" *ngFor="let product of getProductsContainingAssessments()">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="product-img" [src]="product.image">
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="mb-4">{{product.name}}</h3>
+                        <ng-container *ngFor="let assessment of getAssessmentsForProduct(product.id)">
+                            <div id="accordion" class="mb-4">
+                                <div class="accordion-item">
+                                    <div class="accordion-header" [id]="'cabecera' + assessment.id">
+                                        <h5 class="mb-0">
+                                            <button class="accordion-button" data-bs-toggle="collapse"
+                                                [attr.data-bs-target]="'#respuesta' + assessment.id">
+                                                <h3>
+                                                    <div>
+                                                        <span>({{assessment.stars}}/5) </span>
+                                                        <div class="rating-stars" *ngFor="let star of [1,2,3,4,5]">
+                                                            <span class="star"
+                                                                [ngClass]="{'filled': star <= assessment.stars}">&#9733;</span>
+                                                        </div>
+                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Publicada el
+                                                            {{parseDate(assessment.date)}}</span>
+                                                    </div>
+                                                </h3>
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div [id]="'respuesta' + assessment.id" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordion">
+                                        <div class="accordion-body">
+                                            <div class="method">
+                                                <p>Valoración: {{assessment.content}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #noAssessments>
+            <h3 class="text-center mt-5">No hay Valoraciones</h3>
+        </ng-template>
+    </div>
+</div>

@@ -8,9 +8,15 @@
         <h5 class="mt-4">¿Qué estás buscando?</h5>
         <hr class="hr1">
 
-        <ul class="navbar-nav gap-2">
+        <ul class="navbar-nav">
+            
+            <!-- Admin -->
+            <li class="nav-item" *ngIf="isAdmin">
+                <a class="nav-link btn" [routerLink]="['/admin_area']" data-bs-dismiss="offcanvas">ADMIN</a>
+            </li>
+
             <!-- Init -->
-            <li class="nav-item mt-3">
+            <li class="nav-item">
                 <a class="nav-link btn" [routerLink]="['/home']" data-bs-dismiss="offcanvas">Home</a>
             </li>
 
@@ -48,7 +54,7 @@
                 <span class="m-3">|</span>
                 
                 <!-- Cart -->
-                <div class="nav-cart nav-link" data-bs-toggle="offcanvas" data-bs-target="#cart" data-bs-dismiss="offcanvas">
+                <div class="nav-cart nav-link btn" data-bs-toggle="offcanvas" data-bs-target="#cart" data-bs-dismiss="offcanvas">
                     <div *ngIf="productsInCart" class="navbar-cart-items">
                         <p>{{ productsInCart }}</p>
                     </div>
@@ -58,8 +64,14 @@
                 </div>
             </li>
 
+            <!-- Assessments -->
+            <a *ngIf="isLogged()" class="nav-link btn" [routerLink]="['/my-assessments']" data-bs-dismiss="offcanvas">Mis Valoraciones</a>
+
+             <!-- Orders -->
+           <a *ngIf="isLogged()" class="nav-link btn" [routerLink]="['/my-orders']" data-bs-dismiss="offcanvas">Mis Pedidos</a>
+
             <!-- Log out -->
-            <li *ngIf="isLogged()" class="nav-item mt-5">
+            <li *ngIf="isLogged()" class="nav-item btn">
                 <a class="nav-link btn btn-danger text-light" (click)="logOut()" data-bs-dismiss="offcanvas">Cerrar Sesión<i class="fas fa-power-off m-2"></i></a>
             </li>
         </ul>

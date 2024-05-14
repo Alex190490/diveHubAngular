@@ -43,9 +43,9 @@
                                         <td class="align-middle"><img [src]="detail.product.image"></td>
                                         <td class="align-middle">{{ detail.product.name }}</td>
                                         <td class="align-middle"><a [routerLink]="['/assessment', detail.product.id]">Valorar producto</a></td>
-                                        <td class="align-middle">{{ detail.product.final_price }}€</td>
+                                        <td class="align-middle">{{ (detail.product.final_price).toFixed(2) }}€</td>
                                         <td class="align-middle">{{ detail.quantity }}</td>
-                                        <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€</td>
+                                        <td class="align-middle">{{ (detail.product.final_price * detail.quantity).toFixed(2) }}€</td>
                                     </tr>
                                     <td colspan="6" class="text-end pt-4 px-5"><h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></h4></td>
                                 </tbody>

@@ -1,5 +1,5 @@
 .offcanvas { 
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(239, 239, 239);
 }
 
 .offcanvas-header{
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: rgba(91, 219, 255, 0.479);
+  background-color: rgb(255, 255, 255);
   border-radius: 3px;
   border-bottom: 1px solid black;
   margin-bottom: 10px;

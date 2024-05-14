@@ -86,9 +86,9 @@
                                         <tr *ngFor="let detail of orderDetails">
                                             <td class="align-middle"><img [src]="detail.product.image"></td>
                                             <td class="align-middle">{{ detail.product.name }}</td>
-                                            <td class="align-middle">{{ detail.product.final_price }}€</td>
+                                            <td class="align-middle">{{ (detail.product.final_price).toFixed(2) }}€</td>
                                             <td class="align-middle">{{ detail.quantity }}</td>
-                                            <td class="align-middle">{{ detail.product.final_price * detail.quantity }}€
+                                            <td class="align-middle">{{ (detail.product.final_price * detail.quantity).toFixed(2) }}€
                                             </td>
                                         </tr>
                                         <tr>

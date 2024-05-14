@@ -135,7 +135,6 @@ export class CarritoDetailsComponent implements OnInit {
           }
           this.detailService.postDetails(detail).subscribe()
         })
-        this.cartService.removeAllProducts(this.session.getItem("email")).subscribe()
         this.router.navigate(['pay-method']).then(() => window.location.reload())
       })
     }

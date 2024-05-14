@@ -14,6 +14,7 @@ import { CarritoDetailsComponent } from './carrito-details/carrito-details.compo
 import { PayMethodComponent } from './pay-method/pay-method.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { MyAssessmentsComponent } from './my-assessments/my-assessments.component';
 
 export const routes: Routes = [
     {
@@ -60,6 +61,14 @@ export const routes: Routes = [
     {
         path: 'my-orders',
         component: MyOrdersComponent
+    },
+    {
+        path: 'assessments',
+        component: AssessmentComponent
+    },
+    {
+        path: 'my-assessments',
+        component: MyAssessmentsComponent
     },
     {
         path: 'register',
