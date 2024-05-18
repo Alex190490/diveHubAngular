@@ -35,3 +35,14 @@
     transform: translateY(-50%);
     pointer-events: none;
 }
+
+.contact-now .btn-contact-now {
+    position: fixed;
+    bottom: 3rem;
+    right: 1.625rem;
+    box-shadow: 0 1px 20px 1px #1d4aff
+}
+
+.contact-now .btn-contact-now:hover {
+    box-shadow: none
+}

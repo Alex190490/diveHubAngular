@@ -7,12 +7,13 @@ import { Detail } from '../Clases/Detail/detail';
 import { DetailsService } from '../services/detail/details.service';
 import { forkJoin, map, switchMap } from 'rxjs';
 import { ProductService } from '../services/product/product.service';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-my-orders',
   standalone: true,
-  imports: [CommonModule, MenuNavbarLoggeadoComponent, RouterLink],
+  imports: [CommonModule, MenuNavbarLoggeadoComponent, RouterLink, FooterComponent],
   templateUrl: './my-orders.component.html',
   styleUrl: './my-orders.component.css'
 })

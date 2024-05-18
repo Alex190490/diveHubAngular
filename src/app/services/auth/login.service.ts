@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable, catchError, map, tap, throwError } from 'rxjs'
 import { LoginRequest } from './loginRequest'
 import { environment } from '../../../environments/environment'
-import { SignUpRequest } from './SignUpRequest'
 import { SessionStorageService } from '../sessionStorage/session-storage.service'
+import { UserRequest } from '../../Clases/user/user-request'
 
 
 @Injectable({
@@ -39,7 +39,7 @@ export class LoginService {
     )
   }
 
-  signUp(credentials: SignUpRequest): Observable<any> {
+  signUp(credentials: UserRequest): Observable<any> {
     return this.httpClient.post<any>(environment.urlAuth + "/signup", credentials).pipe(
       tap(userData => {
         this.session.setItem("token", userData.token)

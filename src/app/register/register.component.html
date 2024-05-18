@@ -8,46 +8,132 @@
         <li class="breadcrumb-item active">Registro</li>
     </ol>
 
-    <form class="row g-3">
-        <div class="col-md-6 form-floating">
-            <input type="email" class="form-control" id="mail" placeholder="Correo">
-            <label for="mail" class="form-label">Correo:</label>
-        </div>
-        <div class="col-md-6 form-floating">
-            <input type="password" class="form-control" id="clave" placeholder="Clave">
-            <label for="clave" class="form-label">Clave:</label>
-        </div>
-        <div class="col-md-12 form-floating">
-            <input type="text" class="form-control" id="direccion" placeholder="Dirección">
-            <label for="direccion" class="form-label">Dirección:</label>
-        </div>
-        <div class="col-md-6 form-floating">
-            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad">
-            <label for="ciudad" class="form-label">Ciudad:</label>
-        </div>
-        <div class="col-md-4 form-floating">
-            <select id="provincia" class="form-select">
-                <option selected>Elija...</option>
-                <option value="Córdoba">Córdoba</option>
-                <option value="Buenos Aires">Buenos Aires</option>
-                <option value="Santa Fe">Santa Fe</option>
-            </select>
-            <label for="provincia" class="form-label">Provincia:</label>
-        </div>
-        <div class="col-md-2 form-floating">
-            <input type="text" class="form-control" id="codigopostal" placeholder="Código postal">
-            <label for="codigopostal" class="form-label">Código postal:</label>
-        </div>
-        <div class="form-floating mt-3 mb-3"> 
-            <textarea class="form-control" id="comentarios" name="comentarios" placeholder="comentarios"  style="height: 200px"></textarea>
-            <label for="comentarios">Deje aquí sus comentarios:</label>        
-          </div> 
-        <div class="col-md-12 form-floating">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="terminos" placeholder="Dirección">
-                <label class="form-check-label text-light" for="terminos">Acepta los términos y condiciones</label>
+    <div class="row mb-5">
+        <div class="col-md-12 mb-4 order-0">
+            <div class="card">
+                <div class="d-flex align-items-end row">
+                    <div class="col-md-12">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between">
+                            Registro del Perfil de Usuario
+                        </div>
+                        <form class="card-body pe-5 px-5 pt-4 pb-0" [formGroup]="userForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nickname">Nickname:</label>
+                                        <input type="text" formControlName="nickname" id="nickname" class="form-control"
+                                            placeholder="Nickname" (input)="checkExistence($event.target)" [class]="existsNickname||(nickname.invalid && (nickname.dirty || nickname.touched))?'errorInput':'correctInput'">
+                                        <span [style.display]="existsNickname ? 'block' : 'none'" class="text-danger error">Ya existe una cuenta con este nickname.</span>
+                                        <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)" class="text-danger error">
+                                            <span *ngIf="nickname.errors?.['required']">Introduzca un nickname.</span>
+                                        </div>                             
+                                    </div> 
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="level">Nivel:</label>
+                                        <select class="select" formControlName="level" id="level" class="form-select" [class]="level.invalid&& (level.dirty || level.touched)?'errorInput':'correctInput'">
+                                            <option [selected]="true" disabled>Seleccione su nivel</option>
+                                            <option value="OPEN">OPEN (principiante)</option>
+                                            <option value="ADVANCED">ADVANCED (avanzado)</option>
+                                            <option value="DIVEMASTER">DIVEMASTER (experto)</option>
+                                        </select>
+                                        <div *ngIf="level.invalid && (level.dirty || level.touched)" class="text-danger error">
+                                            <span *ngIf="level.errors?.['required']">Seleccione su nivel real.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Nombre:</label>
+                                        <input type="text" id="name" formControlName="name" class="form-control" [class]="name.invalid&& (name.dirty || name.touched)?'errorInput':'correctInput'"
+                                            placeholder="Nombre">
+                                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger error">
+                                            <span *ngIf="name.errors?.['required']">Introduzca su nombre.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="surnames">Apellidos:</label>
+                                        <input type="text" id="surnames" formControlName="surnames" class="form-control" [class]="surnames.invalid&& (surnames.dirty || surnames.touched)?'errorInput':'correctInput'"
+                                            placeholder="Apellidos">
+                                        <div *ngIf="surnames.invalid && (surnames.dirty || surnames.touched)" class="text-danger error">
+                                            <span *ngIf="surnames.errors?.['required']">Introduzca sus apellidos.</span>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Correo Electrónico:</label>
+                                        <input type="email" id="email" formControlName="email" (input)="checkExistenceEmail($event.target)" class="form-control" placeholder="Correo Electrónico" 
+                                            [class]="existsEmail||(email.invalid && (email.dirty || email.touched))?'errorInput':'correctInput'">
+                                        <span [style.display]="existsEmail ? 'block' : 'none'" class="text-danger error">Ya existe una cuenta con este email.</span>
+                                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger error">
+                                            <span *ngIf="email.errors?.['required']">Introduzca su email.</span>
+                                            <span *ngIf="email.errors?.['email']">Introduzca un email con el formato adecuado.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group password">
+                                        <label for="password">Password:</label>
+                                        <input [type]="visible" [maxLength]="30" id="password" formControlName="password" class="form-control" [class]="password.invalid&& (password.dirty || password.touched)?'errorInput':'correctInput'"
+                                            placeholder="Clave">
+                                        <i class="toggle-password fas fa-eye-slash" (click)="togglePasswordVisibility()"></i>
+                                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger error">
+                                            <span *ngIf="password.errors?.['required']">Introduzca su clave de acceso.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Teléfono:</label>
+                                        <input type="number" id="phone" formControlName="phone" class="form-control" [class]="phone.invalid&& (phone.dirty || phone.touched)?'errorInput':'correctInput'"
+                                            placeholder="Teléfono">
+                                        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger error">
+                                            <span *ngIf="phone.errors?.['required']">Introduzca su teléfono.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="birthday">Fecha de Nacimiento:</label>
+                                        <input type="date" id="birthday" formControlName="birthday" class="form-control" [class]="birthday.invalid&& (birthday.dirty || birthday.touched)?'errorInput':'correctInput'"
+                                            placeholder="Fecha de Nacimiento">
+                                        <div *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)" class="text-danger error">
+                                            <span *ngIf="birthday.errors?.['required']">Introduzca su fecha de nacimiento.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="address">Dirección:</label>
+                                        <input type="text" id="address" formControlName="address" class="form-control" [class]="address.invalid&& (address.dirty || address.touched)?'errorInput':'correctInput'"
+                                            rows="3" placeholder="Dirección">
+                                        <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger error">
+                                            <span *ngIf="address.errors?.['required']">Introduzca su dirección.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <button class="btn btn-primary w-100" (click)="saveUser()" [disabled]="!userForm.valid||existsNickname">Guardar datos</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+    </div>
 </div>

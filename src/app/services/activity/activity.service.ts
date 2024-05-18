@@ -47,4 +47,20 @@ export class ActivityService {
   getRemainingTimeByActivityId(id : number): Observable<number> {
     return this.httpCliente.get<number>(environment.urlActivity+"/remaining-time/"+id)
   }
+
+  updateEndTimeByActivityId(id : number, date: string): Observable<Activity> {
+    return this.httpCliente.get<Activity>(environment.urlActivity+"/updateTimeEnds/"+id+"/"+date)
+  }
+
+  updateStartTimeByActivityId(id : number, date: string): Observable<Activity> {
+    return this.httpCliente.get<Activity>(environment.urlActivity+"/updateTimeStarts/"+id+"/"+date)
+  }
+
+  updateAvailable_spaces(id : number): Observable<any> {
+    return this.httpCliente.get<any>(environment.urlActivity+"/updateAvailable_spaces/"+id)
+  }
+
+  isActivityAvailableForUser(id : number, email: string): Observable<Boolean> {
+    return this.httpCliente.get<Boolean>(environment.urlActivity+"/isActivityAvailableForUser/"+id+"/"+email)
+  }
 }

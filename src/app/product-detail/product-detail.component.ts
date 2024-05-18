@@ -17,12 +17,13 @@ import { UserService } from '../services/user/user.service';
 import { CartService } from '../services/cart/cart.service';
 import { AssessmentService } from '../services/assessment/assessment.service';
 import { Assessment } from '../Clases/Assessment/assessment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink, FooterComponent, LoginComponent],
+  imports: [CommonModule, MenuNavbarLoggeadoComponent, MenuNavbarSinLoggearComponent, RouterLink, FooterComponent, LoginComponent, FormsModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -30,6 +31,7 @@ import { Assessment } from '../Clases/Assessment/assessment';
 
 export class ProductDetailComponent implements OnInit {
   id: number
+  isAdmin: boolean
   isItem: boolean = true
   product: Product = new Product()
   item: Item = new Item()
@@ -38,11 +40,14 @@ export class ProductDetailComponent implements OnInit {
   assessments: Assessment[] = new Array()
   totalAssessmts: number
   media: number
+  isActivityAvailable: Boolean = true
+
 
   @ViewChild('valoracionesDiv') valoracionesDivs: ElementRef;
   scrollToDiv() {
     this.valoracionesDivs.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
+
 
 
   constructor(
@@ -60,6 +65,8 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.path.snapshot.params['id']
+
+    this.userService.isAdmin().subscribe(isAdmin => this.isAdmin=isAdmin)
 
     this.productService.getProductById(this.id).subscribe(product => {
       this.product = product
@@ -79,6 +86,8 @@ export class ProductDetailComponent implements OnInit {
         this.totalAssessments()
       })
     })
+
+    this.isActivityAvailableForUser()
   }
 
 
@@ -103,6 +112,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  isActivityAvailableForUser(){
+    if(this.isLogged()){
+      this.activityService.isActivityAvailableForUser(this.id, this.session.getItem("email")).subscribe(isAvailabled=>{
+        this.isActivityAvailable=isAvailabled
+      })
+    }
+  }
+
+
   totalAssessments(){
     this.assessmentsService.getTotalByProduct(this.id).subscribe(total => this.totalAssessmts = total)
   }
@@ -110,6 +128,34 @@ export class ProductDetailComponent implements OnInit {
 
   parseDate(date: Date): string {
     return new Date(date).toLocaleDateString()
+  }
+
+
+  formatDate(dateTimeString: Date): any {
+    if (!dateTimeString) return null
+    
+    const date = new Date(dateTimeString)
+    
+    const day = date.getDate().toString().padStart(2, '0')
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const year = date.getFullYear()
+
+    return `${year}-${month}-${day}`
+  }
+
+
+  onDateChange1(type: any, activity: Activity) {
+    this.activityService.updateStartTimeByActivityId(activity.id, new Date(type.value).toISOString()).subscribe(()=>console.log("fecha cambiada"))
+  }
+
+
+  onDateChange2(type: any, activity: Activity) {
+    this.activityService.updateEndTimeByActivityId(activity.id, new Date(type.value).toISOString()).subscribe()
+  }
+
+
+  updateAvailabledSpaces(id: number){
+    this.activityService.updateAvailable_spaces(id).subscribe(()=>window.location.reload())
   }
 
 
@@ -127,8 +173,8 @@ export class ProductDetailComponent implements OnInit {
 
   switchMode(type: any){
     switch(type.value){
-      case "old": this.assessments = this.assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); break
       case "new": this.assessments = this.assessments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); break
+      case "old": this.assessments = this.assessments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); break
       case "best":  this.assessments = this.assessments.sort((a, b) => b.stars - a.stars); break
       case "worst": this.assessments = this.assessments.sort((a, b) => a.stars - b.stars); break
     }

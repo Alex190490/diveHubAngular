@@ -49,25 +49,22 @@ button {
     z-index: 1000;
 }
 
-img{
+iframe{
     margin-left: 100px;
-    margin-top: 100px;
+    margin-top: 50px;
     width: 80%;
     border-radius: 10px;
-    transition: 0.5s box-shadow ease;
 }
 
-img:hover{
-    cursor: pointer;
-    box-shadow: 0 0 20px 5px rgb(2, 251, 255);
-    width: 80.2%;
+.contact-now .btn-contact-now {
+    position: fixed;
+    bottom: 3rem;
+    right: 1.625rem;
+    box-shadow: 0 1px 20px 1px #1d4aff
 }
 
-@media only screen and (min-width: 1325px) {
-    .content{
-        display: flex;
-        justify-content: space-between;
-    }
+.contact-now .btn-contact-now:hover {
+    box-shadow: none
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1324px) {
@@ -79,15 +76,10 @@ img:hover{
         margin-top: 50px;
     }
 
-    img{
+    iframe{
         width: 100%;
         margin-bottom: 50px;
         margin-left: 0;
-        margin-top: 30px;
-    }
-
-    img:hover{
-        width: 100%;
     }
 }
 
@@ -100,14 +92,9 @@ img:hover{
         margin-top: 50px;
     }
 
-    img{
+    iframe{
         width: 100%;
         margin-bottom: 50px;
         margin-left: 0;
-        margin-top: 30px;
-    }
-
-    img:hover{
-        width: 100%;
     }
 }

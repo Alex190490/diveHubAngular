@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../services/item/item.service';
 import { ActivityService } from '../services/activity/activity.service';
 import { ProductService } from '../services/product/product.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 import { UserService } from '../services/user/user.service';
 import { CartService } from '../services/cart/cart.service';
@@ -14,12 +14,13 @@ import { CommonModule } from '@angular/common';
 import { User } from '../Clases/user/user';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AssessmentService } from '../services/assessment/assessment.service';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-assessment',
   standalone: true,
-  imports: [MenuNavbarLoggeadoComponent, CommonModule, ReactiveFormsModule],
+  imports: [MenuNavbarLoggeadoComponent, CommonModule, ReactiveFormsModule, RouterLink, FooterComponent],
   templateUrl: './assessment.component.html',
   styleUrl: './assessment.component.css'
 })

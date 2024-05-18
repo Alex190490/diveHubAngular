@@ -1,7 +1,5 @@
-export class User {
-    id: number
+export class UserRequestUpdate {
     nickname: string 
-    password: string
     name: string
     surnames: string
     email: string
@@ -9,7 +7,4 @@ export class User {
     birthday: Date
     address: string
     level: string
-    registration_date: string
-    last_login: string
-    role: string
 }

@@ -1,4 +1,169 @@
+<app-menu-navbar-loggeado />
 
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Mi Perfil</li>
+    </ol>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12 mb-4 order-0">
+            <div class="card">
+                <div class="d-flex align-items-end row">
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Felicidades {{user.name}}! 🎉</h5>
+                            <p class="mb-4">Ahorrarás hasta un 72% en tus compras gracias a nuestros descuentos. Mira
+                                todos tus datos en los apartados de tu perfil.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 text-center text-sm-left">
+                        <img src="../../assets/img/man-with-laptop-light.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-md-12 mb-4 order-0">
+            <div class="card">
+                <div class="d-flex align-items-end row">
+                    <div class="col-md-12">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between">
+                            Detalles del Perfil de Usuario
+                            <div>
+                                Tiempo conectado: {{parseToExactTimeString(user.last_login)}}
+                            </div>
+                        </div>
+                        <form class="card-body pe-5 px-5 pt-4 pb-0" [formGroup]="userForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nickname">Nickname:</label>
+                                        <input type="text" formControlName="nickname" id="nickname" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="user.nickname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="level">Nivel:</label>
+                                        <select class="select" formControlName="level" id="level" [class]="editable?'form-select':'form-select-plaintext'" [(ngModel)]="user.level">
+                                            <option value="OPEN" [selected]="{'true': user.level=='OPEN'}">OPEN</option>
+                                            <option value="ADVANCED" [selected]="{'true': user.level=='ADVANCED'}">ADVANCED</option>
+                                            <option value="DIVEMASTER" [selected]="{'true': user.level=='DIVEMASTER'}">DIVEMASTER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Nombre:</label>
+                                        <input type="text" id="name" formControlName="name" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="user.name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="surnames">Apellidos:</label>
+                                        <input type="text" id="surnames" formControlName="surnames" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="user.surnames">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Correo Electrónico:</label>
+                                        <input type="email" id="email" formControlName="email" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="user.email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Teléfono:</label>
+                                        <input type="text" id="phone" formControlName="phone" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="user.phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="address">Dirección:</label>
+                                        <input type="text" id="address" formControlName="address" [class]="editable?'form-control':'form-control-plaintext'" rows="3" [ngModel]="user.address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="birthday">Fecha de Nacimiento:</label>
+                                        <input type="date" id="birthday" formControlName="birthday" [class]="editable?'form-control':'form-control-plaintext'" [ngModel]="parseToBirthday(user.birthday)">
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="form-group text-start">
+                                    <button class="btn btn-primary" (click)="saveUser()">
+                                        <span *ngIf="editable">Guardar datos</span>
+                                        <span *ngIf="!editable">Editar datos</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+                    <h5 class="m-2">MIS ACTIVIDADES</h5>
+                </div>
+                <div class="card-body info">
+                    <div class="mb-4 mx-2 d-flex justify-content-between">
+                        <div>
+                            <strong>
+                                {{ activitiesAvailables.length }}
+                                <span *ngIf="activitiesAvailables.length == 0; else elseBlock">
+                                    Actividades pendientes, vaya a la tienda y reserve Ya! <a [routerLink]="['/shop']">Ir a la tienda</a>
+                                </span>
+                                <ng-template #elseBlock>Actividades Pendientes Por Completar:</ng-template>
+                            </strong>
+                        </div>
+                        <div *ngIf="activitiesAvailables.length>0" class="me-5">
+                            <select class="form-select" (change)="switchMode($event.target)">
+                                <option value="new">Más recientes</option>
+                                <option value="old">Más antiguas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="panel card align-items-center row mb-5 me-4 p-5" *ngFor="let activity of activitiesAvailables">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 mt-0">
+                                    <img [src]="activity.image">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6>{{activity.name}}</h6>
+                                            <small class="text-muted">{{activity.tag}}</small>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <p>Comienza: <input type="date" class="form-control" disabled [value]="parseToBirthday(activity.time_starts)"></p>
+                                            <p>Acaba: <input type="date" class="form-control" disabled [value]="parseToBirthday(activity.time_ends)"></p>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <small>Tiempo Restante: {{activity.time_ends_parsed}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contact-now">
+    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now">Contacta con nosotros</a>
+</div>
 
-
-<app-footer/>
+<footer><app-footer /></footer>

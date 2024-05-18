@@ -1,6 +1,3 @@
-<!-- Esta el login escondido a la espera de que se active el canvas -->
-<app-login />
-
 <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
 <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
@@ -34,14 +31,34 @@
 
       <div *ngIf="!isItem" class="product-info">
         <p>Nivel requerido: {{ activity.level_required }}</p>
-        <div class="mt-5 square">
-          <p>Huecos disponibles: {{ activity.available_spaces }}</p>
+        <div class="mt-5 square text-center">
+          <div class="d-flex justify-content-center">
+            <p>Huecos disponibles: {{ activity.available_spaces }}</p>
+            <div *ngIf="isAdmin">
+              <a (click)="updateAvailabledSpaces(activity.id)"><i class="fa-solid fa-plus btn btn-primary mx-3"></i></a>
+            </div>
+          </div>
           <div class="options d-flex justify-content-between">
             <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
               [disabled]="activity.available_spaces<=0">Añadir actividad a la cesta</button>
             <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(activity)"
-              [disabled]="activity.available_spaces<=0">Añadir actividad a la cesta</button>
+              [disabled]="activity.available_spaces<=0||!isActivityAvailable">Añadir actividad a la cesta</button>
           </div>
+          <div *ngIf="!isActivityAvailable">
+            <p>Ya ha comprado este producto, por favor revise el apartado de <a [routerLink]="['/profile']">Ver Perfil</a> para ver los detalles</p>
+          </div>
+
+          <div *ngIf="isAdmin" class="d-flex justify-content-center align-items-end row">
+            <div class="form-group col-md-6">
+                <label>Fecha de inicio:</label>
+                <input type="date" class="form-control" [value]="formatDate(activity.time_starts)" (change)="onDateChange1($event.target, activity)">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Fecha de fin:</label>
+                <input type="date" class="form-control" [value]="formatDate(activity.time_ends)" (change)="onDateChange2($event.target, activity)">
+            </div>
+          </div>
+        
         </div>
       </div>
 
@@ -94,4 +111,8 @@
     </div>
   </div>
 </div>
+<div class="contact-now">
+  <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now">Contacta con nosotros</a>
+</div>
+
 <app-footer />

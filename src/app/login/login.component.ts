@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LoginService } from '../services/auth/login.service';
 import { LoginRequest } from '../Clases/user/loginRequest';
-import { UserService } from '../services/user/user.service';
 
 
 @Component({
@@ -17,7 +16,7 @@ import { UserService } from '../services/user/user.service';
 
 
 export class LoginComponent {
-  visible: string = 'password';
+  visible: string = 'password'
   loginError: string = ""
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -31,7 +30,7 @@ export class LoginComponent {
   ) {}
 
 
-  login(){
+  login(){ 
     this.loginError = ""  
 
     this.loginService.login(this.loginForm.value as LoginRequest).subscribe({

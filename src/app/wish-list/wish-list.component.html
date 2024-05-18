@@ -1,57 +1,38 @@
-<div *ngIf="listToShow.length>0">
-    <div class="background-image">
-        <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
-        <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
+<div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
+<div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
-        <div class="container mt-5 p-5">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-                <li class="breadcrumb-item active">Lista de deseos</li>
-            </ol>
+<div class="container mt-5 p-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+        <li class="breadcrumb-item active">Lista de deseos</li>
+    </ol>
 
-            <div class="container2 mt-5 p-5">
-                <div *ngFor="let wishList of listToShow" class="m-2">
-                    <div class="product-container card h-100">
-                        <img class="mx-auto" [src]="wishList.activity ? wishList.activity.image : wishList.item.image">
-                        <div class="card-body">
-                            <p class="card-text text-center m-auto mb-2">{{ wishList.activity ? wishList.activity.name :
-                                wishList.item.name }}</p>
-                            <p class="card-text text-center m-auto">Desde <s>{{ wishList.activity ?
-                                    wishList.activity.final_price : wishList.item.final_price}}</s>
-                                <i class="fa fa-arrow-right" style="margin: 10px"></i>{{ wishList.activity ?
-                                wishList.activity.starting_price : wishList.item.starting_price }} €
-                            </p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <a class="btn btn-primary"
-                                [routerLink]="['/product-details/', wishList.activity ? wishList.activity.id : wishList.item.id]">Ver
-                                producto</a>
-                            <img class="like"
-                                (click)="toggleLike(wishList.activity ? wishList.activity : wishList.item)"
-                                [src]="(wishList.activity ? wishList.activity.isLiked : wishList.item.isLiked) ? '../../assets/img/like.png' : '../../assets/img/like2.png'">
-                        </div>
-                    </div>
+    <div class="container2 m-5 p-5" *ngIf="listToShow.length<=0">
+        <button class="btn btn-warning" [routerLink]="['/shop']">Lista de favoritos vacia, volver a la
+            tienda</button>
+    </div>
+
+    <div class="container2 m-5 p-5" *ngIf="listToShow.length>0">
+        <div *ngFor="let wishList of listToShow" class="m-2">
+            <div class="product-container card h-100">
+                <img class="mx-auto" [src]="wishList.activity ? wishList.activity.image : wishList.item.image">
+                <div class="card-body">
+                    <p class="card-text text-center m-auto mb-2">{{ wishList.activity ? wishList.activity.name :
+                        wishList.item.name }}</p>
+                    <p class="card-text text-center m-auto">Desde <s>{{ wishList.activity ?
+                            wishList.activity.final_price : wishList.item.final_price}}</s>
+                        <i class="fa fa-arrow-right" style="margin: 10px"></i>{{ wishList.activity ?
+                        wishList.activity.starting_price : wishList.item.starting_price }} €
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-primary"
+                        [routerLink]="['/product-details/', wishList.activity ? wishList.activity.id : wishList.item.id]">Ver
+                        producto</a>
+                    <img class="like" (click)="toggleLike(wishList.activity ? wishList.activity : wishList.item)"
+                        [src]="(wishList.activity ? wishList.activity.isLiked : wishList.item.isLiked) ? '../../assets/img/like.png' : '../../assets/img/like2.png'">
                 </div>
             </div>
         </div>
     </div>
-    <app-footer />
-</div>
-
-<div *ngIf="listToShow.length<=0">
-    <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
-    <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
-
-    <div class="container mt-5 p-5">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-            <li class="breadcrumb-item active">Lista de deseos</li>
-        </ol>
-
-        <div class="container2 mt-5 p-5">
-            <button class="btn btn-warning" [routerLink]="['/shop']">Lista de favoritos vacia, volver a la
-                tienda</button>
-        </div>
-    </div>
-    <footer><app-footer /></footer>
 </div>

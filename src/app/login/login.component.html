@@ -1,26 +1,26 @@
 <div class="offcanvas offcanvas-start" id="login"> 
     <div class="offcanvas-header">
-        <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close " data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="container mt-5 p-5">
         <h1 class="mt-5">Acceso área privada</h1>
 
-        <form class="mt-5" [formGroup]="loginForm">
+        <form class="mt-5" [formGroup]="loginForm"> 
             <div class="mt-5 mb-3 form-floating">
                 <input type="text" class="form-control" formControlName="email" placeholder="usuario">
-                <label class="form-label">Introduzca su email</label>
-            </div>
-            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger error">
-                <span class="error" *ngIf="email.errors?.['required']">Email requerido.</span>
+                <label class="form-label">Email</label>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger error">
+                    <span *ngIf="email.errors?.['required']">Email requerido.</span>
+                </div>
             </div>
 
             <div class="mb-3 form-floating password">
                 <input [type]="visible" [maxLength]="30" class="form-control" formControlName="password" placeholder="clave">
                 <i class="toggle-password fas fa-eye-slash" (click)="togglePasswordVisibility()"></i>
-                <label class="form-label">Introduzca su clave de acceso</label>
-            </div>
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger error">
-                <span class="error" *ngIf="password.errors?.['required']">Clave requerida.</span>
+                <label class="form-label">Clave de acceso</label>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger error">
+                    <span *ngIf="password.errors?.['required']">Clave requerida.</span>
+                </div>
             </div>
 
             <div class="remember-forgot">
@@ -32,7 +32,7 @@
             <button (click)="login()" class="btn btn-primary mt-2">acceder</button>
             
             <div class="register-link">
-                <p>No tienes una cuenta? <a [routerLink]="['/register']">Registrarse</a></p>
+                <p>No tienes una cuenta? <a [routerLink]="['/register']" data-bs-dismiss="offcanvas">Registrarse</a></p>
             </div>
         </form>
     </div>

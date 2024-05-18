@@ -18,3 +18,14 @@ img {
     max-width: 400px;
     border-radius: 8px;
 }
+
+.contact-now .btn-contact-now {
+    position: fixed;
+    bottom: 3rem;
+    right: 1.625rem;
+    box-shadow: 0 1px 20px 1px #1d4aff
+}
+
+.contact-now .btn-contact-now:hover {
+    box-shadow: none
+}

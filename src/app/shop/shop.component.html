@@ -16,19 +16,20 @@
         <li class="nav-item">
           <!-- NgClass es para poner una clase con angular -->
           <a (click)="orderProducts('ALL')" [ngClass]="{'selected': selectedOption == 0}">Todos los
-            productos</a><hr>
+            productos</a>
+          <hr>
         </li>
         <li class="nav-item">
-          <a (click)="orderProducts('DIVES')"
-            [ngClass]="{'selected': selectedOption == 1}">Inmersiones</a><hr>
+          <a (click)="orderProducts('DIVES')" [ngClass]="{'selected': selectedOption == 1}">Inmersiones</a>
+          <hr>
         </li>
         <li class="nav-item">
-          <a (click)="orderProducts('COURSES')"
-            [ngClass]="{'selected': selectedOption == 2}">Cursos</a><hr>
+          <a (click)="orderProducts('COURSES')" [ngClass]="{'selected': selectedOption == 2}">Cursos</a>
+          <hr>
         </li>
         <li class="nav-item">
-          <a (click)="orderProducts('ITEMS')"
-            [ngClass]="{'selected': selectedOption == 3}">Artículos</a><hr>
+          <a (click)="orderProducts('ITEMS')" [ngClass]="{'selected': selectedOption == 3}">Artículos</a>
+          <hr>
         </li>
       </ul>
     </nav>
@@ -63,6 +64,10 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="contact-now">
+  <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now">Contacta con nosotros</a>
 </div>
 
 <app-footer />

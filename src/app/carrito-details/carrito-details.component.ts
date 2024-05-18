@@ -16,12 +16,13 @@ import { Order } from '../Clases/Order/order';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../Clases/Product/product';
 import { ItemService } from '../services/item/item.service';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-carrito-details',
   standalone: true,
-  imports: [RouterLink, CommonModule, MenuNavbarLoggeadoComponent, FormsModule],
+  imports: [RouterLink, FooterComponent, CommonModule, MenuNavbarLoggeadoComponent, FormsModule],
   templateUrl: './carrito-details.component.html',
   styleUrl: './carrito-details.component.css'
 })
@@ -38,10 +39,8 @@ export class CarritoDetailsComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private userService: UserService,
-    private orderService: OrderService,
     private session: SessionStorageService,
     private productService: ProductService,
-    private detailService: DetailsService,
     private itemService: ItemService,
     private router: Router
   ) { }
@@ -119,24 +118,12 @@ export class CarritoDetailsComponent implements OnInit {
   //Redirige a la página de pagos
   saveOrder() {
     if (this.isAbledToBuy) {
-      const order: OrderRequest = {
-        user: this.user,
-        total: parseFloat(this.cartTotalPrice.toFixed(2)),
-        date: new Date(),
-        address: this.user.address
-      }
-
-      this.orderService.addOrder(order).subscribe((order: Order) => {
-        this.myCart.forEach(cartItem => {
-          const detail: DetailRequest = {
-            order: order,
-            productId: cartItem.productId,
-            quantity: cartItem.quantity
-          }
-          this.detailService.postDetails(detail).subscribe()
-        })
-        this.router.navigate(['pay-method']).then(() => window.location.reload())
-      })
+      this.router.navigate(['pay-method'],{
+        queryParams: {
+          cart: JSON.stringify(this.myCart),
+          totalPrice: this.cartTotalPrice
+        }
+      }).then(() => window.location.reload())
     }
   }
 

@@ -1,10 +1,11 @@
 export interface SignUpRequest {
-    nickname: string
+    nickname: string 
     password: string
     name: string
     surnames: string
     email: string
     phone: number
-    birthday: string
+    birthday: Date
     address: string
+    level: string
 }

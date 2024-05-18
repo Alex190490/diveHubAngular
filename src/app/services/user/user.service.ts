@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable, of, throwError } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { environment } from '../../../environments/environment'
 import { User } from '../../Clases/user/user'
-import { UserRequest } from '../../Clases/user/user-request'
 import { SessionStorageService } from '../sessionStorage/session-storage.service'
+import { UserRequestUpdate } from '../../Clases/user/user-request-update'
 
 
 @Injectable({
@@ -40,8 +40,9 @@ export class UserService {
   }
 
 
-  updateUser(user: UserRequest): Observable<User> {
-    return this.httpCliente.put<User>(environment.urlUser + "/" + user.email, user)
+  updateUser(user: any, email: string): Observable<User> {
+    console.log(user)
+    return this.httpCliente.put<User>(environment.urlUser + "/" + email, user)
   }
 
 
@@ -52,5 +53,15 @@ export class UserService {
 
   isAdmin(): Observable<boolean>{
     return this.httpCliente.get<boolean>(environment.urlUser + "/isAdmin/" + this.session.getItem('email'))
+  }
+
+
+  existsNickname(nickname: string): Observable<boolean>{
+    return this.httpCliente.get<boolean>(environment.urlUser + "/existsNickname/" + nickname)
+  }
+
+
+  existsEmail(email: string): Observable<boolean>{
+    return this.httpCliente.get<boolean>(environment.urlUser + "/existsEmail/" + email)
   }
 }

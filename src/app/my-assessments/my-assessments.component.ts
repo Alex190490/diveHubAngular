@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SessionStorageService } from '../services/sessionStorage/session-storage.service';
 import { UserService } from '../services/user/user.service';
 import { Product } from '../Clases/Product/product';
@@ -11,12 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AssessmentService } from '../services/assessment/assessment.service';
 import { Assessment } from '../Clases/Assessment/assessment';
 import { forkJoin, map, switchMap } from 'rxjs';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-my-assessments',
   standalone: true,
-  imports: [MenuNavbarLoggeadoComponent, CommonModule, ReactiveFormsModule],
+  imports: [MenuNavbarLoggeadoComponent, CommonModule, ReactiveFormsModule, RouterLink, FooterComponent],
   templateUrl: './my-assessments.component.html',
   styleUrl: './my-assessments.component.css'
 })

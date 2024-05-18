@@ -50,9 +50,7 @@ export class ContactComponent {
         date: new Date() 
       }
 
-      this.messageService.addMessage(message).subscribe(ok=>{
-        this.showMessage=true
-      })
+      this.messageService.addMessage(message).subscribe(()=> this.showMessage=true)
     } 
     if(this.showMessage) {
       this.error=true
