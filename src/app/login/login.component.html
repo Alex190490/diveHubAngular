@@ -23,10 +23,6 @@
                 </div>
             </div>
 
-            <div class="remember-forgot">
-                <label><input type="checkbox"> Recuérdame</label>
-            </div>
-
             <div *ngIf="loginError !== ''" class="alert alert-danger text-danger mb-4">{{ loginError }}</div>
 
             <button (click)="login()" class="btn btn-primary mt-2">acceder</button>

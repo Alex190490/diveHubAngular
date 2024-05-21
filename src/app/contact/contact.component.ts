@@ -35,8 +35,7 @@ export class ContactComponent {
   constructor(
     private session: SessionStorageService,
     private formBuilder: FormBuilder,
-    private messageService: MessageService,
-    private router: Router
+    private messageService: MessageService
   ){}
 
 

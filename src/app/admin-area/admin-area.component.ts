@@ -25,24 +25,8 @@ export class AdminAreaComponent {
   userLogged: string = this.session.getItem("email")
   listUsers: User[] = new Array()
   details: Detail[] = new Array()
-  visible: string = 'password'
   segundosTimer: any
-  showForm: boolean = false
-  submitted: boolean = false
   showOrderDetails: boolean = false
-
-  nuevoUsuarioForm = this.formBuilder.group({
-    nickname: ['', Validators.required],
-    email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}')]],
-    clave: ['', Validators.required],
-    nombre: ['', Validators.required],
-    apellidos: ['', Validators.required],
-    dir: ['', Validators.required],
-    tlf: ['', Validators.required],
-    f_nac: ['', Validators.required],
-    nivel: ['', Validators.required],
-    rol: ['', Validators.required]
-  })
 
 
 
@@ -106,29 +90,5 @@ export class AdminAreaComponent {
     return Object.values(groupedDetails).sort((a, b) => {
       return new Date(b[0].order.date).getTime() - new Date(a[0].order.date).getTime()
     })
-  }
-
-  
-  togglePasswordVisibility() {
-    this.visible = this.visible === 'password' ? 'text' : 'password'
-  }
-
-
-  toggleForm(): void {
-    this.showForm = !this.showForm
-  }
-
-
-  get f() { 
-    return this.nuevoUsuarioForm.controls 
-  }
-
-  onSubmit() {
-    this.submitted=true
-    if (this.nuevoUsuarioForm.invalid) {
-      console.log('Formulario inválido:', this.nuevoUsuarioForm.value)
-      return
-    }
-    console.log('Formulario válido, enviar datos:', this.nuevoUsuarioForm.value)
   }
 }

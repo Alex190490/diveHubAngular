@@ -64,7 +64,8 @@
                         <h5 class="mb-0">
                             <button class="accordion-button" data-bs-toggle="collapse"
                                 [attr.data-bs-target]="'#respuesta' + orderDetails[0].order.id">
-                                <h3>Pedido ID (PIB {{(orderDetails[0].order.id)}}) del {{ parseDate(orderDetails[0].order.date)}} </h3>
+                                <h3>Pedido ID (PIB {{(orderDetails[0].order.id)}}) del {{
+                                    parseDate(orderDetails[0].order.date)}} </h3>
                             </button>
                         </h5>
                     </div>
@@ -88,12 +89,14 @@
                                             <td class="align-middle">{{ detail.product.name }}</td>
                                             <td class="align-middle">{{ (detail.product.final_price).toFixed(2) }}€</td>
                                             <td class="align-middle">{{ detail.quantity }}</td>
-                                            <td class="align-middle">{{ (detail.product.final_price * detail.quantity).toFixed(2) }}€
+                                            <td class="align-middle">{{ (detail.product.final_price *
+                                                detail.quantity).toFixed(2) }}€
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="text-end p-5">
-                                                <h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></h4>
+                                                <h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total
+                                                        }}€</strong></h4>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -104,97 +107,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container">
-    <button class="btn btn-primary p-2" (click)="toggleForm()">Crear Usuario</button>
-    <div class="m-5" [style.display]="showForm ? 'block' : 'none'">
-        <form class="form" [formGroup]="nuevoUsuarioForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="nickname">Nickname</label>
-                    <input formControlName="nickname" type="text" class="form-control" id="nickname"
-                        placeholder="Introduzca nickname">
-                    <div *ngIf="submitted && f.nickname.invalid && f.nickname.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.nickname.errors?.['required']">Nickname obligatorio.</span>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="email">Email</label>
-                    <input formControlName="email" type="email" class="form-control" id="email"
-                        placeholder="Introduzca email">
-                    <div *ngIf="submitted && f.email.invalid && f.email.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.email.errors?.['required']">Email obligatorio.</span>
-                        <span class="td-1" *ngIf="f.email.errors?.['pattern']">Formato de email incorrecto.</span>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="clave">Clave</label>
-                    <input formControlName="clave" [type]="visible" class="form-control password" id="clave"
-                        placeholder="Introduzca clave">
-                    <i class="toggle-password fas fa-eye-slash" (click)="togglePasswordVisibility()"></i>
-                    <div *ngIf="submitted && f.clave.invalid && f.clave.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.clave.errors?.['required']">Clave obligatoria.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input formControlName="nombre" type="text" class="form-control" id="nombre"
-                        placeholder="Introduzca nombre">
-                    <div *ngIf="submitted && f.nombre.invalid && f.nombre.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.nombre.errors?.['required']">Nombre obligatorio.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="apellidos" class="form-label">Apellidos</label>
-                    <input formControlName="apellidos" type="text" class="form-control" id="apellidos"
-                        placeholder="Introduzca apellidos">
-                    <div *ngIf="submitted && f.apellidos.invalid && f.apellidos.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.apellidos.errors?.['required']">Apellidos obligatorios.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="dir" class="form-label">Dirección</label>
-                    <input formControlName="dir" type="text" class="form-control" id="dir"
-                        placeholder="Introduzca dirección">
-                    <div *ngIf="submitted && f.dir.invalid && f.dir.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.dir.errors?.['required']">Dirección obligatoria.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="tlf" class="form-label">Teléfono</label>
-                    <input formControlName="tlf" type="tel" class="form-control" id="tlf"
-                        placeholder="Introduzca teléfono">
-                    <div *ngIf="submitted && f.tlf.invalid && f.tlf.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.tlf.errors?.['required']">Teléfono obligatorio.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="f_nac" class="form-label">Fecha de Nacimiento</label>
-                    <input formControlName="f_nac" type="date" class="form-control" id="f_nac">
-                    <div *ngIf="submitted && f.f_nac.invalid && f.f_nac.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.f_nac.errors?.['required']">Fecha de nacimiento obligatoria.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="nivel" class="form-label">Nivel</label>
-                    <input formControlName="nivel" type="number" class="form-control" id="nivel"
-                        placeholder="Introduzca nivel">
-                    <div *ngIf="submitted && f.nivel.invalid && f.nivel.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.nivel.errors?.['required']">Nivel obligatorio.</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="rol" class="form-label">Rol</label>
-                    <input formControlName="rol" type="text" class="form-control" id="rol" placeholder="Introduzca rol">
-                    <div *ngIf="submitted && f.rol.invalid && f.rol.errors" class="text-danger">
-                        <span class="td-1" *ngIf="f.rol.errors?.['required']">Rol obligatorio.</span>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-danger mx-3">Resetear</button>
-            </div>
-        </form>
     </div>
 </div>

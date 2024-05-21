@@ -53,7 +53,9 @@ export class MenuNavbarLoggeadoComponent implements OnInit{
 
 
   fetchCartInfo() {
-    this.cartService.countByClient(this.session.getItem('email')).subscribe(count => this.productsInCart = count)
+    this.cartService.countByClient(this.session.getItem('email')).subscribe(count => {
+      this.productsInCart = count
+    })
   }
 
 
