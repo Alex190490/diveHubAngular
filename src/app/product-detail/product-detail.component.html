@@ -42,10 +42,13 @@
             <button class="btn btn-warning m-4" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
               [disabled]="activity.available_spaces<=0">Añadir actividad a la cesta</button>
             <button class="btn btn-warning m-4" *ngIf="isLogged()" (click)="addToCart(activity)"
-              [disabled]="activity.available_spaces<=0||!isActivityAvailable">Añadir actividad a la cesta</button>
+              [disabled]="activity.available_spaces<=0||!isActivityAvailable||!isActivityAvailableByLvl">Añadir actividad a la cesta</button>
           </div>
           <div *ngIf="!isActivityAvailable">
             <p>Ya ha comprado este producto, por favor revise el apartado de <a [routerLink]="['/profile']">Ver Perfil</a> para ver los detalles</p>
+          </div>
+          <div *ngIf="!isActivityAvailableByLvl" style="color: red;">
+            <p>Ud. es {{user.level}}. Aún no tiene el nivel requerido para este producto</p>
           </div>
 
           <div *ngIf="isAdmin" class="d-flex justify-content-center align-items-end row">

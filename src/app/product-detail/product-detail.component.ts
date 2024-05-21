@@ -18,6 +18,7 @@ import { CartService } from '../services/cart/cart.service';
 import { AssessmentService } from '../services/assessment/assessment.service';
 import { Assessment } from '../Clases/Assessment/assessment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { User } from '../Clases/user/user';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
   id: number
   isAdmin: boolean
   isItem: boolean = true
+  user: User = new User()
   product: Product = new Product()
   item: Item = new Item()
   activity: Activity = new Activity()
@@ -41,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
   totalAssessmts: number
   media: number
   isActivityAvailable: Boolean = true
+  isActivityAvailableByLvl: Boolean = true
 
 
   @ViewChild('valoracionesDiv') valoracionesDivs: ElementRef;
@@ -66,8 +69,6 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.path.snapshot.params['id']
 
-    this.userService.isAdmin().subscribe(isAdmin => this.isAdmin=isAdmin)
-
     this.productService.getProductById(this.id).subscribe(product => {
       this.product = product
       switch (this.product.category) {
@@ -87,7 +88,12 @@ export class ProductDetailComponent implements OnInit {
       })
     })
 
-    this.isActivityAvailableForUser()
+    if(this.isLogged()){
+      this.userService.isAdmin().subscribe(isAdmin => this.isAdmin=isAdmin)
+      this.userService.getUser().subscribe(user=>this.user=user)
+      this.isActivityAvailableForUser()
+      this.isActivityAvailableByLevel(this.id, this.session.getItem("email"))
+    }
   }
 
 
@@ -118,6 +124,11 @@ export class ProductDetailComponent implements OnInit {
         this.isActivityAvailable=isAvailabled
       })
     }
+  }
+
+
+  isActivityAvailableByLevel(id: number, email: string){
+    this.activityService.isAvailableByLevel(id, email).subscribe(isAvailable=>this.isActivityAvailableByLvl=isAvailable)
   }
 
 

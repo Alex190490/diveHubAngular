@@ -63,4 +63,8 @@ export class ActivityService {
   isActivityAvailableForUser(id : number, email: string): Observable<Boolean> {
     return this.httpCliente.get<Boolean>(environment.urlActivity+"/isActivityAvailableForUser/"+id+"/"+email)
   }
+
+  isAvailableByLevel(id : number, email: string): Observable<Boolean> {
+    return this.httpCliente.get<Boolean>(environment.urlActivity+"/isAvailableByLevel/"+id+"/"+email)
+  }
 }

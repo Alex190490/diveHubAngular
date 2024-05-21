@@ -41,7 +41,6 @@ export class UserService {
 
 
   updateUser(user: any, email: string): Observable<User> {
-    console.log(user)
     return this.httpCliente.put<User>(environment.urlUser + "/" + email, user)
   }
 

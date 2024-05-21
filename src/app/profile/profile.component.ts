@@ -30,13 +30,15 @@ export class ProfileComponent implements OnInit {
   activitiesAvailables: Activity[] = new Array
   segundosTimer: any
   editable: boolean = false 
+  existsNickname: boolean = false
+  errorPhone: boolean = false
 
   userForm = this.formBuilder.group({
     nickname: ['', Validators.required],
     name: ['', Validators.required],
     surnames: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    phone: [0, Validators.required],
+    phone: [parseInt(''), Validators.required],
     birthday: [new Date(), Validators.required],
     address: ['', Validators.required],
     level: ['', Validators.required]
@@ -153,6 +155,8 @@ export class ProfileComponent implements OnInit {
   saveUser(){
     this.editable = !this.editable
     this.userForm.enable()
+    this.userForm.controls.level.disable()
+    this.userForm.controls.email.disable()
 
     if(!this.editable){
       const userFormToSave = {
@@ -170,6 +174,21 @@ export class ProfileComponent implements OnInit {
       this.userForm.disable()
     } else {
       this.userForm.enable()
+      this.userForm.controls.level.disable()
+      this.userForm.controls.email.disable()
+    }
+  }
+
+
+  validateInput(){
+    window.location.reload()
+  }
+
+
+  validatePhone(phone: any){
+    if(phone.value!=""&&phone.value!=" "&&phone.value!=null) {
+      if(!/^\d{9}$/.test(phone.value)) this.errorPhone=true
+      else this.errorPhone=false
     }
   }
 
@@ -184,6 +203,12 @@ export class ProfileComponent implements OnInit {
     const year = date.getFullYear()
   
     return `${year}-${month}-${day}T00:00:00`
+  }
+
+
+  checkExistence(nickname: any){
+    if(this.user.nickname!=nickname.value) 
+      if(nickname.value!=""&&nickname.value!=" "&&nickname.value!=null) this.userService.existsNickname(nickname.value).subscribe(exists => this.existsNickname=exists)
   }
 
 

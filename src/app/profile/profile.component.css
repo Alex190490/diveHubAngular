@@ -46,8 +46,24 @@ label {
     appearance: none;
 }
 
+input.form-control:focus, select.form-control:focus {
+    box-shadow: none;
+}
+
 .row {
     margin-bottom: 20px;
+}
+
+.errorInput{
+    border: 2px solid red;
+}
+
+.error{
+    color: red;
+}
+
+.correctInput{
+    border-color: 2px solid #ced4da;
 }
 
 footer{
