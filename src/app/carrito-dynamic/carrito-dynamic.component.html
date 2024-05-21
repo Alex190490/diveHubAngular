@@ -11,8 +11,8 @@
                         <img [src]="cart.product.image">
                         <div>
                             <p><strong><u>{{ cart.product.name }}</u></strong></p>
-                            <p style="font-size: 12px;">{{ cart.product.final_price }} €/Uds</p>
-                            <input class="me-3" disabled [value]="'Total: ' + totalProduct(cart.product.final_price, cart.quantity) + ' €'">
+                            <p style="font-size: 12px;">{{ cart.product.starting_price }} €/Uds</p>
+                            <input class="me-3" disabled [value]="'Total: ' + totalProduct(cart.product.starting_price, cart.quantity) + ' €'">
                             <div class="mt-2">
                                 <i class="fa-solid fa-minus btn pe-2" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
                                 <span *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>

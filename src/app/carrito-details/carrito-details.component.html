@@ -42,7 +42,7 @@
                                     <tr *ngFor="let cart of myCart">
                                         <td class="align-middle col-3" *ngIf="cart.product"><img [src]="cart.product.image"></td>
                                         <td class="align-middle" *ngIf="cart.product">{{cart.product.name}}</td>
-                                        <td class="align-middle" *ngIf="cart.product">{{cart.product.final_price}}€</td>
+                                        <td class="align-middle" *ngIf="cart.product">{{cart.product.starting_price}}€</td>
                                         <td class="align-middle" *ngIf="cart.product">
                                             <select [(ngModel)]="cart.quantity" [ngClass]="{'error' : cart.isOverStock}" [disabled]="isActivity(cart.product)" (change)="updateCartItem(cart.product.id, $event.target)" class="form-select">
                                                 <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{ i }}</option>
@@ -51,7 +51,7 @@
                                                 <p class="p-error text-center mt-2">Ha excedido el número de artículos existentes</p>
                                             </div>
                                         </td>
-                                        <td class="align-middle" *ngIf="cart.product">{{totalProduct(cart.product.final_price, cart.quantity)}}€</td>
+                                        <td class="align-middle" *ngIf="cart.product">{{totalProduct(cart.product.starting_price, cart.quantity)}}€</td>
                                         <td class="align-middle" *ngIf="cart.product">  
                                             <button (click)="removeCartItem(cart)" class="btn btn-danger mx-5">Eliminar</button>  
                                         </td>
