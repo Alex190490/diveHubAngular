@@ -11,16 +11,16 @@ steps:
 
  # Paso 3: Construir la imagen Docker usando tu Dockerfile existente
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:v1', '.']
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:$COMMIT_SHA', '.']
 
   # Paso 4: Enviar la imagen a Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:v1']
+    args: ['push', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:$COMMIT_SHA']
 
   # Paso 5: Desplegar la imagen en Google Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: ['run', 'deploy', 'angular-app', '--image', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:v1', '--platform', 'managed', '--region', 'europe-west1', '--allow-unauthenticated']
+    args: ['run', 'deploy', 'angular-app', '--image', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:$COMMIT_SHA', '--platform', 'managed', '--region', 'europe-west1', '--allow-unauthenticated']
 
 images:
-  - 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:v1'
+  - 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub/angular:$COMMIT_SHA'
