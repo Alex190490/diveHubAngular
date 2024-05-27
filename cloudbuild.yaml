@@ -9,9 +9,9 @@ steps:
     entrypoint: 'npm'
     args: ['run', 'build', '--', '--configuration=production']
 
-  # Paso 3: Construir la imagen Docker usando tu Dockerfile existente
+ # Paso 3: Construir la imagen Docker usando tu Dockerfile existente
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'europe-west1-docker.pkg.dev/linear-encoder-424111-i7/angular-divehub:$COMMIT_SHA', '.']
 
   # Paso 4: Enviar la imagen a Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
