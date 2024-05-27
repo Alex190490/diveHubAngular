@@ -1,0 +1,26 @@
+steps:
+  # Paso 1: Instalar dependencias usando npm
+  - name: 'node:14'
+    entrypoint: 'npm'
+    args: ['install']
+
+  # Paso 2: Construir la aplicación Angular
+  - name: 'node:14'
+    entrypoint: 'npm'
+    args: ['run', 'build', '--', '--prod']
+
+  # Paso 3: Construir la imagen Docker usando tu Dockerfile existente
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/linear-encoder-424111-i7/angular-app', '.']
+
+  # Paso 4: Enviar la imagen a Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/linear-encoder-424111-i7/angular-app']
+
+  # Paso 5: Desplegar la imagen en Google Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'angular-app', '--image', 'gcr.io/linear-encoder-424111-i7/angular-app', '--platform', 'managed', '--region', 'europe-west1', '--allow-unauthenticated']
+
+images:
+  - 'gcr.io/$PROJECT_ID/angular-app'
