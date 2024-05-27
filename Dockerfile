@@ -1,5 +1,5 @@
 # Etapa 1: Construir la aplicación
-FROM node:18.13-alpine as builder
+FROM node:18.13-alpine as build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --legacy-peer-deps
@@ -13,5 +13,5 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /app/dist/browser /usr/share/nginx/html
+COPY --from=build /app/dist/browser /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
