@@ -1,4 +1,13 @@
 steps:
+  # Paso 1: Instalar dependencias usando npm con Node.js 18
+  - name: 'node:18.13-alpine'
+    entrypoint: 'npm'
+    args: ['ci', '--legacy-peer-deps']
+
+  # Paso 2: Construir la aplicación Angular con Node.js 18
+  - name: 'node:18.13-alpine'
+    entrypoint: 'npm'
+    args: ['run', 'build', '--', '--configuration=production']
 
   # Paso 3: Construir la imagen Docker usando tu Dockerfile existente
   - name: 'gcr.io/cloud-builders/docker'
