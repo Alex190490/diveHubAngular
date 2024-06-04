@@ -6,18 +6,22 @@
     <div class="offcanvas-body mt-5">
         <ng-container *ngIf="myCart">
             <ng-container *ngIf="myCart.length > 0">
-                <article class="productCart" *ngFor="let cart of myCart;">
-                    <div class="article-content">
-                        <img [src]="cart.product.image">
-                        <div>
-                            <p><strong><u>{{ cart.product.name }}</u></strong></p>
-                            <p style="font-size: 12px;">{{ cart.product.starting_price }} €/Uds</p>
-                            <input class="me-3" disabled [value]="'Total: ' + totalProduct(cart.product.starting_price, cart.quantity) + ' €'">
-                            <div class="mt-2">
-                                <i class="fa-solid fa-minus btn pe-2" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
-                                <span *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>
-                                <i class="fa-solid fa-plus btn me-3 px-2" *ngIf="!isActivity(cart.product)" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
-                                <i class="fa-solid fa-trash btn p-0" (click)="deleteProductFromCart(cart.product.id)"></i>
+                <article class="productCart mb-4" *ngFor="let cart of myCart;">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img [src]="cart.product.image">
+                        </div>
+                        <div class="row col-md-8">
+                            <p class="col-md-12 mt-3"><strong><u>{{ cart.product.name }}</u></strong></p>
+                            <p class="col-md-12" style="font-size: 12px;">{{ cart.product.starting_price }} €/Uds</p>
+                            <div class="align-items-center">
+                                <input class="col-md-9" disabled [value]="'Total: ' + totalProduct(cart.product.starting_price, cart.quantity) + ' €'">
+                                <i class="fa-solid fa-trash btn col-md-3" (click)="deleteProductFromCart(cart.product.id)"></i>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <i class="fa-solid fa-minus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('minus', cart.quantity, cart.product)"></i>
+                                <span class="text-center" *ngIf="!isActivity(cart.product)">{{ cart.quantity }}</span>
+                                <i class="fa-solid fa-plus btn" *ngIf="!isActivity(cart.product)" (click)="updateUnits('add', cart.quantity, cart.product)"></i>
                             </div>
                         </div>
                     </div>                    
@@ -31,7 +35,7 @@
         </ng-container>
 
         <ng-container *ngIf="!myCart">
-            <p class="productCart-body mt-5 p-3">No hay productos en el carrito</p>
+            <p class="text-center mt-5 p-3">No hay productos en el carrito</p>
             <button class="cart-btn" data-bs-dismiss="offcanvas" (click)="goShop()">Ir a la Tienda</button>
         </ng-container>
     </div>

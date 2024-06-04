@@ -12,8 +12,8 @@
             tienda</button>
     </div>
 
-    <div class="container2 m-5 p-5" *ngIf="listToShow.length>0">
-        <div *ngFor="let wishList of listToShow" class="m-2">
+    <div class="container2 mt-5" *ngIf="listToShow.length>0">
+        <div *ngFor="let wishList of listToShow" class="mb-5">
             <div class="product-container card h-100">
                 <img class="mx-auto" [src]="wishList.activity ? wishList.activity.image : wishList.item.image">
                 <div class="card-body">
@@ -36,3 +36,7 @@
         </div>
     </div>
 </div>
+
+<div class="contact-now">
+    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now"><i class="fa fa-phone"></i></a>
+  </div>

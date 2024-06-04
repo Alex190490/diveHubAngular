@@ -20,7 +20,7 @@
     </div>
 
 
-    <div class="articles mt-5 p-5 row">
+    <div class="articles mt-5 row">
       <div *ngFor="let message of messages" class="mb-5 bg-success">
         <div class="product-container card h-100">
           <div class="card-body">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="contact-now">
-    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now">Contacta con nosotros</a>
+    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now"><i class="fa fa-phone"></i></a>
 </div>
 
 <app-footer />

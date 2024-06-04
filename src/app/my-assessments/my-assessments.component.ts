@@ -55,10 +55,7 @@ export class MyAssessmentsComponent implements OnInit {
               })
             )
           })
-        ).subscribe(myAssments => {
-          this.assments = myAssments
-          console.log(this.assments)
-        })
+        ).subscribe(myAssments => this.assments = myAssments)
       },
       error => console.error('Error al obtener información del usuario:', error)
     )
