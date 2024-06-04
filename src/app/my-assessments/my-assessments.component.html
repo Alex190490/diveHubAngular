@@ -6,33 +6,35 @@
             <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
             <li class="breadcrumb-item active">Mis Valoraciones</li>
         </ol>
+        
         <ng-container *ngIf="!isAssmentNull(); else noAssessments">
             <h1 class="mt-5 mb-4">Mis Valoraciones</h1>
-            <div class="card mb-5 p-5" *ngFor="let product of getProductsContainingAssessments()">
+            <div class="card mb-5" *ngFor="let product of getProductsContainingAssessments()">
                 <div class="row">
                     <div class="col-md-3">
                         <img class="product-img" [src]="product.image">
                     </div>
                     <div class="col-md-9">
-                        <h3 class="mb-4">{{product.name}}</h3>
+                        <h3 class="mb-4 mt-4">{{product.name}}</h3>
                         <ng-container *ngFor="let assessment of getAssessmentsForProduct(product.id)">
                             <div id="accordion" class="mb-4">
                                 <div class="accordion-item">
                                     <div class="accordion-header" [id]="'cabecera' + assessment.id">
-                                        <h5 class="mb-0">
+                                        <h5 class="mb-0 row">
                                             <button class="accordion-button" data-bs-toggle="collapse"
                                                 [attr.data-bs-target]="'#respuesta' + assessment.id">
-                                                <h3>
-                                                    <div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
                                                         <span>({{assessment.stars}}/5) </span>
                                                         <div class="rating-stars" *ngFor="let star of [1,2,3,4,5]">
                                                             <span class="star"
                                                                 [ngClass]="{'filled': star <= assessment.stars}">&#9733;</span>
                                                         </div>
-                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Publicada el
-                                                            {{parseDate(assessment.date)}}</span>
                                                     </div>
-                                                </h3>
+                                                    <div class="col-md-6">
+                                                        <span>Publicada el {{parseDate(assessment.date)}}</span>
+                                                    </div>
+                                                </div>
                                             </button>
                                         </h5>
                                     </div>
@@ -61,5 +63,5 @@
 </div>
 
 <div class="contact-now">
-    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now">Contacta con nosotros</a>
+    <a [routerLink]="['/contact']" class="btn btn-info btn-contact-now"><i class="fa fa-phone"></i></a>
 </div>

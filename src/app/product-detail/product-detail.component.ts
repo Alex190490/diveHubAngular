@@ -41,6 +41,7 @@ export class ProductDetailComponent implements OnInit {
   quantity: number = 1
   assessments: Assessment[] = new Array()
   totalAssessmts: number
+  isInCart: Boolean = false
   media: number
   isActivityAvailable: Boolean = true
   isActivityAvailableByLvl: Boolean = true
@@ -91,8 +92,11 @@ export class ProductDetailComponent implements OnInit {
     if(this.isLogged()){
       this.userService.isAdmin().subscribe(isAdmin => this.isAdmin=isAdmin)
       this.userService.getUser().subscribe(user=>this.user=user)
-      this.isActivityAvailableForUser()
-      this.isActivityAvailableByLevel(this.id, this.session.getItem("email"))
+      if(!this.isItem){
+        this.isActivityAvailableForUser()
+        this.isActivityAvailableByLevel(this.id, this.session.getItem("email"))
+      }
+      this.isProductInCart()
     }
   }
 
@@ -113,6 +117,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  isProductInCart() {
+    this.cartService.existsInCart(this.session.getItem('email'), this.id).subscribe(is=>this.isInCart=is)
+  }
+
+
   setQuantity(quantity: any){
     this.quantity = quantity.value
   }
@@ -124,6 +133,12 @@ export class ProductDetailComponent implements OnInit {
         this.isActivityAvailable=isAvailabled
       })
     }
+  }
+
+
+  parseToPrice(price: number, pos: number): string{
+    if(price!=undefined) return price.toString().split(".")[pos]
+    return ""
   }
 
 

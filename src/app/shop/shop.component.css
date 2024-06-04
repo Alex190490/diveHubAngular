@@ -2,6 +2,7 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 100px -50px gray;
     border-radius: 10px;
+    padding: 80px;
 }
 
 .navbar-nav a{
@@ -56,7 +57,8 @@ img {
     position: fixed;
     bottom: 3rem;
     right: 1.625rem;
-    box-shadow: 0 1px 20px 1px #1d4aff
+    box-shadow: 0 1px 20px 1px #1d4aff;
+    border-radius: 50px;
 }
 
 .contact-now .btn-contact-now:hover {
@@ -107,6 +109,11 @@ img {
 
     select{
         display: block;
+    }
+
+    .articles {
+        padding: 10px;
+        padding-top: 40px;
     }
 }
 

@@ -8,14 +8,15 @@
 
 img{
     object-fit: contain;
-    max-width: 200px;
+    width: 100%;
 }
 
 .contact-now .btn-contact-now {
     position: fixed;
     bottom: 3rem;
     right: 1.625rem;
-    box-shadow: 0 1px 20px 1px #1d4aff
+    box-shadow: 0 1px 20px 1px #1d4aff;
+    border-radius: 50px;
 }
 
 .contact-now .btn-contact-now:hover {
@@ -24,6 +25,7 @@ img{
 
 .panel{
     border-radius: 10px;
+    padding: 30px;
 }
 
 .info{
@@ -71,6 +73,9 @@ footer{
 }
 
 @media only screen and (max-width: 800px) {
+    .switchmode{
+        margin-top: 20px;
+    }
 }
 
 

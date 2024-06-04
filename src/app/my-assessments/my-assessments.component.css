@@ -28,11 +28,16 @@
     color: #ccc;
 }
 
+.card{
+    padding: 20px;
+}
+
 .contact-now .btn-contact-now {
     position: fixed;
     bottom: 3rem;
     right: 1.625rem;
-    box-shadow: 0 1px 20px 1px #1d4aff
+    box-shadow: 0 1px 20px 1px #1d4aff;
+    border-radius: 50px;
 }
 
 .contact-now .btn-contact-now:hover {
