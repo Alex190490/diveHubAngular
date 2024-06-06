@@ -3,7 +3,7 @@
 }
 
 img{
-    width: 100px;
+    width: 200px;
     object-fit: contain;
 }
 
@@ -17,4 +17,27 @@ img{
 
 .contact-now .btn-contact-now:hover {
     box-shadow: none
+}
+
+.showOtherTable {
+    display: none;
+}
+
+.showtable{
+    display: block;
+}
+
+@media only screen and (max-width: 800px) {
+    .showOtherTable {
+        display: block;
+    }
+
+    .showtable{
+        display: none;
+    }
+
+    img{
+        width: 100%;
+        object-fit: contain;
+    }
 }

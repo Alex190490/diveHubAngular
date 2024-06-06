@@ -20,13 +20,13 @@
                 <div class="accordion-header" [id]="'cabecera' + orderDetails[0].order.id">
                     <h5 class="mb-0">
                         <button class="accordion-button" data-bs-toggle="collapse" [attr.data-bs-target]="'#respuesta' + orderDetails[0].order.id">
-                            <h3>Pedido del {{parseDate(orderDetails[0].order.date)}}</h3>
+                            <h3>{{parseDate(orderDetails[0].order.date)}}</h3>
                         </button>
                     </h5>
                 </div>
                 <div [id]="'respuesta' + orderDetails[0].order.id" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
-                        <div class="method">
+                        <div class="method showtable">
                             <table class="table mt-5 text-center table-sm">
                                 <thead>
                                     <tr>
@@ -43,13 +43,30 @@
                                         <td class="align-middle"><img [src]="detail.product.image"></td>
                                         <td class="align-middle">{{ detail.product.name }}</td>
                                         <td class="align-middle"><a [routerLink]="['/assessment', detail.product.id]">Valorar producto</a></td>
-                                        <td class="align-middle">{{ (detail.product.final_price).toFixed(2) }}€</td>
+                                        <td class="align-middle">{{ (detail.product.starting_price).toFixed(2) }}€</td>
                                         <td class="align-middle">{{ detail.quantity }}</td>
-                                        <td class="align-middle">{{ (detail.product.final_price * detail.quantity).toFixed(2) }}€</td>
+                                        <td class="align-middle">{{ (detail.product.starting_price * detail.quantity).toFixed(2) }}€</td>
                                     </tr>
                                     <td colspan="6" class="text-end pt-4 px-5"><h4>Precio Total del Pedido: <strong>{{ orderDetails[0].order.total }}€</strong></h4></td>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="card-body showOtherTable mt-5 mb-5">
+                            <div class="card p-3 mb-4" *ngFor="let detail of orderDetails">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                      <img class="product-image" [src]="detail.product.image">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <h5 class="card-title mt-3">{{detail.product.name}}</h5>
+                                      <p class="card-text mt-3">Precio €/Ud: {{detail.product.starting_price}}€</p>
+                                      <p class="card-text mt-3">Cantidad: {{ detail.quantity }}</p>
+                                      <p class="card-text mt-3">Total €: {{ (detail.product.starting_price * detail.quantity).toFixed(2) }}€</p>
+                                      <a [routerLink]="['/assessment', detail.product.id]" class="btn btn-primary">Valorar producto</a>
+                                    </div>
+                                  </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -52,7 +52,7 @@ export class AdminAreaComponent {
 
 
   parseDate(date: string | Date): string {
-    return new Date(date).toLocaleString()
+    return new Date(date).toLocaleDateString()
   }
 
 

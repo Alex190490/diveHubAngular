@@ -67,3 +67,10 @@ input[type="submit"]:hover {
 img{
     width: 30px;
 }
+
+@media only screen and (max-width: 700px) {
+    .botones{
+        display: flex;
+        flex-direction: column;
+    }
+  }

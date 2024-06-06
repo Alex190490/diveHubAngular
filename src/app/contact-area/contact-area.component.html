@@ -1,7 +1,7 @@
 <div *ngIf="isLogged()"><app-menu-navbar-loggeado /></div>
 <div *ngIf="!isLogged()"><app-menu-navbar-sin-loggear /></div>
 
-<div class="background-image">
+<div>
   <div class="container mt-5 p-5">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
@@ -20,7 +20,7 @@
     </div>
 
 
-    <div class="articles mt-5 row">
+    <div class="articles row">
       <div *ngFor="let message of messages" class="mb-5 bg-success">
         <div class="product-container card h-100">
           <div class="card-body">
