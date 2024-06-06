@@ -1,3 +1,11 @@
+.container{
+  margin-top: 100px;
+}
+
+.principal{
+  background-color: aliceblue;
+}
+
 .info {
   text-align: center;
   font-size: 30px;
@@ -67,4 +75,27 @@ select{
 
 .contact-now .btn-contact-now:hover {
   box-shadow: none
+}
+
+.showOtherTable {
+  display: none;
+}
+
+.showtable{
+  display: block;
+}
+
+@media only screen and (max-width: 800px) {
+  .showOtherTable {
+    display: block;
+  }
+
+  .showtable{
+    display: none;
+  }
+
+  .product-image{
+    width: 70%;
+    object-fit: contain;
+  }
 }
