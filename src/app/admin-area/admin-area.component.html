@@ -48,7 +48,13 @@
                     <td>{{user.address}}</td>
                     <td>{{user.phone}}</td>
                     <td>{{parseDate(user.birthday)}}</td>
-                    <td>{{user.level}}</td>
+                    <td>
+                        <select (change)="saveUser(user)" class="form-select" [(ngModel)]="user.level">
+                            <option value="OPEN" [selected]="{'true': user.level=='OPEN'}">OPEN</option>
+                            <option value="ADVANCED" [selected]="{'true': user.level=='ADVANCED'}">ADVANCED</option>
+                            <option value="DIVEMASTER" [selected]="{'true': user.level=='DIVEMASTER'}">DIVEMASTER</option>
+                        </select>
+                    </td>
                     <td>{{user.role}}</td>
                 </tr>
             </tbody>

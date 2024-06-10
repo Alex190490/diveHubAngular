@@ -32,69 +32,69 @@
           {{ parseToPrice(product.starting_price, 1) }}</span>&nbsp;&nbsp;&nbsp;€</p>
         <p class="text-success"><del>{{ product.final_price }} €</del></p>
       </div>
-
-      <div *ngIf="!isItem" class="product-info">
-        <p>Nivel requerido: <strong>{{ activity.level_required }}</strong></p>
-            
-        <div class="mt-5 square text-center">
-          <div class="d-flex justify-content-center">
-            <p>Huecos disponibles: {{ activity.available_spaces }}</p>
-            <div *ngIf="isAdmin">
-              <a (click)="updateAvailabledSpaces(activity.id)"><i class="fa-solid fa-plus btn btn-primary mx-3"></i></a>
-            </div>
+    </div>
+    <div *ngIf="!isItem" class="product-info">
+      <p>Nivel requerido: <strong>{{ activity.level_required }}</strong></p>
+          
+      <div class="mt-5 square text-center">
+        <div class="d-flex justify-content-center">
+          <p>Huecos disponibles: {{ activity.available_spaces }}</p>
+          <div *ngIf="isAdmin">
+            <a (click)="updateAvailabledSpaces(activity.id)"><i class="fa-solid fa-plus btn btn-primary mx-3"></i></a>
           </div>
-          <div class="row">
-            <button class="col-md-12 btn btn-warning" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
-              [disabled]="activity.available_spaces<=0">Añadir actividad a la cesta</button>
-            <button class="col-md-12 btn btn-warning" *ngIf="isLogged()" (click)="addToCart(activity)"
-              [disabled]="activity.available_spaces<=0||!isActivityAvailable||!isActivityAvailableByLvl||isInCart">Añadir actividad a la cesta</button>
-            <div *ngIf="!isActivityAvailable" class="error col-md-12">
-              <p>Ya ha comprado este producto, por favor revise el apartado de <a [routerLink]="['/profile']">Ver Perfil</a> para ver los detalles</p>
-            </div>
-            <div *ngIf="!isActivityAvailableByLvl" class="error col-md-12" style="color: red;">
-              <p>Ud. es {{user.level}}. Aún no tiene el nivel requerido para este producto</p>
-            </div>
-          </div>
-          <div *ngIf="isInCart" class="error text-center text-success col-md-12">
-            El Producto se encuentra en su carrito
-          </div>
-
-          <div *ngIf="isAdmin" class="d-flex justify-content-center align-items-end row mt-3">
-            <div class="form-group col-md-6">
-                <label>Fecha de inicio:</label>
-                <input type="date" class="form-control" [value]="formatDate(activity.time_starts)" (change)="onDateChange1($event.target, activity)">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Fecha de fin:</label>
-                <input type="date" class="form-control" [value]="formatDate(activity.time_ends)" (change)="onDateChange2($event.target, activity)">
-            </div>
-          </div>
-        
         </div>
-      </div>
-
-      <div *ngIf="isItem" class="product-info mt-5 square">
-        <h5>Peso neto: {{item.weight}} kg</h5>
-        <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' :
-          'Sin stock' }}</p>
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <button class="btn btn-warning mb-3" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
-              [disabled]="item.stock<=0">Añadir artículo a la cesta</button>
-            <button class="btn btn-warning mb-3" *ngIf="isLogged()" (click)="addToCart(item)"
-              [disabled]="item.stock<=0 || isInCart">Añadir artículo a la cesta</button>
+        <div class="row">
+          <button class="col-md-12 btn btn-warning" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
+            [disabled]="activity.available_spaces<=0">Añadir actividad a la cesta</button>
+          <button class="col-md-12 btn btn-warning" *ngIf="isLogged()" (click)="addToCart(activity)"
+            [disabled]="activity.available_spaces<=0||!isActivityAvailable||!isActivityAvailableByLvl||isInCart">Añadir actividad a la cesta</button>
+          <div *ngIf="!isActivityAvailable" class="error col-md-12">
+            <p>Ya ha comprado este producto, por favor revise el apartado de <a [routerLink]="['/profile']">Ver Perfil</a> para ver los detalles</p>
           </div>
-          <div class="col-md-6">
-            <select *ngIf="item.stock>0" (change)="setQuantity($event.target)" class="form-select">
-              <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{i}}</option>
-            </select>
+          <div *ngIf="!isActivityAvailableByLvl" class="error col-md-12" style="color: red;">
+            <p>Ud. es {{user.level}}. Aún no tiene el nivel requerido para este producto</p>
           </div>
         </div>
         <div *ngIf="isInCart" class="error text-center text-success col-md-12">
-          El producto ya se encuentra en su carrito
+          El Producto se encuentra en su carrito
         </div>
+
+        <div *ngIf="isAdmin" class="d-flex justify-content-center align-items-end row mt-3">
+          <div class="form-group col-md-6 mt-3">
+              <label>Fecha de inicio:</label>
+              <input type="date" class="form-control mb-3" [value]="formatDate(activity.time_starts)" (change)="onDateChange1($event.target, activity)">
+          </div>
+          <div class="form-group col-md-6 mt-3">
+              <label>Fecha de fin:</label>
+              <input type="date" class="form-control mb-3" [value]="formatDate(activity.time_ends)" (change)="onDateChange2($event.target, activity)">
+          </div>
+        </div>
+      
       </div>
     </div>
+
+    <div *ngIf="isItem" class="product-info mt-5 square">
+      <h5>Peso neto: {{item.weight}} kg</h5>
+      <p [class]="{'text-success': item.stock > 0, 'text-danger': item.stock <= 0 }">{{ item.stock > 0 ? 'En stock' :
+        'Sin stock' }}</p>
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <button class="btn btn-warning mb-3 w-100" *ngIf="!isLogged()" data-bs-toggle="offcanvas" data-bs-target="#login"
+            [disabled]="item.stock<=0">Añadir artículo a la cesta</button>
+          <button class="btn btn-warning mb-3 w-100" *ngIf="isLogged()" (click)="addToCart(item)"
+            [disabled]="item.stock<=0 || isInCart">Añadir artículo a la cesta</button>
+        </div>
+        <div class="col-md-6">
+          <select *ngIf="item.stock>0" (change)="setQuantity($event.target)" class="form-select">
+            <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{i}}</option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="isInCart" class="error text-center text-success col-md-12">
+        El producto ya se encuentra en su carrito
+      </div>
+    </div>
+    
     <div class="mb-5" #valoracionesDiv id="valoraciones">
 
     </div>
