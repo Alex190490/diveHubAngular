@@ -8,6 +8,11 @@
 
 img{
     object-fit: contain;
+    width: 40%;
+}
+
+.imagen{
+    object-fit: contain;
     width: 100%;
 }
 

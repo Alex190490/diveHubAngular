@@ -91,4 +91,9 @@ export class AdminAreaComponent {
       return new Date(b[0].order.date).getTime() - new Date(a[0].order.date).getTime()
     })
   }
+
+
+  saveUser(user: User){
+    this.userService.updateUser(user, user.email).subscribe()
+  }
 }

@@ -27,11 +27,7 @@ export class LoginService {
     return this.httpClient.post<any>(environment.urlAuth + "/login", credentials).pipe(
       tap(userData => {
         this.session.setItem("token", userData.token)
-
-        const payload = JSON.parse(atob(this.session.getItem("token").split('.')[1]))
-        const userEmail = payload.sub
-        this.session.setItem('email',userEmail)
-
+        this.session.setItem("email", userData.userEmail)
         return userData
       }),
       map(userData => userData.token),
@@ -43,10 +39,11 @@ export class LoginService {
     return this.httpClient.post<any>(environment.urlAuth + "/signup", credentials).pipe(
       tap(userData => {
         this.session.setItem("token", userData.token)
+        this.session.setItem("email", userData.userEmail)
         return userData
       }),
       map(userData => userData.token),
-      catchError(this.handleError) 
+      catchError(this.handleError)
     )
   }
 
