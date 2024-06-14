@@ -92,10 +92,8 @@ export class ProductDetailComponent implements OnInit {
     if(this.isLogged()){
       this.userService.isAdmin().subscribe(isAdmin => this.isAdmin=isAdmin)
       this.userService.getUser().subscribe(user=>this.user=user)
-      if(!this.isItem){
-        this.isActivityAvailableForUser()
-        this.isActivityAvailableByLevel(this.id, this.session.getItem("email"))
-      }
+      this.isActivityAvailableForUser()
+      this.isActivityAvailableByLevel(this.id, this.session.getItem("email"))
       this.isProductInCart()
     }
   }
